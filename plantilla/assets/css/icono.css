@@ -1,0 +1,44 @@
+/* Estilos del ícono futurista */
+
+.header {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Ajusta el espacio entre el ícono y el texto */
+}
+
+.futuristic-icon {
+margin:12px;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(45deg, #00c6ff, #0072ff);
+    border-radius: 50%;
+    position: relative;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.7), 0 0 25px rgba(0, 255, 255, 0.4), 0 0 35px rgba(0, 255, 255, 0.2);
+    animation: pulse 1.5s infinite ease-in-out;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 15px rgba(0, 255, 255, 0.7), 0 0 25px rgba(0, 255, 255, 0.4), 0 0 35px rgba(0, 255, 255, 0.2);
+    }
+    50% {
+        transform: scale(1.1);
+        box-shadow: 0 0 25px rgba(0, 255, 255, 1), 0 0 40px rgba(0, 255, 255, 0.6), 0 0 55px rgba(0, 255, 255, 0.3);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 15px rgba(0, 255, 255, 0.7), 0 0 25px rgba(0, 255, 255, 0.4), 0 0 35px rgba(0, 255, 255, 0.2);
+    }
+}
+
+.futuristic-icon::before {
+    content: '\2022'; /* El contenido será un punto (·) */
+    font-size: 2em;
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+

@@ -1,0 +1,36 @@
+CREATE DATABASE IF NOT EXISTS caseware;
+
+USE caseware;
+
+CREATE TABLE IF NOT EXISTS usuarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,           -- ID único para cada usuario
+    username VARCHAR(50) NOT NULL UNIQUE,         -- Nombre de usuario único
+    email VARCHAR(100) NOT NULL UNIQUE,           -- Correo electrónico único
+    password VARCHAR(255) NOT NULL,               -- Contraseña (se recomienda guardar la contraseña hasheada)
+    nombre_completo VARCHAR(100),                 -- Nombre completo del usuario
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Fecha y hora de registro
+    estado ENUM('inactivo', 'activo') DEFAULT 'inactivo', -- Estado de la cuenta (activo o inactivo)
+    telefono VARCHAR(20),                         -- Número de teléfono
+    direccion TEXT,                               -- Dirección del usuario
+    fecha_nacimiento DATE,                        -- Fecha de nacimiento del usuario
+    avatar VARCHAR(255),                          -- URL de la foto de perfil del usuario
+    rol ENUM('usuario', 'admin', 'moderador') DEFAULT 'usuario', -- Rol del usuario
+    ejecutables VARCHAR(20)
+);
+
+
+CREATE TABLE aplicaciones (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    descripcion TEXT,
+    precio DECIMAL(10, 2) NOT NULL,
+    cantidad INT DEFAULT 1,
+    categoria_id INT,
+    fecha_agregado TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    stock INT NOT NULL,
+    imagen_url VARCHAR(255),
+    estado ENUM('disponible', 'no_disponible') DEFAULT 'disponible'
+);
+
+
+

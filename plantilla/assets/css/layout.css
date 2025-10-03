@@ -1,0 +1,111 @@
+/* Estilos de Encabezado */
+/* Encabezado Refinado */
+
+ body {
+      background-color: #121212;
+      font-family: 'Arial', sans-serif;
+      color: #0ff;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Contenedor principal */
+    .container {
+      margin-top: 50px;
+      padding: 30px;
+      border-radius: 10px;
+      background-color: #1c1c1c;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+    }
+
+.header {
+    width: 100%;
+    height: 60px; 
+    background-color: #111;
+    color: #0ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6em;
+    font-weight: bold;
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.6);
+    border-bottom: 2px solid rgba(0, 255, 255, 0.3); 
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    position: fixed;
+    top: 0;
+    z-index: 10;
+    transition: background-color 0.3s ease;
+}
+
+.header-icon {
+    width: 40px;   /* Ajusta el tamaño del ícono */
+    height: 40px;  /* Mantén la proporción de la imagen */
+    margin-right: 10px; /* Espacio entre la imagen y el texto */
+}
+
+.header:hover {
+    background-color: #222; /* Cambio de color en hover */
+}
+
+/* Ajuste del Contenido Principal */
+.content {
+    margin-left: 240px; /* Espacio reservado para el menú */
+    margin-top: 80px; /* Espacio para el encabezado */
+    padding: 20px;
+    color: #eee;
+    min-height: calc(100vh - 140px); /* Ajuste para header y footer */
+    background-color: #1a1a1a;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+    padding-bottom: 50px;
+}
+
+/* Estilos de Animación para el Contenido */
+@keyframes fadeIn {
+    0% { 
+        opacity: 0; 
+        transform: translateY(20px); 
+    }
+    100% { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
+}
+
+.content h1 {
+    color: #0ff;
+    font-size: 2em;
+    margin-bottom: 10px;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.7);
+    border-bottom: 2px solid rgba(0, 255, 255, 0.3);
+    padding-bottom: 5px;
+}
+
+/* Pie de Página */
+.footer {
+    width: calc(100% - 240px); /* Ajuste para evitar que quede debajo del menú */
+    margin-left: 240px;
+    background-color: #222;
+    color: #888;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+    font-size: 0.9em;
+}
+
+/* Estilos para enlaces en el contenido */
+.content a {
+    color: #0ff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.content a:hover {
+    color: #0f0;
+    text-shadow: 0 0 8px rgba(0, 255, 0, 0.5);
+}
+
+
+

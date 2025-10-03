@@ -1,0 +1,169 @@
+/* ==== CSS Aislado del Calendario ==== */
+.calendar-section .container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 10px;
+}
+
+/* Header filtros */
+.calendar-section .calendar-header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+.calendar-section .calendar-header select,
+.calendar-section .calendar-header button {
+    border-radius: 8px;
+    border: 1px solid #FFD24D;
+    background: #fff7e0;
+    color: #111;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-weight: 500;
+}
+.calendar-section .calendar-header button.btn-gold {
+    background: linear-gradient(135deg,#FFD24D,#D4A017);
+    color: #111;
+    font-weight: bold;
+    box-shadow: 0 3px 8px rgba(212,160,23,0.5);
+}
+
+/* Calendario */
+.calendar-section .calendar-grid {
+    display: grid;
+    grid-template-columns: 80px repeat(7, 1fr);
+    border-top: 2px solid #FFD24D;
+    border-left: 2px solid #FFD24D;
+    background: #fff7e0;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(212,160,23,0.3);
+    overflow-x: auto;
+}
+
+/* Columnas horas */
+.calendar-section .hour-column .hour {
+    height: 60px;
+    border-bottom: 1px solid #FFD24D;
+    border-right: 1px solid #FFD24D;
+    text-align: center;
+    line-height: 60px;
+    color: #D4A017;
+    font-weight: bold;
+    background: #fffbe5;
+}
+
+/* Columnas días */
+.calendar-section .day-column {
+    display: flex;
+    flex-direction: column;
+    border-right: 2px solid #FFD24D;
+    position: relative;
+    min-width: 120px;
+}
+.calendar-section .time-slot {
+    height: 60px;
+    border-bottom: 1px solid rgba(212,160,23,0.2);
+    position: relative;
+}
+
+/* Cita individual */
+.calendar-section .cita-block {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    height: 50px;
+    border-radius: 10px;
+    padding: 4px 8px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.3s;
+    border: 1px solid #FFD24D;
+    box-shadow: 0 2px 8px rgba(212,160,23,0.3);
+}
+.calendar-section .cita-block:hover {
+    transform: scale(1.03);
+    box-shadow: 0 6px 15px rgba(212,160,23,0.5);
+}
+.calendar-section .cita-block img {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Colores por servicio */
+.calendar-section .servicio-blow { background: #FFF2B8; }
+.calendar-section .servicio-beard { background: #FFE0A0; }
+.calendar-section .servicio-massage { background: #CFF4FF; }
+.calendar-section .servicio-hair { background: #FFCCE5; }
+
+/* Modal Cita */
+.calendar-section .modal-content {
+    background-color: #fff7e0;
+    border-radius: 14px;
+    color: #111;
+    box-shadow: 0 8px 20px rgba(212,160,23,0.4);
+    border: none; /* Sin bordes */
+}
+.calendar-section .modal-title { color: #D4A017; }
+.calendar-section .form-control,
+.calendar-section .form-select,
+.calendar-section textarea {
+    background: #fffce6;
+    color: #111;
+    border-radius: 6px;
+    border: none; /* Sin bordes */
+}
+
+/* Botones Modal */
+.calendar-section .modal-footer .btn-gold {
+    background: linear-gradient(135deg,#FFD24D,#D4A017);
+    color: #111;
+    font-weight: bold;
+    box-shadow: 0 3px 8px rgba(212,160,23,0.5);
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .calendar-section .calendar-grid {
+        grid-template-columns: 60px repeat(1, 1fr);
+    }
+    .calendar-section .day-column {
+        min-width: 150px;
+    }
+}
+@media (max-width: 576px) {
+    .calendar-section .calendar-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .calendar-section .calendar-header select,
+    .calendar-section .calendar-header button {
+        width: 100%;
+    }
+    .calendar-section .calendar-grid {
+        grid-template-columns: 50px repeat(1, 1fr);
+        overflow-x: auto;
+    }
+    .calendar-section .day-column {
+        min-width: 180px;
+    }
+    .calendar-section .hour-column .hour {
+        font-size: 12px;
+        line-height: 50px;
+    }
+    .calendar-section .cita-block {
+        font-size: 12px;
+        height: 45px;
+    }
+}
+
+/* ==== Modal Nueva Cita ==== */

@@ -1,0 +1,84 @@
+/* ==== Toast ==== */
+.toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 9999;
+}
+.toast {
+  min-width: 250px;
+  padding: 15px 20px;
+  border-radius: 10px;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  opacity: 0;
+  transform: translateX(120%);
+  transition: all 0.5s ease;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+.toast.show { opacity: 1; transform: translateX(0); }
+.toast.success { background: linear-gradient(45deg,#28a745,#2ecc71); }
+.toast.error { background: linear-gradient(45deg,#dc3545,#e74c3c); }
+.toast.info { background: linear-gradient(45deg,#007bff,#3498db); }
+.toast.warning { background: linear-gradient(45deg,#ffc107,#f39c12); color:#333; }
+.toast .close-btn { position: absolute; top: 5px; right: 10px; font-weight: bold; cursor: pointer; color: rgba(255,255,255,0.8); font-size: 16px; }
+.toast:hover .close-btn { color: #fff; }
+
+/* ==== Modal Confirmación ==== */
+/* ==== Modal Confirmación ==== */
+#modalConfirm {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.3);
+  backdrop-filter: blur(2px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  z-index: 9998;
+}
+
+#modalConfirm.show { 
+  opacity: 1; 
+  pointer-events: auto; 
+}
+
+#modalConfirm .modal-content {
+  background: #FFD700;
+  color: #222;
+  padding: 25px 35px;
+  border-radius: 15px;
+  text-align: center;
+  min-width: 320px;
+  font-family: Arial, sans-serif;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  transform: scale(0.7);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+#modalConfirm.show .modal-content { transform: scale(1); }
+
+#modalConfirm .modal-content button {
+  margin: 12px;
+  padding: 10px 25px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+#modalConfirm .btn-accept { background: #28a745; color: #fff; }
+#modalConfirm .btn-cancel { background: #dc3545; color: #fff; }
+#modalConfirm .btn-accept:hover { background: #218838; transform: scale(1.05); }
+#modalConfirm .btn-cancel:hover { background: #c82333; transform: scale(1.05); }
+

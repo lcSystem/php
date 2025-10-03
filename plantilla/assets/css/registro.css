@@ -1,0 +1,85 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #0f0f0f;
+    color: #fff;
+}
+
+.registro-container {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+}
+
+.registro-box {
+    padding: 40px;
+    border-radius: 10px;
+    background: linear-gradient(145deg, #111111, #1f1f1f);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    text-align: center;
+}
+
+.registro-box h2 {
+    margin-bottom: 20px;
+    color: #00d4ff;
+    font-size: 24px;
+    text-transform: uppercase;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    background: transparent;
+    border-bottom: 2px solid #00d4ff;
+    color: #fff;
+    outline: none;
+    transition: 0.3s;
+}
+
+.input-group label {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    color: #ccc;
+    transition: 0.3s;
+}
+
+.input-group input:focus ~ label,
+.input-group input:not(:placeholder-shown) ~ label {
+    top: -18px;
+    font-size: 12px;
+    color: #00d4ff;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    font-size: 18px;
+    color: #fff;
+    background: #00d4ff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #009ac7;
+}
+

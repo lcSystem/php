@@ -1,0 +1,261 @@
+* { 
+  margin: 0; 
+  padding: 0; 
+  box-sizing: border-box; 
+}
+     
+header h1 { 
+  font-size: 22px; 
+}
+header p { 
+  font-size: 14px; 
+  opacity: 0.9; 
+}
+.icon { 
+  font-size: 22px; 
+  cursor: pointer; 
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #fafafa;
+  color: #333;
+  height: 100vh;              /* ocupa toda la altura */
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  background: linear-gradient(135deg, #d4af37, #b8860b);
+  color: white;
+  padding: 15px 20px;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+  display: flex;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+/* Avatar a la izquierda */
+header .avatar {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  object-fit: cover;
+  margin-right: 15px;
+}
+
+/* Contenedor del texto en medio */
+header .user-info {
+  flex: 1; /* ocupa el espacio central */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+header .user-info h1 {
+  font-size: 18px;
+  margin: 0;
+}
+
+header .user-info p {
+  font-size: 13px;
+  margin: 0;
+  opacity: 0.9;
+}
+
+/* Campanita a la derecha */
+header .icon {
+  font-size: 22px;
+  cursor: pointer;
+  margin-left: 90px;
+}
+
+.container {
+  flex: 1;
+  margin-top: 100px;   /* deja espacio para el header fijo */
+  margin-bottom: 70px; /* deja espacio para el menú inferior */
+  overflow-y: auto;    /* scroll solo aquí */
+  padding: 20px;
+}
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  /* lo demás igual */
+}
+
+/* ======= SEARCH ======= */
+.search-box { 
+  display: flex; 
+  margin: 15px 0; 
+}
+.search-box input {
+  flex: 1;
+  padding: 12px;
+  border-radius: 30px;
+  border: none;
+  outline: none;
+  background: #fff;
+  box-shadow: 0px 4px 12px rgba(0,0,0,0.08);
+  font-size: 14px;
+  transition: 0.3s;
+}
+.search-box input:focus {
+  box-shadow: 0px 4px 16px rgba(212,175,55,0.3);
+}
+
+/* ======= CATEGORIES ======= */
+.categories {
+  display: flex;
+  gap: 10px;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+.categories button {
+  background: #fff;
+  border: 2px solid #d4af37;
+  padding: 8px 16px;
+  border-radius: 25px;
+  cursor: pointer;
+  color: #b8860b;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+.categories button:hover,
+.categories button.active {
+  background: linear-gradient(135deg, #d4af37, #f1c40f);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(212,175,55,0.4);
+}
+
+/* ======= CARDS ======= */
+.card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 15px;
+  margin-bottom: 20px;
+  box-shadow: 0px 6px 14px rgba(0,0,0,0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 10px 20px rgba(0,0,0,0.15);
+}
+.card img {
+  width: 100%;
+  border-radius: 15px;
+}
+.card h3 { 
+  margin: 12px 0 5px; 
+  color: #333; 
+  font-size: 18px; 
+}
+.card p { 
+  font-size: 14px; 
+  color: #666; 
+}
+
+/* ======= BOTTOM NAV ======= */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  background: white;
+  padding: 10px 0;
+  box-shadow: 0px -4px 12px rgba(0,0,0,0.08);
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+.bottom-nav button {
+  background: none;
+  border: none;
+  color: #999;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+.bottom-nav button i { 
+  font-size: 20px; 
+  margin-bottom: 4px; 
+}
+.bottom-nav button span { 
+  font-size: 12px; 
+}
+.bottom-nav button.active {
+  color: #d4af37;
+  transform: scale(1.05);
+  font-weight: bold;
+}
+
+/* ======= USER MENU ======= */
+.user-menu {
+  position: relative;
+}
+
+.user-menu .avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid #fff;
+}
+
+.dropdown {
+  position: absolute;
+  top: 55px;               /* debajo del avatar */
+  right: 0;                /* se alinea con el borde derecho del avatar */
+  left: auto;              /* quitamos el anclaje a la izquierda */
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  padding: 10px 0;
+  display: flex;
+  flex-direction: column;
+  min-width: 160px;
+  z-index: 2000;
+  animation: fadeIn 0.3s ease;
+}
+
+/* Links bonitos */
+.dropdown a {
+  padding: 10px 15px;
+  text-decoration: none;
+  color: #333;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+.dropdown a:hover {
+  background: #f5f5f5;
+  color: #b8860b;
+}
+
+
+.user-menu .dropdown {
+  left: auto;
+  right: -90px;   /* menú alineado a la derecha del avatar */
+}
+
+
+.hidden {
+  display: none;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

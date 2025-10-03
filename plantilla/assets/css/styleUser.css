@@ -1,0 +1,158 @@
+body {
+  background-color: #f9f9f9; /* Fondo claro */
+  color: #333333; /* Texto más legible */
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden;
+}
+
+/* DataTables wrapper */
+.dataTables_wrapper {
+  background: transparent !important;
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0;
+  padding: 0 15px;
+  box-sizing: border-box;
+}
+
+/* Tabla */
+table.dataTable {
+  width: 100% !important;
+  background: #ffffff !important; /* Blanco elegante */
+  color: #333333; /* Texto oscuro */
+  border-collapse: collapse;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.05);
+}
+
+/* Tabla base */
+table.dataTable {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+  font-size: 14px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.08);
+}
+
+/* Encabezados */
+table.dataTable thead th {
+  background: linear-gradient(135deg, #d4af37, #b8860b);
+  color: #fff;
+  font-weight: 600;
+  text-align: center;   /* SOLO encabezados centrados */
+  padding: 12px 10px;
+  border-bottom: 2px solid #b8860b;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+}
+
+/* Filas */
+table.dataTable tbody td {
+  text-align: left;   /* Datos alineados a la izquierda */
+  padding: 10px;
+  border-bottom: 1px solid #f0e6cc;
+  color: #333;
+}
+
+/* Alternar colores en filas */
+table.dataTable tbody tr:nth-child(even) {
+  background-color: #fff8e7; /* dorado muy suave */
+}
+
+table.dataTable tbody tr:nth-child(odd) {
+  background-color: #ffffff;
+}
+
+/* Hover filas */
+table.dataTable tbody tr:hover {
+  background-color: #fdf5d6;
+  transition: 0.3s;
+}
+
+/* Footer */
+table.dataTable tfoot td {
+  background: #f9f9f9;
+  text-align: center;
+  font-weight: 500;
+  padding: 8px;
+  color: #666;
+  border-top: 2px solid #d4af37;
+}
+
+/* Encabezado */
+table.dataTable thead {
+  background: linear-gradient(135deg, #d4af37, #b8860b); /* Dorado premium */
+  color: #fff;
+  font-weight: 600;
+}
+
+/* Filas */
+table.dataTable tbody tr {
+  border-bottom: 1px solid #f0f0f0;
+}
+
+table.dataTable tbody tr:hover {
+  background: rgba(212, 175, 55, 0.08); /* Dorado suave al pasar */
+}
+
+/* Contenedor de controles de DataTable */
+.dataTables_wrapper .dataTables_length,
+.dataTables_wrapper .dataTables_filter {
+  margin: 10px 0;
+  font-size: 14px;
+  color: #333;
+}
+
+.dataTables_wrapper .dataTables_length label,
+.dataTables_wrapper .dataTables_filter label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  color: #444;
+}
+
+/* Inputs y select */
+.dataTables_wrapper select,
+.dataTables_wrapper input[type="search"] {
+  padding: 6px 10px;
+  border: 1px solid #d4af37;
+  border-radius: 6px;
+  outline: none;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.dataTables_wrapper select:focus,
+.dataTables_wrapper input[type="search"]:focus {
+  border-color: #b8860b;
+  box-shadow: 0px 0px 6px rgba(212,175,55,0.4);
+}
+
+/* Centrar todo */
+.dataTables_wrapper .dataTables_length,
+.dataTables_wrapper .dataTables_filter {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.dataTables_wrapper .dataTables_filter {
+  float: right;
+}
+
+/* Caption de la tabla */
+caption.table-caption {
+  caption-side: top;
+  text-align: center;
+  font-weight: 600;
+  font-size: 18px;
+  color: #b8860b;
+  margin-bottom: 10px;
+}

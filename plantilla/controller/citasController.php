@@ -1,0 +1,57 @@
+<?php
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
+require_once __DIR__ . '/../models/CitaModel.php';
+
+class CitaController {
+    private $citaModel;
+
+    public function __construct() {
+        $this->citaModel = new CitaModel();
+    }
+
+    public function index() {
+        $citas = $this->citaModel->listarCitas();
+        require_once __DIR__ . '/../views/citas/citas.php';
+    }
+
+    public function handleRequest() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['accion'])) {
+            switch ($_POST['accion']) {
+                case 'crear':
+                    $datos = [
+                        ':usuario_id' => $_POST['usuario_id'],
+                        ':fecha' => $_POST['fecha'],
+                        ':hora' => $_POST['hora'],
+                        ':servicio' => $_POST['servicio'],
+                        ':notas' => $_POST['notas'] ?? null
+                    ];
+                    $ok = $this->citaModel->crearCita($datos);
+                    echo json_encode(['success' => $ok]);
+                    break;
+
+                case 'cambiar_estado':
+                    $ok = $this->citaModel->actualizarEstado($_POST['id'], $_POST['estado']);
+                    echo json_encode(['success' => $ok]);
+                    break;
+
+                case 'eliminar':
+                    $ok = $this->citaModel->eliminarCita($_POST['id']);
+                    echo json_encode(['success' => $ok]);
+                    break;
+
+                default:
+                    echo json_encode(['success' => false, 'message' => 'Acción no válida']);
+            }
+            exit;
+        }
+    }
+}
+
+$controller = new CitaController();
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    $controller->index();
+} else {
+    $controller->handleRequest();
+}
