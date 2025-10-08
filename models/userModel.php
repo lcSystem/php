@@ -151,5 +151,36 @@ public function saveResetToken($userId, $token, $expiry) {
     ]);
 }
 
+// Incrementa intentos fallidos
+public function incrementarIntento($id) {
+    $sql = "UPDATE usuarios 
+            SET intentos_fallidos = intentos_fallidos + 1 
+            WHERE id = :id";
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->bindParam(':id', $id);
+    $stmt->execute();
+}
+
+// Reinicia los intentos al hacer login correcto
+public function resetearIntentos($id) {
+    $sql = "UPDATE usuarios 
+            SET intentos_fallidos = 0 
+            WHERE id = :id";
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->bindParam(':id', $id);
+    $stmt->execute();
+}
+
+// Inactiva usuario
+public function inactivarUsuario($id) {
+    $sql = "UPDATE usuarios 
+            SET estado = 'inactivo' 
+            WHERE id = :id";
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->bindParam(':id', $id);
+    $stmt->execute();
+}
+
+
 }
 ?>

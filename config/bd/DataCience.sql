@@ -43,6 +43,8 @@ CREATE TABLE `usuarios` (
   `avatar` varchar(255) DEFAULT NULL,
   `rol` enum('usuario','admin','cliente') DEFAULT 'usuario',
   `ejecutables` varchar(20) DEFAULT NULL,
+  `rol` int(1) DEFAULT 1,
+
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`)

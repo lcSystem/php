@@ -1,106 +1,16 @@
-<?php session_start(); 
+.<?php session_start(); 
  require_once __DIR__ . '/config/paths.php';?>
 
 <!DOCTYPE html>
 <html lang="es">
-<head>
+<head> 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Estefany - Beauty</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <link href="assets/css/css2.css" rel="stylesheet">
+  <link href="assets/css/all.min.css" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/login.css">
-  <style type="text/css">
-      /* Modal */
-.modal.hidden { display: none; }
-.modal {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(0,0,0,0.7);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    padding: 10px;
-}
-.modal-content {
-    background: #1a1a1a;
-    color: #fff;
-    border-radius: 10px;
-    width: 100%;
-    max-width: 400px;
-    padding: 20px;
-    box-sizing: border-box;
-}
-.modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.modal-header h2 {
-    font-size: 20px;
-    margin: 0;
-}
-.modal-header .close {
-    font-size: 24px;
-    cursor: pointer;
-    color: #FFD700;
-}
-.modal p {
-    font-size: 14px;
-    margin: 10px 0 20px 0;
-    text-align: center;
-}
-.modal-content .input-field {
-    position: relative;
-    margin-bottom: 15px;
-}
-.modal-content .input-field input {
-    width: 88%;
-    padding: 10px 35px 10px 10px;
-    border-radius: 5px;
-    border: 1px solid #555;
-    background: #222;
-    color: #fff;
-}
-.modal-content .input-field i {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #FFD700;
-}
-.modal-content .btn {
-    width: 100%;
-    padding: 10px;
-    background: #FFD700;
-    border: none;
-    border-radius: 5px;
-    color: #111;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.2s;
-}
-.modal-content .btn:hover {
-    background: #e6c200;
-}
-
-/* Responsive */
-@media (max-width: 480px) {
-    .modal-content { padding: 15px; }
-    .modal-header h2 { font-size: 18px; }
-    .modal-header .close { font-size: 22px; }
-    .modal p { font-size: 13px; }
-}
-
-
-.forgot-password { margin-top: 10px; text-align: right; }
-.forgot-password a { color: #FFD700; text-decoration: none; font-size: 14px; }
-.forgot-password a:hover { text-decoration: underline; }
-
-  </style>
+  <link rel="stylesheet" href="assets/css/modal-log.css">
 </head>
 <body>
   <div class="container">
@@ -180,9 +90,8 @@
 </div>
 
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="assets/js/jquery-3.6.4.min.js"></script>
+  <script src="assets/js/sweetalert2@11.js"></script>
   <script src="<?php echo LOGIN_JS; ?>"></script>
   <?php if (isset($_SESSION['alerta'])): ?>
 

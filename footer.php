@@ -19,17 +19,17 @@
     </button>
   </div>
 </body>
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="assets/js/flatpickr"></script>
 <script>
 function toggleMenu() {
   document.getElementById("dropdown").classList.toggle("hidden");
 }
 
 </script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+<script src="assets/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/jquery-3.6.4.min.js"></script>
+<script src="assets/js/jquery.dataTables.min.js"></script>
+<script src="assets/js/dataTables.responsive.min.js"></script>
 <script>
 $(document).ready(function() {
     // Configuración de DataTables
