@@ -7,16 +7,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Estefany - Beauty</title>
-  <link href="assets/css/css2.css" rel="stylesheet">
-  <link href="assets/css/all.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/login.css">
-  <link rel="stylesheet" href="assets/css/modal-log.css">
+  <link href="<?php echo CSS2_CSS; ?>" rel="stylesheet">
+  <link href="<?php echo ALL_CSS; ?>" rel="stylesheet">
+  <link rel="stylesheet" href="<?php echo LOGIN_CSS; ?>">
+  <link rel="stylesheet" href="<?php echo MODAL_LOG_CSS; ?>">
 </head>
 <body>
   <div class="container">
     <!-- LOGIN -->
     <div id="loginForm" class="form">
-      <img src="assets/img/logof.png" alt="Logo">
+      <img src="<?php echo LOGOF_PNG; ?>" alt="Logo">
       <h2>Bienvenido</h2>
       <?php if (isset($error)) { echo "<p>$error</p>"; } ?>
      <form id="loginUserPassword">
@@ -71,7 +71,6 @@
     </div>
 
     <!-- Modal de recuperación -->
-<!-- Modal de recuperación responsive -->
 <div id="forgotPasswordModal" class="modal hidden">
   <div class="modal-content">
     <form id="forgotPasswordForm">
@@ -90,9 +89,9 @@
 </div>
 
 
-<script src="assets/js/jquery-3.6.4.min.js"></script>
-  <script src="assets/js/sweetalert2@11.js"></script>
-  <script src="<?php echo LOGIN_JS; ?>"></script>
+<script src="<?php echo JQUERY_JS; ?>"></script>
+  <script src="<?php echo SWET_JS; ?>"></script>
+      <script src="<?php echo LOGIN_JS; ?>"></script>
   <?php if (isset($_SESSION['alerta'])): ?>
 
   <?php unset($_SESSION['alerta']); endif; ?>
