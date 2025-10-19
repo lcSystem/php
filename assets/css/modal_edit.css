@@ -1,4 +1,4 @@
-#modalEditar {
+.modal {
     position: fixed;
     top: 50%;
     left: 0;
@@ -15,7 +15,7 @@
     transform: translateY(-50%);
 }
 /* Contenido modal */
-#modalEditar .modal-content {
+.modal .modal-content {
     background: #fff;
     border-radius: 18px;
     padding: 35px 30px;
@@ -38,7 +38,7 @@
 }
 
 /* Botón cerrar */
-#modalEditar .close {
+.modal .close {
     position: absolute;
     top: 18px;
     right: 20px;
@@ -47,12 +47,12 @@
     color: #d4a017;
     transition: color 0.2s;
 }
-#modalEditar .close:hover {
+.modal .close:hover {
     color: #ffd24d;
 }
 
 /* Encabezado */
-#modalEditar h2 {
+.modal h2 {
     text-align: center;
     font-weight: 700;
     color: #333;
@@ -60,14 +60,14 @@
 }
 
 /* Formulario */
-#formEditarUsuario {
+.form-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px 15px;
 }
-#formEditarUsuario .full { grid-column: 1 / -1; }
+.form-container .full { grid-column: 1 / -1; }
 
-#formEditarUsuario label {
+.form-container label {
     font-weight: 600;
     font-size: 13px;
     color: #333;
@@ -76,10 +76,10 @@
 }
 
 /* Inputs y Select */
-#formEditarUsuario input[type="text"],
-#formEditarUsuario input[type="email"],
-#formEditarUsuario input[type="date"],
-#formEditarUsuario select {
+.form-container input[type="text"],
+.form-container input[type="email"],
+.form-container input[type="date"],
+.form-container select {
     width: 100%;
     padding: 14px 16px;
     border-radius: 12px;
@@ -90,15 +90,15 @@
     font-size: 0.95rem;
     transition: all 0.25s;
 }
-#formEditarUsuario input:focus,
-#formEditarUsuario select:focus {
+.form-container input:focus,
+.form-container select:focus {
     outline: none;
     border-color: #d4a017;
     box-shadow: 0 0 10px rgba(212,175,55,0.35);
 }
 
 /* Select con flecha personalizada */
-#formEditarUsuario select {
+.form-container select {
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -108,7 +108,7 @@
 }
 
 /* Botón guardar */
-#formEditarUsuario .btn-save {
+.form-container .btn-save {
     grid-column: 1 / -1;
     padding: 14px 0;
     border-radius: 12px;
@@ -120,13 +120,13 @@
     box-shadow: 0 8px 20px rgba(212,175,55,0.25);
     transition: transform .2s ease, box-shadow .2s ease;
 }
-#formEditarUsuario .btn-save:hover {
+.form-container .btn-save:hover {
     transform: translateY(-3px);
     box-shadow: 0 14px 30px rgba(212,175,55,0.35);
 }
 
 /* Nota / ayuda */
-#formEditarUsuario .note {
+.form-container .note {
     font-size: 12px;
     color: #666;
     margin-top: 6px;
@@ -134,16 +134,16 @@
 
 /* Responsive */
 @media (max-width: 820px) {
-    #formEditarUsuario {
+    .form-container {
         grid-template-columns: 1fr;
     }
 }
 
 @media (max-width: 480px) {
-    #modalEditar {
+    .modal {
         padding: 10px;
     }
-    #modalEditar .modal-content {
+    .modal .modal-content {
         padding: 20px 15px;
     }
 }

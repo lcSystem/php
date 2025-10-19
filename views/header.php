@@ -30,6 +30,7 @@ if (!isset($_SESSION['user_id'])) {
   <title>Estefany - Beauty </title>
   <!-- Librería de íconos -->
   <link href="../assets/css/dashboard.css" rel="stylesheet">
+   <link rel="stylesheet" href="<?= ASSETS_URL ?>/css/citas.css">
   <link rel="stylesheet" href="<?php echo STYLEUSER_CSS; ?>">
   <link rel="stylesheet" href="<?php echo PERFIL_CSS; ?>">
   <!-- Flatpickr CSS -->
@@ -38,6 +39,9 @@ if (!isset($_SESSION['user_id'])) {
 <link rel="stylesheet" href="<?php echo MODALEDIT_CSS; ?>">
 <link rel="stylesheet" href="<?php echo FLATPICKR_CSS; ?>">
 <link rel="stylesheet" href="<?= NOTIFY_CSS ?>">
+<link rel="stylesheet" href="<?php echo STYLEBUTTONS_CSS; ?>">
+
+
 </head>
 <body>
 <header>

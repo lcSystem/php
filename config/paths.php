@@ -6,11 +6,14 @@ define('BASE_URL', '/plantilla');
 
 // directorios Assets --------------------------------------------------------------------------------------------------------------------------------------
 define('ASSETS_URL', BASE_URL . '/assets');
+define('CONFIG', BASE_URL . '/config');
 define('CSS_URL', ASSETS_URL . '/css');
 define('WEBFONT_URL', ASSETS_URL . '/webfont');
 define('JS_URL', ASSETS_URL . '/js');
 define('IMG_URL', ASSETS_URL . '/img');
 define('IMG_UPLOADS_URL', IMG_URL . '/uploads');
+define('CP_COMPONENTS', BASE_URL . '/components');
+define('CP_MODALS', CP_COMPONENTS . '/modalComponent.js');
 
 // directorios de estructura -------------------------------------------------------------------------------------------------------------------------------
 define('VIEWS_URL', BASE_URL . '/views');
@@ -50,7 +53,7 @@ define('ALL_CSS', CSS_URL . '/all.min.css');                                    
 define('MODAL_LOG_CSS', CSS_URL . '/modal-log.css');                            define('STYLEUSER_CSS', CSS_URL . '/styleUser.css');
 define('PERFIL_CSS', CSS_URL . '/perfil.css');                                  define('MODALEDIT_CSS', CSS_URL . '/modal_edit.css');
 define('JQUERY_DATAT_CSS', CSS_URL . '/jquery.dataTables.min.css');             define('FLATPICKR_CSS', CSS_URL . '/flatpickr.min.css');
-
+define('STYLEBUTTONS_CSS', CSS_URL . '/styleButtons.css');
 
 // JS --------------------------------------------------------------------------------------------------------------------------------------------
 define('LOGIN_JS', JS_URL . '/login.js');                                       define('NOTIFY_JS', JS_URL . '/notifications.js');
@@ -59,7 +62,9 @@ define('JQUERY_JS', JS_URL . '/jquery-3.6.4.min.js');                           
 define('ALERTA_JS', JS_URL . '/alertas.js');                                    define('ALERTFY_JS', JS_URL . '/alertify.min.js');
 define('FLATPICKR_JS', JS_URL . '/flatpickr.js');                               define('JQUERY_DT_JS', JS_URL . '/jquery.dataTables.min.js');
 define('USEREGISTER_JS', JS_URL . '/userRegister.js');                          define('T_MENU_JS', JS_URL . '/togel_menu.js');
-
-// IMG -------------------------------------------------------------------------------------------------------------------------------------------
+define('CITA_JS', JS_URL . '/citas/citas.js'); 
+// IMG --------------------------------------------------------------------------------------------------------------------------------------------
 
 define('LOGOF_PNG', IMG_URL . '/logof.png');                                    define('MARTINEZ_PNG', IMG_URL . '/martinez.png');
+																																					
+//-------------------------------------------------------------------------------------------------------------------------------------------------

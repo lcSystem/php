@@ -1,5 +1,3 @@
- <?php require_once '../config/paths.php'; ?>
- <link rel="stylesheet" href="<?= ASSETS_URL ?>/css/citas.css">
 <div class="calendar-section">
     <div class="container">
         <h2 class="text-center mb-4">📅 Calendario de Citas</h2>
@@ -19,7 +17,7 @@
                 <span id="currentDate">Hoy</span>
                 <button id="nextDay"><i class="fas fa-chevron-right"></i></button>
             </div>
-            <button class="btn-gold" onclick="abrirModalCita()">+ Agendar Cita</button>
+            <button class="btn-gold" onclick="abrirCita()">+ Agendar Cita</button>
         </div>
 
         <div class="calendar-grid">
@@ -50,60 +48,19 @@
                 <div class="time-slot" id="slot-0-18"></div>
             </div>
         </div>
+        
     </div>
 </div>
 
 <!-- Modal Nueva Cita -->
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
-<script>
-function abrirModalCita(){
-    $('#formCita')[0].reset();
-    $('#modalCita').modal('show');
-}
-
-$('#monto_total').on('input', function(){
-    const total = parseFloat($(this).val());
-    if(!isNaN(total)){
-        $('#deposito').val((total*0.10).toFixed(0));
-    } else {
-        $('#deposito').val('');
-    }
-});
-
-function guardarCita(){
-    const cliente = $('#cliente').val();
-    const hora = parseInt($('#hora').val().split(':')[0]);
-    const servicio = $('#servicio').val();
-    const slotId = 'slot-0-'+hora;
-    const colorClass = 'servicio-'+servicio;
-    const logo = 'https://via.placeholder.com/28';
-    $('#'+slotId).append(`
-        <div class="cita-block ${colorClass}">
-            <img src="${logo}" alt="${cliente}">
-            <span>${cliente} - ${servicio}</span>
-        </div>
-    `);
-    $('#modalCita').modal('hide');
-}
-
-// Citas simuladas
-const citasSimuladas = [
-    {hora:9,servicio:'blow',cliente:'Brenda Massey',logo:'https://via.placeholder.com/28'},
-    {hora:10,servicio:'beard',cliente:'Zachary Kelley',logo:'https://via.placeholder.com/28'},
-    {hora:11,servicio:'massage',cliente:'Diana Campos',logo:'https://via.placeholder.com/28'},
-];
-
-citasSimuladas.forEach(cita=>{
-    const slotId = 'slot-0-'+cita.hora;
-    const colorClass = 'servicio-' + cita.servicio;
-    $('#'+slotId).append(`
-        <div class="cita-block ${colorClass}">
-            <img src="${cita.logo}" alt="${cita.cliente}">
-            <span>${cita.cliente} - ${cita.servicio}</span>
-        </div>
-    `);
-});
-</script>
+<template id="templateComponent-modal">
+  <div class="modal"  style="display:none;">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2 class="modal-title">Editar</h2>
+      <form class="form-container"></form>
+    </div>
+  </div>
+</template>
+<script src="<?php echo CITA_JS ?>"></script> 

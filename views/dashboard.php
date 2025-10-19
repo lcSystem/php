@@ -19,9 +19,6 @@ error_reporting(E_ALL);
               case 'citas':
                   include 'citas/citas.php';
                   break;
-              case 'citas':
-                  include 'citas/citas.php';
-                  break;
               case 'indicator':
                   require_once '../views/indicador.php';  
                   break;
