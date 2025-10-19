@@ -24,7 +24,7 @@ require_once __DIR__ . '/../config/paths.php';
 </body>
 
 <script src="<?php echo JQUERY_JS; ?>"></script>
-<script src="<?php echo FLATPICKR_CSS; ?>"></script>
+<script src="<?php echo FLATPICKR_JS; ?>"></script>
 <script src="<?php echo BUNDLET_JS; ?>"></script>
 <script src="<?php echo JQUERY_DT_JS; ?>"></script>
 <script src="<?php echo DATATABLE_JS; ?>"></script>

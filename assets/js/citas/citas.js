@@ -1,19 +1,20 @@
  
 // Campos que tendrá el formulario
 const camposCita = [
-  { nombre: "cliente", etiqueta: "cliente", tipo: "select", opciones: [
+  { nombre: "cliente", etiqueta: "cliente", tipo: "select", 
+    opciones: [
              { value: "jairo", text: "jairo" },
              { value: "mara", text: "mara" },
              { value: "andrea", text: "andrea" }
-                                                                        ] 
-  },
+                                                ] },
   { nombre: "fecha", etiqueta: "Fecha", tipo: "date" },
   { nombre: "hora", etiqueta: "Hora", tipo: "time" },
-  { nombre: "servicio", etiqueta: "Servicio", tipo: "select", opciones: [
+  { nombre: "servicio", etiqueta: "Servicio", tipo: "select", 
+    opciones: [
              { value: "corte", text: "Corte" },
              { value: "manicure", text: "Manicure" },
              { value: "pedicure", text: "Pedicure" }
-                                                                        ] 
+                                                     ] 
   },
   { nombre: "observaciones", etiqueta: "Observaciones", tipo: "textarea" }
 
@@ -40,32 +41,6 @@ function abrirCitaConDatos() {
   });
 }
 
-
-
-
-
-
-
-
-// Función para abrir el modal de edición y cargar los datos del usuario
-function abrirModalEditar(id) {
-    $.get('../controller/userController.php', { accion: 'obtener', id: id }, function(usuario) {
-        if (usuario) {
-            $('#edit-id').val(usuario.id);
-            $('#edit-username').val(usuario.username);
-            $('#edit-email').val(usuario.email);
-            $('#edit-nombre_completo').val(usuario.nombre_completo);
-           
-
-            $('#modalCita').show();
-        } else {
-            alert("No se pudieron cargar los datos del usuario.");
-        }
-    }).fail(function() {
-        alert("Error al obtener los datos del usuario.");
-        $('#modalCita').hide();
-    });
-}
 
 function guardarCita(){
     const cliente = $('#cliente').val();

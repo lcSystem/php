@@ -63,4 +63,6 @@
     </div>
   </div>
 </template>
-<script src="<?php echo CITA_JS ?>"></script> 
+<script type="text/javascript">const clientes = <?= json_encode($clientes, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP)  ?>;
+ console.log(clientes+"");</script>
+<!-- <script src="<?php echo CITA_JS ?>"/>-->

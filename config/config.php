@@ -22,5 +22,8 @@ define('MAIL_PASS', 'tucontraseña');
 define('MAIL_PORT', 587);
 define('MAIL_FROM', 'tu@correo.com');
 define('MAIL_FROM_NAME', 'Tu Sistema');
-define('MAIL_SMTP_SECURE', 'tls'); // o 'ssl' si tu servidor requiere
+define('MAIL_SMTP_SECURE', 'tls'); // o 'ssl' 
+
+define('F_HORARIO', '12');
+
 ?>
