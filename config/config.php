@@ -26,5 +26,7 @@ define('MAIL_SMTP_SECURE', 'tls'); // o 'ssl'
 
 define('F_HORARIO', '12');
 define('F_FECHA', 'DD/MM/AA');
+define('INTENTOS', '3');
+define('T_ANTICIPADO_H', '1');
 
 ?>

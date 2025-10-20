@@ -1,6 +1,4 @@
-<?php ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+<?php 
  include 'header.php'  ?> 
 <div class="container">
     <!-- Search -->
@@ -19,8 +17,6 @@ error_reporting(E_ALL);
 
               case 'citas':
                   require_once  CITAS_CONTROLLER;
-                  $controller = new citaController();
-                  $controller -> index();
                   break;
 
              case 'users':
@@ -29,8 +25,8 @@ error_reporting(E_ALL);
                 break;
                 }
                 require_once USER_CONTROLLER;
-                $controller = new UserController();
-                $controller->mostrarUsuarios(); 
+                $ctrl = new UserController();
+                $ctrl->mostrarUsuarios(); 
                 break;
 
              case 'config':

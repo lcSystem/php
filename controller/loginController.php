@@ -35,11 +35,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
              $usuario->incrementarIntento($user['id']);
 
             $userActualizado = $usuario->login($username, $password);
-                if ($userActualizado['intentos_fallidos'] >= 3) {
+                if ($userActualizado['intentos_fallidos'] >= INTENTOS) {
                     $usuario->inactivarUsuario($user['id']);
-                    $response['mensaje'] = "Usuario bloqueado por 3 intentos fallidos.";
+                    $response['mensaje'] = "Usuario bloqueado por demaciados intentos fallidos.";
                 } else {
-                    $restantes = 3 - $userActualizado['intentos_fallidos'];
+                    $restantes = INTENTOS - $userActualizado['intentos_fallidos'];
                     $response['mensaje'] = "Contraseña incorrecta. Intentos restantes: $restantes.";
                 }
                 $response['mensaje'] = "La contraseña no coincide.";

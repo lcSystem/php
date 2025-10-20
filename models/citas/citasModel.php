@@ -16,10 +16,20 @@ class CitaModel {
     }
 
     public function listarCitas() {
-        $sql = "SELECT c.id, u.nombre_completo, u.telefono, c.fecha, c.hora, c.servicio, c.estado, c.notas
-                FROM citas c
-                JOIN usuarios u ON c.usuario_id = u.id
-                ORDER BY c.fecha, c.hora";
+        $sql = " SELECT 
+                    c.id,
+                    u.nombre_completo,
+                    u.telefono,
+                    c.fecha_cita,
+                    c.hora_cita,
+                    c.duracion_minutos,
+                    c.estado,
+                    c.comentarios
+               FROM citas c
+               JOIN usuarios u ON c.cliente_id = u.id
+               ORDER BY c.fecha_cita, c.hora_cita
+               LIMIT 0, 25;";
+               
         $stmt = $this->pdo->query($sql);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -33,7 +43,7 @@ class CitaModel {
 
     public function actualizarEstado($id, $estado) {
         $sql = "UPDATE citas SET estado = :estado WHERE id = :id";
-        $stmt = $this->pdo->prepare($sql);
+        $stmt = $this->pdo->prepare($sql);  
         return $stmt->execute([':estado' => $estado, ':id' => $id]);
     }
 

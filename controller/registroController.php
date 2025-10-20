@@ -1,5 +1,6 @@
 <?php
-require_once '../../models/userModel.php';  
+
+require_once '../models/userModel.php';  
 
 header('Content-Type: application/json'); 
 

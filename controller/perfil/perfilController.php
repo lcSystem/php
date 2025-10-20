@@ -2,7 +2,6 @@
 declare(strict_types=1);
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-// controller/perfil/perfilController.php
 
 require_once __DIR__ . '/../../models/userModel.php';
 require_once __DIR__ . '/../../config/paths.php';
@@ -12,7 +11,7 @@ class PerfilController {
     private $usuarioModel;
 
     public function __construct() {
-        $this->usuarioModel = new Usuario(); // clase definida en userModel.php
+        $this->usuarioModel = new Usuario(); 
     }
 
     /**
@@ -39,7 +38,13 @@ class PerfilController {
     // Mostrar perfil de un usuario
     public function mostrarPerfil(int $idUsuario) : array {
         if ($idUsuario <= 0) return [];
+
+ echo "<pre>idUsuario desde sesión: ";
+    var_dump($idUsuario);
+    echo "</pre>";
+
         $u = $this->usuarioModel->obtenerPorId($idUsuario);
+
         return $u ?: [];
     }
 

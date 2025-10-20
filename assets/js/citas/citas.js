@@ -1,35 +1,58 @@
  // Campos que tendra el formulario
-const camposCita = [
-  { nombre: "cliente", etiqueta: "cliente", tipo: "select", 
-    opciones: [
-             { value: "jairo", text: "jairo" },
-             { value: "mara", text: "mara" },
-             { value: "andrea", text: "andrea" }
-                                                ] },
-  { nombre: "fecha", etiqueta: "Fecha", tipo: "date" },
-  { nombre: "hora", etiqueta: "Hora", tipo: "time" },
-  { nombre: "servicio", etiqueta: "Servicio", tipo: "select", 
-    opciones: [
-             { value: "corte", text: "Corte" },
-             { value: "manicure", text: "Manicure" },
-             { value: "pedicure", text: "Pedicure" }
-                                                     ] 
-  },
-  { nombre: "observaciones", etiqueta: "Observaciones", tipo: "textarea" }
+  const ahora = new Date();
+  const fechaActual = ahora.toISOString().split('T')[0]; // yyyy-mm-dd
+  let horaActual;
+  let ampm;
 
-];
+const usuarioActual = clientes[0]; 
 
-function abrirCita() {
+ahora.setHours(ahora.getHours() + T_ANTICIPADO_H);
+
+ horaActual, ampm = '';
+
+if(F_HORARIO == '12'){
+    // horario 12h
+    let horas = ahora.getHours();
+    const minutos = ahora.getMinutes().toString().padStart(2,'0');
+    ampm = horas >= 12 ? 'PM' : 'AM';
+    horas = horas % 12;
+    horas = horas ? horas : 12;
+    horaActual = `${horas.toString().padStart(2,'0')}:${minutos}`;
+}else{
+    // horario 24h
+    horaActual = ahora.toTimeString().split(':').slice(0,2).join(':');
+}
+
+
+  const camposCita = [
+      { nombre: "cliente", etiqueta: "cliente", tipo: "select", 
+        opciones: clientes.map(c => ({ value: c.id, text: c.username }))},
+      { nombre: "fecha", etiqueta: "Fecha", tipo: "date" },
+      { nombre: "hora", etiqueta: "Hora", tipo: "time" },
+      { nombre: "servicio", etiqueta: "Servicio", tipo: "select", 
+        opciones: [
+                 { value: "corte", text: "Corte" },
+                 { value: "manicure", text: "Manicure" },
+                 { value: "pedicure", text: "Pedicure" }
+                                                         ] 
+      },
+      { nombre: "observaciones", etiqueta: "Observaciones", tipo: "textarea" }
+
+    ];
+
   const valores = {
     id: 1,
-    cliente: "Juan Pérez",
-    fecha: "2025-10-20",
-    hora: "10:00",
+    cliente: usuarioActual ? usuarioActual.id : "",
+    fecha: fechaActual,
+    hora: horaActual,
     servicio: "corte",
-    observaciones: "Traer foto de referencia"
+    observaciones: ""
   };
-  
-  abrir(camposCita, valores, "Editar Cita", (data) => {
+
+
+function abrirCita() {
+
+  abrir(camposCita, valores, "Cita", (data) => {
     console.log("Cita editada:", data);
   });
 }

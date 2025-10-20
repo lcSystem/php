@@ -63,6 +63,11 @@
     </div>
   </div>
 </template>
-<script type="text/javascript">const clientes = <?= json_encode($clientes, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP)  ?>;
- console.log(clientes+"");</script>
-<!-- <script src="<?php echo CITA_JS ?>"/>-->
+<script type="text/javascript">
+const clientes = <?= json_encode($clientes, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP) ?>;
+const F_HORARIO = "<?= F_HORARIO ?>"; 
+const T_ANTICIPADO_H = "<?= T_ANTICIPADO_H ?>"; 
+
+</script>
+<script src="<?php echo JQUERY_JS; ?>"></script>
+ <script src="<?php echo CITA_JS ?>"></script>

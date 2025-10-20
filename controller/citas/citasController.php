@@ -1,59 +1,60 @@
 <?php
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
-
 require_once CITAS_MODEL;
+require_once __DIR__ . '/../../models/userModel.php';
 
 class CitaController {
     private $citaModel;
+    private $usuarioModel;
 
     public function __construct() {
         $this->citaModel = new CitaModel();
+        $this->usuarioModel = new Usuario();
     }
+
+   public function getSessionUserId(): int {
+    if (session_status() === PHP_SESSION_NONE) session_start();
+
+    // Revisar varias posibilidades como en PerfilController
+    $candidates = ['id', 'user_id', 'userId', 'usuario_id'];
+    foreach ($candidates as $k) {
+        if (!empty($_SESSION[$k])) {
+            return intval($_SESSION[$k]);
+        }
+    }
+
+    // soporte para arrays en sesión (ej: $_SESSION['user']['id'] o $_SESSION['usuario']['id'])
+    if (!empty($_SESSION['user']['id'])) return intval($_SESSION['user']['id']);
+    if (!empty($_SESSION['usuario']['id'])) return intval($_SESSION['usuario']['id']);
+
+    return 0;
+}
 
     public function index() {
-        $citas = $this->citaModel->listarCitas();
-        $clientes = $this->citaModel->listarClientes();
-         require_once CITAS_VIEW;
-       
+        $idUsuario = $this->getSessionUserId();
+
+        $usuario = $this->usuarioModel->obtenerPorId($idUsuario);
+
+   if (!$usuario) {
+        $usuario = ['id' => 0, 'nombre_completo' => 'Desconocido'];
     }
 
-    public function handleRequest() {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['accion'])) {
-            switch ($_POST['accion']) {
-                case 'crear':
-                    $datos = [
-                        ':usuario_id' => $_POST['usuario_id'],
-                        ':fecha' => $_POST['fecha'],
-                        ':hora' => $_POST['hora'],
-                        ':servicio' => $_POST['servicio'],
-                        ':notas' => $_POST['notas'] ?? null
-                    ];
-                    $ok = $this->citaModel->crearCita($datos);
-                    echo json_encode(['success' => $ok]);
-                    break;
-
-                case 'cambiar_estado':
-                    $ok = $this->citaModel->actualizarEstado($_POST['id'], $_POST['estado']);
-                    echo json_encode(['success' => $ok]);
-                    break;
-
-                case 'eliminar':
-                    $ok = $this->citaModel->eliminarCita($_POST['id']);
-                    echo json_encode(['success' => $ok]);
-                    break;
-
-                default:
-                    echo json_encode(['success' => false, 'message' => 'Acción no válida']);
-            }
-            exit;
+        // Cargar citas y clientes según rol
+        $citas = $this->citaModel->listarCitas();
+       
+        if ($_SESSION['user_rol'] === 'admin' || $_SESSION['user_rol'] === 'usuario' ) {
+            $clientes = $this->citaModel->listarClientes();
+        } else {
+            $clientes = [$usuario];
         }
+
+        require_once CITAS_VIEW;
+        return $usuario;
     }
 }
 
-$controller = new CitaController();
+
+// --- fuera de la clase ---
+$ctrl = new CitaController();
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    $controller->index();
-} else {
-    $controller->handleRequest();
+    $ctrl->index();
 }

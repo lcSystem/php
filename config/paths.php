@@ -17,7 +17,7 @@ define('CP_COMPONENTS', BASE_URL . '/components');
 define('CP_MODALS', CP_COMPONENTS . '/modalComponent.js');
 
 // directorios de estructura -------------------------------------------------------------------------------------------------------------------------------
-define('VIEWS_PATH', BASE_PATH . '/views');				define('VIEWS_URL', BASE_URL . '/views');
+define('VIEWS_PATH', BASE_PATH . '/views');				 define('VIEWS_URL', BASE_URL . '/views');
 define('CONTROLLER_PATH', BASE_PATH . '/controller');    define('CONTROLLER_URL', BASE_URL . '/controller');
 define('MODELS_PATH', BASE_PATH . '/models');            define('MODELS_URL', BASE_URL . '/models');
 
@@ -38,7 +38,7 @@ define('USER_CONTROLLER', CONTROLLER_PATH . '/usuario/userController.php');     
 define('PERFIL_CONTROLLER_URL', CONTROLLER_URL . '/perfil/perfilController.php'); 
 // models --------------------------------------------------------------------------------------------------------------------------------------------------
 
-define('USER_MODEL', MODELS_PATH . '/userModel.php');   						    define('REGISTER_MODEL', MODELS_PATH . '/userRegisterModel.php');
+define('USER_MODEL', MODELS_PATH . '/userModel.php');   						   define('REGISTER_MODEL', MODELS_PATH . '/userRegisterModel.php');
 define('CITAS_MODEL', MODELS_PATH . '/citas/citasModel.php');
 
 // fonts ----------------------------------------------------------------------------------------------------------------------------------------
