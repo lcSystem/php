@@ -17,27 +17,29 @@ define('CP_COMPONENTS', BASE_URL . '/components');
 define('CP_MODALS', CP_COMPONENTS . '/modalComponent.js');
 
 // directorios de estructura -------------------------------------------------------------------------------------------------------------------------------
-define('VIEWS_URL', BASE_PATH . '/views');
-define('CONTROLLER_URL', BASE_PATH . '/controller');
-define('MODELS_URL', BASE_PATH . '/models');
+define('VIEWS_PATH', BASE_PATH . '/views');				define('VIEWS_URL', BASE_URL . '/views');
+define('CONTROLLER_PATH', BASE_PATH . '/controller');    define('CONTROLLER_URL', BASE_URL . '/controller');
+define('MODELS_PATH', BASE_PATH . '/models');            define('MODELS_URL', BASE_URL . '/models');
 
 // Views ---------------------------------------------------------------------------------------------------------------------------------------------------
-define('DASHBOARD_URL', VIEWS_URL . '/dashboard.php');                            define('PERFIL_VIEW', VIEWS_URL . '/perfil/perfil.php');
-define('DASHBOARD_VIEW', VIEWS_URL . '/dashboard.php');                           define('USERS_VIEW', VIEWS_URL . '/users/users.php');
-define('APP_VIEW', VIEWS_URL . '/aplicaciones/app.php');                          define('INDICADOR_VIEW', VIEWS_URL . '/indicador/indicador.php');
+define('DASHBOARD_URL', VIEWS_URL . '/dashboard.php');                            define('PERFIL_VIEW', VIEWS_PATH . '/perfil/perfil.php');
+define('otr_VIEW', VIEWS_PATH . '/.php');                                         define('USERS_VIEW', VIEWS_PATH . '/users/users.php');
+define('CITAS_VIEW', VIEWS_PATH . '/citas/citas.php');                            define('FORMULARIO_VIEW', VIEWS_PATH . '/formulario/formulario.php');
+define('CONFIG_VIEW', VIEWS_PATH . '/config/config.php');                         define('DASHBOARD_PATH', VIEWS_PATH . '/dashboard.php');
 
 // Archivos específicos (opcional) -------------------------------------------------------------------------------------------------------------------------
 define('LOGIN_PAGE', BASE_URL . '/login.php');                                    define('WELCOME_PAGE', BASE_URL . '/welcome.php');
 
 
 // Controllers ---------------------------------------------------------------------------------------------------------------------------------------------
-define('PERFIL_CONTROLLER', CONTROLLER_URL . '/perfil/perfilController.php');    define('LOGIN_CONTROLLER', CONTROLLER_URL . '/loginController.php');
-define('LOGOUT_CONTROLLER', CONTROLLER_URL . '/logout.php');                     define('REGISTRO_CONTROLLER', CONTROLLER_URL . '/registroController.php');
-define('USER_CONTROLLER', CONTROLLER_URL . '/userController.php');
-
+define('PERFIL_CONTROLLER', CONTROLLER_PATH . '/perfil/perfilController.php');    define('LOGIN_CONTROLLER', CONTROLLER_PATH . '/loginController.php');
+define('LOGOUT_CONTROLLER', CONTROLLER_URL . '/logout.php');                      define('REGISTRO_CONTROLLER', CONTROLLER_PATH . '/usuario/registroController.php');
+define('USER_CONTROLLER', CONTROLLER_PATH . '/usuario/userController.php');       define('CITAS_CONTROLLER', CONTROLLER_PATH . '/citas/citasController.php');
+define('PERFIL_CONTROLLER_URL', CONTROLLER_URL . '/perfil/perfilController.php'); 
 // models --------------------------------------------------------------------------------------------------------------------------------------------------
 
-define('USER_MODEL', MODELS_URL . '/userModel.php');
+define('USER_MODEL', MODELS_PATH . '/userModel.php');   						    define('REGISTER_MODEL', MODELS_PATH . '/userRegisterModel.php');
+define('CITAS_MODEL', MODELS_PATH . '/citas/citasModel.php');
 
 // fonts ----------------------------------------------------------------------------------------------------------------------------------------
 define('TTF_BRANDS', WEBFONT_URL . '/fa-brands-400.ttf');                       define('WOF_BRANDS', WEBFONT_URL . '/fa-brands-400.woff2');

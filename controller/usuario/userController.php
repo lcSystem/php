@@ -3,15 +3,15 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-require_once '../models/userRegisterModel.php';
-require_once '../models/userModel.php'; // Asegúrate de incluir tu modelo Usuario
+require_once REGISTER_MODEL;
+require_once USER_MODEL; // Asegúrate de incluir tu modelo Usuario
 
 class UserController {
 
     public function mostrarUsuarios() {
         $usuarioModel = new usuarioRegistro();
         $usuarios = $usuarioModel->listarUsuarios();
-        require_once '../views/users/users.php';
+        require_once USERS_VIEW;
     }
 
     // Manejo de solicitudes GET y POST

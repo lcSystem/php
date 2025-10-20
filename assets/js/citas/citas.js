@@ -1,5 +1,4 @@
- 
-// Campos que tendrá el formulario
+ // Campos que tendra el formulario
 const camposCita = [
   { nombre: "cliente", etiqueta: "cliente", tipo: "select", 
     opciones: [
@@ -21,12 +20,6 @@ const camposCita = [
 ];
 
 function abrirCita() {
-  abrir(camposCita, {}, "Nueva Cita", (data) => {
-    console.log("Nueva cita guardada:", data);
-  });
-}
-
-function abrirCitaConDatos() {
   const valores = {
     id: 1,
     cliente: "Juan Pérez",

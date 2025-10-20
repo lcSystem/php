@@ -14,43 +14,37 @@ error_reporting(E_ALL);
       if (isset($_GET['page'])) {
           switch ($_GET['page']) {
               case 'formulario':
-                  include 'formulario/formulario.php';
+                  include FORMULARIO_VIEW;
                   break;
 
               case 'citas':
-                  include 'citas/citas.php';
+                  require_once  CITAS_CONTROLLER;
+                  $controller = new citaController();
+                  $controller -> index();
                   break;
 
-              case 'indicator':
-                  require_once '../views/indicador.php';  
-                  break;
+             case 'users':
+                if (!isset($_SESSION['user_rol']) || $_SESSION['user_rol'] !== 'admin') {
+                echo "<div class='card'><h3>Acceso denegado</h3><p>No tienes permisos para acceder a esta sección.</p></div>";
+                break;
+                }
+                require_once USER_CONTROLLER;
+                $controller = new UserController();
+                $controller->mostrarUsuarios(); 
+                break;
 
-              case 'package':
-                  echo "<div class='card'><h3>Gestión de Packages</h3><p>Administra paquetes y dependencias.</p></div>";
-                  break;
-
-              case 'config':
-                  include 'config/config.php';
-                  break;
+             case 'config':
+                include CONFIG_VIEW;
+                break;
 
              case 'perfil':
-                require_once  PERFIL_CONTROLLER;
-                $ctrl = new PerfilController();
-                $usuario = $ctrl->mostrarPerfil($ctrl->getSessionUserId());
-                include 'perfil/perfil.php';
-                break;
-                
-             case 'users':
-    // Verificar si el usuario es admin
-    if (!isset($_SESSION['user_rol']) || $_SESSION['user_rol'] !== 'admin') {
-        echo "<div class='card'><h3>Acceso denegado</h3><p>No tienes permisos para acceder a esta sección.</p></div>";
-        break;
-    }
-    require_once USER_CONTROLLER;
-    $controller = new UserController();
-    $controller->mostrarUsuarios(); 
-    break;
-              default:
+               require_once  PERFIL_CONTROLLER;
+               $ctrl = new PerfilController();
+               $usuario = $ctrl->mostrarPerfil($ctrl->getSessionUserId());
+               include PERFIL_VIEW;
+               break;
+
+                default:
                   echo "<div class='card'><h3>Bienvenido</h3><p>Selecciona una opción para comenzar.</p></div>";
           }
       } else {
