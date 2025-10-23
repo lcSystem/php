@@ -1,10 +1,11 @@
+
 <div class="calendar-section">
     <div class="container">
         <h2 class="text-center mb-4">📅 Calendario de Citas</h2>
 
         <div class="calendar-header">
             <select id="selectSalon">
-                <option value="1">Beauty Shop & SPA</option>
+                <option value="1">Salón Estefany Beauty </option>
             </select>
             <select id="selectStaff">
                 <option value="all">Todos los Staff</option>
@@ -20,34 +21,25 @@
             <button class="btn-gold" onclick="abrirCita()">+ Agendar Cita</button>
         </div>
 
-        <div class="calendar-grid">
-            <div class="hour-column">
-                <div class="hour">09:00</div>
-                <div class="hour">10:00</div>
-                <div class="hour">11:00</div>
-                <div class="hour">12:00</div>
-                <div class="hour">13:00</div>
-                <div class="hour">14:00</div>
-                <div class="hour">15:00</div>
-                <div class="hour">16:00</div>
-                <div class="hour">17:00</div>
-                <div class="hour">18:00</div>
-            </div>
+<div class="calendar-grid">
+<div class="hour-column">
+<?php foreach($slots as $slotStr):
+    $dt = new DateTime($slotStr);
+?>
+    <div class="hour"><?= $dt->format('H:i') ?></div>
+<?php endforeach; ?>
+</div>
 
-            <!-- Columna de ejemplo -->
-            <div class="day-column">
-                <div class="time-slot" id="slot-0-9"></div>
-                <div class="time-slot" id="slot-0-10"></div>
-                <div class="time-slot" id="slot-0-11"></div>
-                <div class="time-slot" id="slot-0-12"></div>
-                <div class="time-slot" id="slot-0-13"></div>
-                <div class="time-slot" id="slot-0-14"></div>
-                <div class="time-slot" id="slot-0-15"></div>
-                <div class="time-slot" id="slot-0-16"></div>
-                <div class="time-slot" id="slot-0-17"></div>
-                <div class="time-slot" id="slot-0-18"></div>
-            </div>
-        </div>
+<div class="day-column" id="day-column">
+<?php foreach($slots as $slotStr):
+    $dt = new DateTime($slotStr);
+    $slotId = 'slot-' . $dt->format('Y-m-d-H-i');
+?>
+    <div class="time-slot" id="<?= $slotId ?>" data-slot="<?= $slotStr ?>"></div>
+<?php endforeach; ?>
+</div>
+
+</div>
         
     </div>
 </div>
@@ -62,12 +54,16 @@
       <form class="form-container"></form>
     </div>
   </div>
+  
 </template>
 <script type="text/javascript">
+const citas = <?= json_encode($citas, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP) ?>;
+const slots = <?= json_encode($slots, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP) ?>;
 const clientes = <?= json_encode($clientes, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP) ?>;
-const F_HORARIO = "<?= F_HORARIO ?>"; 
+const servicios = <?= json_encode($servicio, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP) ?>;
 const T_ANTICIPADO_H = "<?= T_ANTICIPADO_H ?>"; 
-
+const F_HORARIO = "<?= F_HORARIO ?>";
+ const CITAS_CONTROLLER_URL = "<?= CITAS_CONTROLLER_URL ?>";
 </script>
 <script src="<?php echo JQUERY_JS; ?>"></script>
  <script src="<?php echo CITA_JS ?>"></script>

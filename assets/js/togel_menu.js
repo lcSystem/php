@@ -26,7 +26,7 @@ $(document).ready(function() {
 function eliminarUsuario(id) {
     executeActionWithConfirmation({
         message: "¿Estás seguro de que deseas eliminar este usuario?",
-        phpUrl: "../controller/userController.php",
+        phpUrl: USER_CONTROLLER,
         method: "POST",
         data: { accion: "eliminar", id: id },
         onSuccess: (res) => {
@@ -41,7 +41,7 @@ function eliminarUsuario(id) {
 
 // Función para abrir el modal de edición y cargar los datos del usuario
 function abrirModalEditar(id) {
- $.getJSON('../controller/userController.php', { accion: 'obtener', id: id }, function(response) {
+ $.getJSON(USER_CONTROLLER, { accion: 'obtener', id: id }, function(response) {
     if (response.success) {
         const usuario = response.usuario;
         $('#edit-id').val(usuario.id);
@@ -73,7 +73,7 @@ function cerrarModalEditar() {
 function editarUsuario() {
     if ($('#formEditarUsuario')[0].checkValidity()) {
         const formData = $('#formEditarUsuario').serialize(); // incluye 'accion' y 'id'
-        $.post('../controller/userController.php', formData, function(response) {
+        $.post(USER_CONTROLLER, formData, function(response) {
             try {
                 const data = JSON.parse(response);
                 if (data.success) {
@@ -98,7 +98,7 @@ function toggleUsuario(id, estadoActual) {
     const mensaje = `¿Seguro que deseas ${nuevoEstado === 'activo' ? 'activar' : 'desactivar'} este usuario?`;
 
     showConfirmation(mensaje, () => { // callback si acepta
-        $.post('../controller/userController.php', 
+        $.post(USER_CONTROLLER, 
                { accion: 'cambiar_estado', id: id, estado: nuevoEstado }, 
                function(response) {
             try {

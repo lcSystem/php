@@ -71,7 +71,7 @@ function abrirModalGenerico({ titulo = "Formulario", campos = [], valores = {}, 
   const btn = document.createElement("button");
   btn.type = "button";
   btn.className = "btn-save";
-  btn.textContent = "Guardar Cambios";
+  btn.textContent = "Guardar";
   btn.onclick = () => {
     const data = Object.fromEntries(new FormData(form).entries());
     if (onGuardar) onGuardar(data);

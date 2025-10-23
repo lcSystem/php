@@ -25,23 +25,22 @@ if (!isset($_SESSION['user_id'])) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <meta name="description" content="LuigiTech: Soluciones tecnológicas modernas, dashboards interactivos y desarrollo web de última generación.">
-<meta name="keywords" content="LuigiTech, tecnología, dashboards, desarrollo web, sistemas, hosting, Colombia">
-<meta name="author" content="Luigi Cardenas">
+   <meta name="keywords" content="LuigiTech, tecnología, dashboards, desarrollo web, sistemas, hosting, Colombia">
+   <meta name="author" content="Luigi Cardenas">
   <title>Estefany - Beauty </title>
+  <link rel="icon" type="image/png" href="<?php echo LOGOF_PNG; ?>">
   <!-- Librería de íconos -->
   <link href="../assets/css/dashboard.css" rel="stylesheet">
+  <link rel="stylesheet" href="<?php echo JQUERY_DATAT_CSS; ?>">
    <link rel="stylesheet" href="<?= ASSETS_URL ?>/css/citas.css">
   <link rel="stylesheet" href="<?php echo STYLEUSER_CSS; ?>">
   <link rel="stylesheet" href="<?php echo PERFIL_CSS; ?>">
   <!-- Flatpickr CSS -->
-<link rel="stylesheet" href="<?php echo JQUERY_DATAT_CSS; ?>">
 <link rel="stylesheet" href="<?php echo ALL_CSS; ?>">
 <link rel="stylesheet" href="<?php echo MODALEDIT_CSS; ?>">
 <link rel="stylesheet" href="<?php echo FLATPICKR_CSS; ?>">
 <link rel="stylesheet" href="<?= NOTIFY_CSS ?>">
 <link rel="stylesheet" href="<?php echo STYLEBUTTONS_CSS; ?>">
-
-
 </head>
 <body>
 <header>

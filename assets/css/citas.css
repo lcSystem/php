@@ -71,23 +71,20 @@
 
 /* Cita individual */
 .calendar-section .cita-block {
-    display: flex;
-    align-items: center;
-    gap: 6px;
     position: absolute;
     top: 5px;
     left: 5px;
     right: 5px;
-    height: 50px;
     border-radius: 10px;
     padding: 4px 8px;
     font-size: 13px;
     font-weight: 500;
     cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.3s;
     border: 1px solid #FFD24D;
     box-shadow: 0 2px 8px rgba(212,160,23,0.3);
+    transition: transform 0.2s, box-shadow 0.3s;
 }
+
 .calendar-section .cita-block:hover {
     transform: scale(1.03);
     box-shadow: 0 6px 15px rgba(212,160,23,0.5);
@@ -166,4 +163,3 @@
     }
 }
 
-/* ==== Modal Nueva Cita ==== */

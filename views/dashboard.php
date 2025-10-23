@@ -49,4 +49,6 @@
       ?>
     </div>
   </div>
+
+<?php include CONST_JS  ?> 
 <?php include 'footer.php'  ?> 

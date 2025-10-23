@@ -22,9 +22,10 @@ $(document).ready(function() {
 
 // Función para eliminar un usuario
 function eliminarUsuario(id) {
+
     console.log("Respuesta entro ");
     if (confirm("¿Estás seguro de que deseas eliminar este usuario?")) {
-        $.post('../controller/userController.php', { accion: 'eliminar', id: id }, function(response) {
+        $.post(USER_CONTROLLER, { accion: 'eliminar', id: id }, function(response) {
             if (response.success) {
                 alert(response.message || 'Usuario eliminado correctamente');
                 location.reload();
@@ -32,14 +33,15 @@ function eliminarUsuario(id) {
                 alert(response.message || 'Error al eliminar el usuario.');
             }
         }).fail(function(xhr, status, error) {
-            alert("Error al eliminar el usuario: " + error);
+            
+             showToast("Error al eliminar el usuario:", "error");
         });
     }
 }
 
 // Función para abrir el modal de edición y cargar los datos del usuario
 function abrirModalEditar(id) {
-    $.get('../controller/userController.php', { accion: 'obtener', id: id }, function(usuario) {
+    $.get(USER_CONTROLLER, { accion: 'obtener', id: id }, function(usuario) {
         if (usuario) {
             $('#edit-id').val(usuario.id);
             $('#edit-username').val(usuario.username);
@@ -49,10 +51,10 @@ function abrirModalEditar(id) {
 
             $('#modalEditar').show();
         } else {
-            alert("No se pudieron cargar los datos del usuario.");
+             showToast("No se pudieron cargar los datos del usuario.", "error");
         }
     }).fail(function() {
-        alert("Error al obtener los datos del usuario.");
+         showToast("Error al obtener los datos del usuario.", "error");
         $('#modalEditar').hide();
     });
 }

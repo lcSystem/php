@@ -1,20 +1,25 @@
 <?php
+
+require_once __DIR__ . '/../../config/paths.php';
+require_once USER_MODEL;
 require_once CITAS_MODEL;
-require_once __DIR__ . '/../../models/userModel.php';
+
+require_once __DIR__ . '/../../models/servicios/serviciosModel.php';
 
 class CitaController {
     private $citaModel;
     private $usuarioModel;
+    private $serviciosModel;
 
     public function __construct() {
         $this->citaModel = new CitaModel();
         $this->usuarioModel = new Usuario();
+        $this->serviciosModel = new Servicios();
     }
 
    public function getSessionUserId(): int {
     if (session_status() === PHP_SESSION_NONE) session_start();
 
-    // Revisar varias posibilidades como en PerfilController
     $candidates = ['id', 'user_id', 'userId', 'usuario_id'];
     foreach ($candidates as $k) {
         if (!empty($_SESSION[$k])) {
@@ -47,14 +52,104 @@ class CitaController {
             $clientes = [$usuario];
         }
 
+       $fechaHoy = date('Y-m-d');
+$slots = $this->generarSlotsDia($fechaHoy, 30);
+
+        // servicios a listar
+        $servicio = $this->serviciosModel->listarServicios();
+
+
         require_once CITAS_VIEW;
         return $usuario;
     }
+
+        // --- generar slots ---
+    private function generarSlots(string $horarioIni, string $horarioFin, int $stepMin = 30): array {
+        $slots = [];
+        $today = new DateTimeImmutable('today');
+        $dtStart = DateTime::createFromFormat('Y-m-d H:i', $today->format('Y-m-d') . ' ' . $horarioIni);
+        $dtEnd   = DateTime::createFromFormat('Y-m-d H:i', $today->format('Y-m-d') . ' ' . $horarioFin);
+
+        if ($dtEnd <= $dtStart) {
+            $dtEnd = (clone $dtEnd)->modify('+1 day'); // cerrar después de medianoche
+        }
+
+        $current = clone $dtStart;
+        while ($current <= $dtEnd) {
+            $slots[] = $current->format('Y-m-d H:i'); // slot listo para usar
+            $current = $current->modify("+{$stepMin} minutes");
+        }
+
+        return $slots;
+    }
+
+public function generarSlotsDia($fecha, $intervaloMinutos = 10) {
+    $slots = [];
+    $horaIni = DateTime::createFromFormat('H:i', HORARIO_INI);
+    $horaFin = DateTime::createFromFormat('H:i', HORARIO_FIN);
+
+    if ($horaIni > $horaFin) { 
+        // HORARIO_FIN menor que HORARIO_INI → sumar 1 día
+        $horaFin->modify('+1 day');
+    }
+
+    $horaActual = clone $horaIni;
+    while ($horaActual <= $horaFin) {
+        $slots[] = $fecha . ' ' . $horaActual->format('H:i');
+        $horaActual->modify("+{$intervaloMinutos} minutes");
+    }
+
+    return $slots;
+}
+
+public function crearCita() {
+
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        echo json_encode(['success' => false, 'message' => 'Método no permitido']);
+        exit;
+    }
+
+    $datos = [
+        'cliente_id'       => $_POST['cliente_id'] ?? 0,
+        'servicio_id'      => $_POST['servicio_id'] ?? 0,
+        'empleado_id'      => $_POST['empleado_id'] ?? null,
+        'fecha_cita'       => $_POST['fecha_cita'] ?? '',
+        'hora_cita'        => $_POST['hora_cita'] ?? '',
+        'duracion_minutos' => $_POST['duracion_minutos'] ?? 30,
+        'estado'           => $_POST['estado'] ?? 'pendiente',
+        'comentarios'      => $_POST['comentarios'] ?? '',
+        'creada_por'       => $_POST['creada_por'] ?? 0,
+    ];
+
+    try {
+        $exito = $this->citaModel->crearCita($datos);
+
+        if ($exito) {
+            $datos['id'] = $this->citaModel->getLastInsertId();
+            // ✅ Solo enviar un JSON final
+            echo json_encode(['success' => true, 'cita' => $datos]);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Error en INSERT del modelo']);
+        }
+    } catch (Exception $e) {
+        echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+    }
+
+    exit;
+}
 }
 
 
-// --- fuera de la clase ---
 $ctrl = new CitaController();
-if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    $ctrl->index();
+
+$action = $_GET['action'] ?? 'index';
+
+switch ($action) {
+    case 'crearCita':
+        $ctrl->crearCita();
+        break;
+
+    default:
+        $ctrl->index();
+        break;
 }

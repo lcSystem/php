@@ -1,0 +1,144 @@
+Array
+(
+    [cliente_id] => 15
+    [servicio_id] => 1
+    [empleado_id] => 1
+    [fecha_cita] => 2025-10-23
+    [hora_cita] => 09:45:00
+    [duracion_minutos] => 60
+    [estado] => pendiente
+    [comentarios] => 
+    [creada_por] => 15
+)
+Array
+(
+    [cliente_id] => 15
+    [servicio_id] => 1
+    [empleado_id] => 1
+    [fecha_cita] => 2025-10-23
+    [hora_cita] => 09:45:00
+    [duracion_minutos] => 60
+    [estado] => pendiente
+    [comentarios] => 
+    [creada_por] => 15
+)
+Array
+(
+    [cliente_id] => 15
+    [servicio_id] => 1
+    [empleado_id] => 1
+    [fecha_cita] => 2025-10-23
+    [hora_cita] => 09:47:00
+    [duracion_minutos] => 60
+    [estado] => pendiente
+    [comentarios] => 
+    [creada_por] => 15
+)
+Array
+(
+    [cliente_id] => 15
+    [servicio_id] => 1
+    [empleado_id] => 1
+    [fecha_cita] => 2025-10-23
+    [hora_cita] => 09:47:00
+    [duracion_minutos] => 60
+    [estado] => pendiente
+    [comentarios] => 
+    [creada_por] => 15
+)
+Array
+(
+    [cliente_id] => 15
+    [servicio_id] => 1
+    [empleado_id] => 1
+    [fecha_cita] => 2025-10-23
+    [hora_cita] => 09:47:00
+    [duracion_minutos] => 60
+    [estado] => pendiente
+    [comentarios] => pruebas
+    [creada_por] => 15
+)
+Array
+(
+    [cliente_id] => 15
+    [servicio_id] => 1
+    [empleado_id] => 1
+    [fecha_cita] => 2025-10-23
+    [hora_cita] => 09:47:00
+    [duracion_minutos] => 60
+    [estado] => pendiente
+    [comentarios] => pruebas
+    [creada_por] => 15
+)
+Array
+(
+    [cliente_id] => 15
+    [servicio_id] => 2
+    [empleado_id] => 1
+    [fecha_cita] => 2025-10-23
+    [hora_cita] => 07:47:00
+    [duracion_minutos] => 60
+    [estado] => pendiente
+    [comentarios] => 
+    [creada_por] => 15
+)
+Array
+(
+    [cliente_id] => 15
+    [servicio_id] => 2
+    [empleado_id] => 1
+    [fecha_cita] => 2025-10-23
+    [hora_cita] => 07:47:00
+    [duracion_minutos] => 60
+    [estado] => pendiente
+    [comentarios] => 
+    [creada_por] => 15
+)
+Array
+(
+    [cliente_id] => 15
+    [servicio_id] => 2
+    [empleado_id] => 1
+    [fecha_cita] => 2025-10-23
+    [hora_cita] => 07:00:00
+    [duracion_minutos] => 60
+    [estado] => pendiente
+    [comentarios] => 
+    [creada_por] => 15
+)
+Array
+(
+    [cliente_id] => 15
+    [servicio_id] => 2
+    [empleado_id] => 1
+    [fecha_cita] => 2025-10-23
+    [hora_cita] => 07:00:00
+    [duracion_minutos] => 60
+    [estado] => pendiente
+    [comentarios] => 
+    [creada_por] => 15
+)
+Array
+(
+    [cliente_id] => 15
+    [servicio_id] => 1
+    [empleado_id] => 1
+    [fecha_cita] => 2025-10-23
+    [hora_cita] => 06:30:00
+    [duracion_minutos] => 60
+    [estado] => pendiente
+    [comentarios] => hhhhh
+    [creada_por] => 15
+)
+Array
+(
+    [cliente_id] => 15
+    [servicio_id] => 1
+    [empleado_id] => 1
+    [fecha_cita] => 2025-10-23
+    [hora_cita] => 06:30:00
+    [duracion_minutos] => 60
+    [estado] => pendiente
+    [comentarios] => hhhhh
+    [creada_por] => 15
+)

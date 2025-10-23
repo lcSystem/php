@@ -20,6 +20,7 @@ define('CP_MODALS', CP_COMPONENTS . '/modalComponent.js');
 define('VIEWS_PATH', BASE_PATH . '/views');				 define('VIEWS_URL', BASE_URL . '/views');
 define('CONTROLLER_PATH', BASE_PATH . '/controller');    define('CONTROLLER_URL', BASE_URL . '/controller');
 define('MODELS_PATH', BASE_PATH . '/models');            define('MODELS_URL', BASE_URL . '/models');
+define('HELPER_PATH', BASE_PATH . '/helpers');            define('HELPER_URL', BASE_URL . '/helpers');
 
 // Views ---------------------------------------------------------------------------------------------------------------------------------------------------
 define('DASHBOARD_URL', VIEWS_URL . '/dashboard.php');                            define('PERFIL_VIEW', VIEWS_PATH . '/perfil/perfil.php');
@@ -30,12 +31,12 @@ define('CONFIG_VIEW', VIEWS_PATH . '/config/config.php');                       
 // Archivos específicos (opcional) -------------------------------------------------------------------------------------------------------------------------
 define('LOGIN_PAGE', BASE_URL . '/login.php');                                    define('WELCOME_PAGE', BASE_URL . '/welcome.php');
 
-
 // Controllers ---------------------------------------------------------------------------------------------------------------------------------------------
 define('PERFIL_CONTROLLER', CONTROLLER_PATH . '/perfil/perfilController.php');    define('LOGIN_CONTROLLER', CONTROLLER_PATH . '/loginController.php');
 define('LOGOUT_CONTROLLER', CONTROLLER_URL . '/logout.php');                      define('REGISTRO_CONTROLLER', CONTROLLER_PATH . '/usuario/registroController.php');
 define('USER_CONTROLLER', CONTROLLER_PATH . '/usuario/userController.php');       define('CITAS_CONTROLLER', CONTROLLER_PATH . '/citas/citasController.php');
-define('PERFIL_CONTROLLER_URL', CONTROLLER_URL . '/perfil/perfilController.php'); 
+define('PERFIL_CONTROLLER_URL', CONTROLLER_URL . '/perfil/perfilController.php'); define('USER_CONTROLLER_URL', CONTROLLER_URL . '/usuario/userController.php'); 
+define('CITAS_CONTROLLER_URL', CONTROLLER_URL . '/citas/citasController.php'); 
 // models --------------------------------------------------------------------------------------------------------------------------------------------------
 
 define('USER_MODEL', MODELS_PATH . '/userModel.php');   						   define('REGISTER_MODEL', MODELS_PATH . '/userRegisterModel.php');
@@ -65,9 +66,9 @@ define('JQUERY_JS', JS_URL . '/jquery-3.6.4.min.js');                           
 define('ALERTA_JS', JS_URL . '/alertas.js');                                    define('ALERTFY_JS', JS_URL . '/alertify.min.js');
 define('FLATPICKR_JS', JS_URL . '/flatpickr.js');                               define('JQUERY_DT_JS', JS_URL . '/jquery.dataTables.min.js');
 define('USEREGISTER_JS', JS_URL . '/userRegister.js');                          define('T_MENU_JS', JS_URL . '/togel_menu.js');
-define('CITA_JS', JS_URL . '/citas/citas.js'); 
+define('CITA_JS', JS_URL . '/citas/citas.js');                                  define('CONST_JS', HELPER_PATH . '/const_js/const_js.php'); 
 // IMG --------------------------------------------------------------------------------------------------------------------------------------------
-
+	
 define('LOGOF_PNG', IMG_URL . '/logof.png');                                    define('MARTINEZ_PNG', IMG_URL . '/martinez.png');
-																																					
+																				define('ICONO_ICO', IMG_URL . '/favico.ico');					
 //-------------------------------------------------------------------------------------------------------------------------------------------------

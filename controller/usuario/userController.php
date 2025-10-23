@@ -3,8 +3,9 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+require_once __DIR__ . '/../../config/paths.php';
 require_once REGISTER_MODEL;
-require_once USER_MODEL; // Asegúrate de incluir tu modelo Usuario
+require_once USER_MODEL; 
 
 class UserController {
 
@@ -44,14 +45,14 @@ class UserController {
                     'estado' => $_POST['estado'] ?? 'activo',
                     'telefono' => $_POST['telefono'] ?? '',
                     'direccion' => $_POST['direccion'] ?? '',
-                    'edad' => $_POST['edad'] ?? '', // coincide con el input del formulario
+                    'edad' => $_POST['edad'] ?? '', 
                     'rol' => $_POST['rol'] ?? '',
                     'avatar' => $_POST['avatar'] ?? ''
                 ];
                 $this->editarUsuario($id, $datos);
             } elseif ($accion === 'cambiar_estado' && $id && isset($_POST['estado'])) {
     $usuarioModel = new Usuario();
-    $resultado = $usuarioModel->actualizarEstado($id, $_POST['estado']); // nueva función en el modelo
+    $resultado = $usuarioModel->actualizarEstado($id, $_POST['estado']); 
     echo json_encode([
         'success' => $resultado,
         'message' => $resultado ? 'Estado actualizado correctamente' : 'Error al actualizar el estado'

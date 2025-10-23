@@ -39,10 +39,6 @@ class PerfilController {
     public function mostrarPerfil(int $idUsuario) : array {
         if ($idUsuario <= 0) return [];
 
- echo "<pre>idUsuario desde sesión: ";
-    var_dump($idUsuario);
-    echo "</pre>";
-
         $u = $this->usuarioModel->obtenerPorId($idUsuario);
 
         return $u ?: [];

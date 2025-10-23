@@ -34,12 +34,31 @@ class CitaModel {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function crearCita($datos) {
-        $sql = "INSERT INTO citas (usuario_id, fecha, hora, servicio, notas) 
-                VALUES (:usuario_id, :fecha, :hora, :servicio, :notas)";
-        $stmt = $this->pdo->prepare($sql);
-        return $stmt->execute($datos);
-    }
+public function crearCita($datos) {
+    $sql = "INSERT INTO citas (
+                cliente_id, 
+                servicio_id, 
+                empleado_id, 
+                fecha_cita, 
+                hora_cita, 
+                duracion_minutos, 
+                estado, 
+                comentarios, 
+                creada_por
+            ) VALUES (
+                :cliente_id, 
+                :servicio_id, 
+                :empleado_id, 
+                :fecha_cita, 
+                :hora_cita, 
+                :duracion_minutos, 
+                :estado, 
+                :comentarios, 
+                :creada_por
+            )";
+    $stmt = $this->pdo->prepare($sql);
+    return $stmt->execute($datos);
+}
 
     public function actualizarEstado($id, $estado) {
         $sql = "UPDATE citas SET estado = :estado WHERE id = :id";
