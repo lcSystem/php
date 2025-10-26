@@ -14,7 +14,7 @@ define('JS_URL', ASSETS_URL . '/js');
 define('IMG_URL', ASSETS_URL . '/img');
 define('IMG_UPLOADS_URL', IMG_URL . '/uploads');
 define('CP_COMPONENTS', BASE_URL . '/components');
-define('CP_MODALS', CP_COMPONENTS . '/modalComponent.js');
+define('CP_COMPONENTS_PATH', BASE_PATH . '/components');
 
 // directorios de estructura -------------------------------------------------------------------------------------------------------------------------------
 define('VIEWS_PATH', BASE_PATH . '/views');				 define('VIEWS_URL', BASE_URL . '/views');
@@ -27,20 +27,22 @@ define('DASHBOARD_URL', VIEWS_URL . '/dashboard.php');                          
 define('otr_VIEW', VIEWS_PATH . '/.php');                                         define('USERS_VIEW', VIEWS_PATH . '/users/users.php');
 define('CITAS_VIEW', VIEWS_PATH . '/citas/citas.php');                            define('FORMULARIO_VIEW', VIEWS_PATH . '/formulario/formulario.php');
 define('CONFIG_VIEW', VIEWS_PATH . '/config/config.php');                         define('DASHBOARD_PATH', VIEWS_PATH . '/dashboard.php');
+define('SERVICIOS_VIEW', VIEWS_PATH . '/servicios/servicios.php');
 
 // Archivos específicos (opcional) -------------------------------------------------------------------------------------------------------------------------
 define('LOGIN_PAGE', BASE_URL . '/login.php');                                    define('WELCOME_PAGE', BASE_URL . '/welcome.php');
-
+ define('CP_TABLE', CP_COMPONENTS_PATH . '/tableComponent.php');                  define('CP_MODALS', CP_COMPONENTS . '/modalComponent.js');
 // Controllers ---------------------------------------------------------------------------------------------------------------------------------------------
-define('PERFIL_CONTROLLER', CONTROLLER_PATH . '/perfil/perfilController.php');    define('LOGIN_CONTROLLER', CONTROLLER_PATH . '/loginController.php');
+                                                                                  define('CITAS_CONTROLLER', CONTROLLER_PATH . '/citas/citasController.php');
 define('LOGOUT_CONTROLLER', CONTROLLER_URL . '/logout.php');                      define('REGISTRO_CONTROLLER', CONTROLLER_PATH . '/usuario/registroController.php');
-define('USER_CONTROLLER', CONTROLLER_PATH . '/usuario/userController.php');       define('CITAS_CONTROLLER', CONTROLLER_PATH . '/citas/citasController.php');
-define('PERFIL_CONTROLLER_URL', CONTROLLER_URL . '/perfil/perfilController.php'); define('USER_CONTROLLER_URL', CONTROLLER_URL . '/usuario/userController.php'); 
-define('CITAS_CONTROLLER_URL', CONTROLLER_URL . '/citas/citasController.php'); 
+                                                                                  define('USER_CONTROLLER', CONTROLLER_PATH . '/usuario/userController.php');  
+define('PERFIL_CONTROLLER_URL', CONTROLLER_URL . '/perfil/perfilController.php'); define('PERFIL_CONTROLLER', CONTROLLER_PATH . '/perfil/perfilController.php');
+define('USER_CONTROLLER_URL', CONTROLLER_URL . '/usuario/userController.php');    define('LOGIN_CONTROLLER', CONTROLLER_PATH . '/loginController.php');
+define('CITAS_CONTROLLER_URL', CONTROLLER_URL . '/citas/citasController.php');    define('SERVICIO_CONTROLLER', CONTROLLER_PATH . '/servicios/serviciosController.php'); 
 // models --------------------------------------------------------------------------------------------------------------------------------------------------
 
 define('USER_MODEL', MODELS_PATH . '/userModel.php');   						   define('REGISTER_MODEL', MODELS_PATH . '/userRegisterModel.php');
-define('CITAS_MODEL', MODELS_PATH . '/citas/citasModel.php');
+define('CITAS_MODEL', MODELS_PATH . '/citas/citasModel.php');                      define('SERVICIOS_MODEL', MODELS_PATH . '/servicios/serviciosModel.php');
 
 // fonts ----------------------------------------------------------------------------------------------------------------------------------------
 define('TTF_BRANDS', WEBFONT_URL . '/fa-brands-400.ttf');                       define('WOF_BRANDS', WEBFONT_URL . '/fa-brands-400.woff2');
@@ -66,7 +68,8 @@ define('JQUERY_JS', JS_URL . '/jquery-3.6.4.min.js');                           
 define('ALERTA_JS', JS_URL . '/alertas.js');                                    define('ALERTFY_JS', JS_URL . '/alertify.min.js');
 define('FLATPICKR_JS', JS_URL . '/flatpickr.js');                               define('JQUERY_DT_JS', JS_URL . '/jquery.dataTables.min.js');
 define('USEREGISTER_JS', JS_URL . '/userRegister.js');                          define('T_MENU_JS', JS_URL . '/togel_menu.js');
-define('CITA_JS', JS_URL . '/citas/citas.js');                                  define('CONST_JS', HELPER_PATH . '/const_js/const_js.php'); 
+define('CITA_JS', JS_URL . '/citas/citas.js');                                  define('SERVICIOS_JS', JS_URL . '/servicios/servicios.php'); 
+ define('CONST_JS', HELPER_PATH . '/const_js/const_js.php'); 
 // IMG --------------------------------------------------------------------------------------------------------------------------------------------
 	
 define('LOGOF_PNG', IMG_URL . '/logof.png');                                    define('MARTINEZ_PNG', IMG_URL . '/martinez.png');

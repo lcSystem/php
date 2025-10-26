@@ -14,6 +14,10 @@
               case 'formulario':
                   include FORMULARIO_VIEW;
                   break;
+                  
+              case 'servicios':
+                 require_once  SERVICIO_CONTROLLER;
+                  break;
 
               case 'citas':
                   require_once  CITAS_CONTROLLER;

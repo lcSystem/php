@@ -7,8 +7,19 @@
  * $actions: array de acciones ['editar' => 'abrirModalEditar', 'eliminar' => 'eliminarUsuario', 'toggle' => 'toggleUsuario']
  */
 
-function renderTable($idTable, $caption, $columns, $data, $actions = []) {
+function renderTable($idTable, $caption, $columns, $data, $actions = [], $addButton = null) {
+
 ?>
+
+<?php if ($addButton): ?>
+    <div class="mb-2">
+        <button class="<?= htmlspecialchars($addButton['class'] ?? 'btn btn-primary') ?>" 
+                onclick="<?= htmlspecialchars($addButton['onClick']) ?>">
+            <?= htmlspecialchars($addButton['label']) ?>
+        </button>
+    </div>
+<?php endif; ?>
+
 <table id="<?= $idTable ?>" class="table table-bordered table-hover dt-responsive">
     <caption class="table-caption"><?= htmlspecialchars($caption) ?></caption>
     <thead>
@@ -25,31 +36,31 @@ function renderTable($idTable, $caption, $columns, $data, $actions = []) {
                 <?php foreach ($columns as $key => $label): ?>
                     <td><?= htmlspecialchars($row[$key] ?? '') ?></td>
                 <?php endforeach; ?>
-                <?php if (!empty($actions)): ?>
-                    <td>
-                        <div class="action-buttons">
-                            <?php if (isset($actions['editar'])): ?>
-                                <button class="btn-edit" title="Editar" onclick="<?= $actions['editar'] ?>(<?= $row['id'] ?>)">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                            <?php endif; ?>
-                            <?php if (isset($actions['eliminar'])): ?>
-                                <button class="btn-delete" title="Eliminar" onclick="<?= $actions['eliminar'] ?>(<?= $row['id'] ?>)">
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
-                            <?php endif; ?>
-                            <?php if (isset($actions['toggle'])): ?>
-                                <button class="btn-toggle" title="Activar/Inactivar" onclick="<?= $actions['toggle'] ?>(<?= $row['id'] ?>, '<?= $row['estado'] ?>') ?>">
-                                    <?php if(($row['estado'] ?? '') === 'activo'): ?>
-                                        <i class="fas fa-check-circle"></i>
-                                    <?php else: ?>
-                                        <i class="fas fa-times-circle"></i>
-                                    <?php endif; ?>
-                                </button>
-                            <?php endif; ?>
-                        </div>
-                    </td>
+               <?php if (!empty($actions)): ?>
+<td>
+    <div class="action-buttons">
+        <?php if (isset($actions['editar'])): ?>
+            <button class="btn-edit" title="Editar" onclick="<?= $actions['editar'] ?>(<?= json_encode($row['id']) ?>)">
+                <i class="fas fa-edit"></i>
+            </button>
+        <?php endif; ?>
+        <?php if (isset($actions['eliminar'])): ?>
+            <button class="btn-delete" title="Eliminar" onclick="<?= $actions['eliminar'] ?>(<?= json_encode($row['id']) ?>)">
+                <i class="fas fa-trash-alt"></i>
+            </button>
+        <?php endif; ?>
+        <?php if (isset($actions['toggle'])): ?>
+            <button class="btn-toggle" title="Activar/Inactivar" onclick="<?= $actions['toggle'] ?>(<?= json_encode($row['id']) ?>, <?= json_encode($row['estado'] ?? '') ?>)">
+                <?php if(($row['estado'] ?? '') === 'activo'): ?>
+                    <i class="fas fa-check-circle"></i>
+                <?php else: ?>
+                    <i class="fas fa-times-circle"></i>
                 <?php endif; ?>
+            </button>
+        <?php endif; ?>
+    </div>
+</td>
+<?php endif; ?>
             </tr>
         <?php endforeach; ?>
     </tbody>

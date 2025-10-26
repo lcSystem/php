@@ -1,24 +1,3 @@
-$(document).ready(function() {
-    // Configuración de DataTables
-    $('table').DataTable({
-        responsive: true,
-        paging: true,
-        searching: true,
-        lengthChange: true,
-        pageLength: 5, // Número de registros por página
-        language: {
-            search: "Buscar:",
-            lengthMenu: "Mostrar _MENU_ registros por página",
-            info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
-            paginate: {
-                first: "Primero",
-                last: "Último",
-                next: "Siguiente",
-                previous: "Anterior"
-            }
-        }
-    });
-});
 
 // Función para eliminar un usuario
 function eliminarUsuario(id) {
