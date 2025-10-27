@@ -1,120 +1,107 @@
-  <table id="usuarios" class="table table-bordered table-hover dt-responsive">
-    <caption class="table-caption">Usuarios Registrados</caption>
-  <thead>
-                <tr>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>Nombre Completo</th>
-                    <th>Fecha de Registro</th>
-                    <th>Teléfono</th>
-                    <th>Dirección</th>
-                    <th>Edad</th>
-                    <th>id</th>
-                    <th>Rol</th>
-                    <th>Estado</th>
-                    <th>Acciones</th> 
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($usuarios as $usuario): ?>
-                    <tr>
-                        <td><?php echo htmlspecialchars($usuario['username']); ?></td>
-                        <td><?php echo htmlspecialchars($usuario['email']); ?></td>
-                        <td><?php echo htmlspecialchars($usuario['nombre_completo']); ?></td>
-                        <td><?php echo htmlspecialchars($usuario['fecha_registro']); ?></td>
-                        <td><?php echo htmlspecialchars($usuario['telefono']); ?></td>
-                        <td><?php echo htmlspecialchars($usuario['direccion']); ?></td>
-                        <td><?php echo htmlspecialchars($usuario['edad']); ?></td>
-                        <td><?php echo htmlspecialchars($usuario['id']); ?></td>
-                        <td><?php echo htmlspecialchars($usuario['rol']); ?></td>
-                        <td><?php echo htmlspecialchars($usuario['estado']); ?></td>
-                     
-<td>
-    <div class="action-buttons">
-        <button class="btn-edit" title="Editar" onclick="abrirModalEditar(<?= $usuario['id'] ?>)">
-            <i class="fas fa-edit"></i>
-        </button>
-        <button class="btn-delete" title="Eliminar" onclick="eliminarUsuario(<?= $usuario['id'] ?>)">
-            <i class="fas fa-trash-alt"></i>
-        </button>
-       <button class="btn-toggle" 
-        title="Activar/Inactivar" 
-        onclick="toggleUsuario(<?= $usuario['id'] ?>, '<?= $usuario['estado'] ?>')">
-    <?php if($usuario['estado'] === 'activo'): ?>
-        <i class="fas fa-check-circle"></i>
-    <?php else: ?>
-        <i class="fas fa-times-circle"></i>
-    <?php endif; ?>
-</button>
-    </div>
-</td>
-                       
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="11" class="text-center">.</td>
-                </tr>
-            </tfoot>
-  </table>
-<!-- modal para editar usuarios -->
+<?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+require_once __DIR__ . '/../../config/paths.php';
+include_once CP_TABLE; 
 
-<div id="modalEditar" class="modal" style="display:none;">
+$columns = [
+    'id' => 'ID',
+    'username' => 'Username',
+    'email' => 'Email',
+    'nombre_completo' => 'Nombre Completo',
+    'telefono' => 'Teléfono',
+    'direccion' => 'Dirección',
+    'edad' => 'Edad',
+    'rol' => 'Rol',
+    'estado' => 'Estado'
+];
+
+$actions = [
+    'editar' => 'abrirModalEditarUsuario',
+    'eliminar' => 'eliminarUsuario',
+    'toggle' => 'toggleUsuario'
+];
+
+$addButton = [
+    'label' => 'Agregar Usuario',
+    'onClick' => 'abrirModalAgregarUsuario()',
+    'class' => 'btn-gold'
+];
+
+renderTable('usuarios', 'Usuarios Registrados', $columns, $usuarios, $actions, $addButton);
+?>
+
+<template id="templateComponent-modal">
+  <div class="modal"  style="display:none;">
     <div class="modal-content">
-        <span class="close" onclick="cerrarModalEditar()">&times;</span>
-        <h2>Editar Usuario</h2>
-        <form id="formEditarUsuario" class="form-container">
-            <input type="hidden" name="id" id="edit-id">
-            <input type="hidden" name="accion" value="editar">
-            
-            <!-- Campos de entrada -->
-            <div class="input-group">
-                <label for="edit-username">Username</label>
-                <input type="text" name="username" id="edit-username" required placeholder="Ingresa el username">
-            </div>
-
-            <div class="input-group">
-                <label for="edit-email">Email</label>
-                <input type="email" name="email" id="edit-email" required placeholder="Ingresa el email">
-            </div>
-
-            <div class="input-group">
-                <label for="edit-nombre_completo">Nombre Completo</label>
-                <input type="text" name="nombre_completo" id="edit-nombre_completo" required placeholder="Ingresa el nombre completo">
-            </div>
-
-            <div class="input-group">
-                <label for="edit-telefono">Teléfono</label>
-                <input type="text" name="telefono" id="edit-telefono" placeholder="Ingresa el teléfono">
-            </div>
-
-            <div class="input-group">
-                <label for="edit-direccion">Dirección</label>
-                <input type="text" name="direccion" id="edit-direccion" placeholder="Ingresa la dirección">
-            </div>
-
-            <div class="input-group">
-                <label for="edit-edad">Edad</label>
-                <input type="number" name="edad" id="edit-edad" placeholder="Ingresa edad">
-            </div>
-
-            <div class="input-group">
-                <label for="edit-estado">Estado</label>
-                <select name="estado" id="edit-estado">
-                    <option value="activo">Activo</option>
-                    <option value="inactivo">Inactivo</option>
-                </select>
-            </div>
-            <div class="input-group">
-    <label for="edit-rol">Rol</label>
-    <select name="rol" id="edit-rol">
-        <option value="usuario">Usuario</option>
-        <option value="admin">Admin</option>
-        <option value="cliente">Cliente</option>
-    </select>
-</div>
-            <button type="button" onclick="editarUsuario()" class="btn-save">Guardar Cambios</button>
-        </form>
+      <span class="close">&times;</span>
+      <h2 class="modal-title">Editar</h2>
+      <form class="form-container"></form>
     </div>
-</div>
+  </div>
+  </template>
+
+<!-- modal para editar usuarios -->
+<script type="text/javascript">
+const usuarios = <?= json_encode($usuarios, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP) ?>;
+const estados = ["activo", "inactivo"];
+const roles = ["usuario", "admin", "cliente"];
+const USUARIO_CONTROLLER_URL = "<?= USER_CONTROLLER_URL ?>";
+
+const camposUsuario = [
+    { nombre: "username", etiqueta: "Username", tipo: "text" },
+    { nombre: "email", etiqueta: "Email", tipo: "email" },
+    { nombre: "nombre_completo", etiqueta: "Nombre Completo", tipo: "text" },
+    { nombre: "telefono", etiqueta: "Teléfono", tipo: "text" },
+    { nombre: "direccion", etiqueta: "Dirección", tipo: "text" },
+    { nombre: "edad", etiqueta: "Edad", tipo: "number" },
+    { nombre: "rol", etiqueta: "Rol", tipo: "select", opciones: roles.map(r => ({ value: r, text: r })) },
+    { nombre: "estado", etiqueta: "Estado", tipo: "select", opciones: estados.map(e => ({ value: e, text: e })) }
+];
+
+function abrirModalAgregarUsuario() {
+    abrir(camposUsuario, {}, "Usuario", (data) => {
+        guardarUsuario(data);
+    });
+}
+
+function abrirModalEditarUsuario(id, datosUsuario) {
+    abrir(camposUsuario, datosUsuario, "Usuario", (dataActualizada) => {
+        actualizarUsuario(id, dataActualizada);
+    });
+}
+
+function guardarUsuario(data) {
+    guardarRegistro(`${USUARIO_CONTROLLER_URL}?action=crearUsuario`, data, 'usuario', (response) => {
+        usuarios.push(response.usuario);
+       refrescarTabla('servicio');
+    });
+}
+
+function actualizarUsuario(id, data) {
+    actualizarRegistro(`${USUARIO_CONTROLLER_URL}?action=actualizarUsuario`, { id, ...data }, 'usuario', (response) => {
+        // reemplazar datos locales
+        const index = usuarios.findIndex(u => u.id === id);
+        if(index >= 0) usuarios[index] = response.usuario;
+        refrescarTabla('servicio');
+    });
+}
+
+function eliminarUsuario(id) {
+    eliminarRegistro(`${USUARIO_CONTROLLER_URL}?action=eliminarUsuario`, id, 'usuario', () => {
+        const index = usuarios.findIndex(u => u.id === id);
+        if(index >= 0) usuarios.splice(index, 1);
+        refrescarTabla('servicio');
+    });
+}
+
+function toggleUsuario(id, estadoActual) {
+    cambiarEstado(`${USUARIO_CONTROLLER_URL}?action=cambiarEstado`, id, estadoActual, 'usuario', (response, nuevoEstado) => {
+        const index = usuarios.findIndex(u => u.id === id);
+        if(index >= 0) usuarios[index].estado = nuevoEstado;
+       refrescarTabla('servicio');
+    });
+}
+
+</script>

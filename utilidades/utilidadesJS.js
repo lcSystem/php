@@ -9,6 +9,7 @@
  * @param {string} entidad - Nombre de la entidad (para mensajes)
  * @param {function} [callback] - Función a ejecutar si tiene éxito
  */
+
 function guardarRegistro(url, data, entidad, callback = null) {
     console.log(`📤 Enviando ${entidad}:`, data);
 

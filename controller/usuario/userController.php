@@ -4,103 +4,147 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 require_once __DIR__ . '/../../config/paths.php';
-require_once REGISTER_MODEL;
-require_once USER_MODEL; 
+require_once USER_MODEL;
+require_once UT_UTILIDADES_PHP;
 
 class UserController {
+    private $model;
+    private $usuarios;
 
-    public function mostrarUsuarios() {
-        $usuarioModel = new usuarioRegistro();
-        $usuarios = $usuarioModel->listarUsuarios();
+    public function __construct() {
+        $this->model = new Usuario();
+        $this->usuarios = $this->model->listarUsuarios();
+        
+    }
+
+    // Página principal (lista)
+    public function index() {
+   if (!isset($_SESSION['user_rol']) || $_SESSION['user_rol'] !== 'admin') {
+    echo "<div class='card'><h3>Acceso denegado</h3><p>No tienes permisos para acceder a esta sección.</p></div>";
+    return; // ✅
+}
+        $usuarios = $this->usuarios;
         require_once USERS_VIEW;
     }
 
-    // Manejo de solicitudes GET y POST
-    public function handleRequest() {
-        $method = $_SERVER['REQUEST_METHOD'];
+    // === Crear usuario ===
+    public function crearUsuario() {
+        $campos = [
+            'username'        => '',
+            'email'           => '',
+            'nombre_completo' => '',
+            'estado'          => 'activo',
+            'telefono'        => '',
+            'direccion'       => '',
+            'edad'            => '',
+            'rol'             => 'usuario',
+            'avatar'          => ''
+        ];
 
-        if ($method === 'GET' && isset($_GET['accion'])) {
-            $accion = $_GET['accion'];
-            $id = $_GET['id'] ?? null;
+        $datos = extraerDatos($campos);
 
-            if ($accion === 'obtener' && $id) {
-                $this->obtenerUsuario($id);
-            } else {
-                echo json_encode(['success' => false, 'message' => 'Acción GET no válida']);
-            }
-            exit;
-        }
+        try {
+            $sql = "INSERT INTO usuarios (username, email, nombre_completo, estado, telefono, direccion, edad, rol, avatar) 
+                    VALUES (:username, :email, :nombre_completo, :estado, :telefono, :direccion, :edad, :rol, :avatar)";
+            $stmt = $this->model->pdo->prepare($sql);
+            $stmt->execute($datos);
 
-        if ($method === 'POST' && isset($_POST['accion'])) {
-            $accion = $_POST['accion'];
-            $id = $_POST['id'] ?? null;
-
-            if ($accion === 'eliminar' && $id) {
-                $this->eliminarUsuario($id);
-            } elseif ($accion === 'editar' && $id) {
-                $datos = [
-                    'username' => $_POST['username'] ?? '',
-                    'email' => $_POST['email'] ?? '',
-                    'nombre_completo' => $_POST['nombre_completo'] ?? '',
-                    'estado' => $_POST['estado'] ?? 'activo',
-                    'telefono' => $_POST['telefono'] ?? '',
-                    'direccion' => $_POST['direccion'] ?? '',
-                    'edad' => $_POST['edad'] ?? '', 
-                    'rol' => $_POST['rol'] ?? '',
-                    'avatar' => $_POST['avatar'] ?? ''
-                ];
-                $this->editarUsuario($id, $datos);
-            } elseif ($accion === 'cambiar_estado' && $id && isset($_POST['estado'])) {
-    $usuarioModel = new Usuario();
-    $resultado = $usuarioModel->actualizarEstado($id, $_POST['estado']); 
-    echo json_encode([
-        'success' => $resultado,
-        'message' => $resultado ? 'Estado actualizado correctamente' : 'Error al actualizar el estado'
-    ]);
-    exit;
-} else {
-                echo json_encode(['success' => false, 'message' => 'Acción POST no válida o ID no proporcionado']);
-            }
-            exit;
-        }
-    }
-
-    public function obtenerUsuario($id) {
-        $usuarioModel = new Usuario();
-        $usuario = $usuarioModel->obtenerPorId($id);
-
-        if ($usuario) {
-            echo json_encode(['success' => true, 'usuario' => $usuario]);
-        } else {
-            echo json_encode(['success' => false, 'message' => 'Usuario no encontrado']);
+            echo json_encode([
+                'success' => true,
+                'message' => 'Usuario creado correctamente',
+                'usuario' => $datos
+            ]);
+        } catch (Exception $e) {
+            echo json_encode(['success' => false, 'message' => 'Error al crear usuario: ' . $e->getMessage()]);
         }
         exit;
     }
 
-    public function eliminarUsuario($id) {
-        $usuarioModel = new usuarioRegistro();
-        $resultado = $usuarioModel->eliminarUsuario($id);
+    // === Actualizar usuario ===
+    public function actualizarUsuario() {
+        $id = $_POST['id'] ?? 0;
+
+        $campos = [
+            'username'        => '',
+            'email'           => '',
+            'nombre_completo' => '',
+            'estado'          => 'activo',
+            'telefono'        => '',
+            'direccion'       => '',
+            'edad'            => '',
+            'rol'             => '',
+            'avatar'          => ''
+        ];
+        $datos = extraerDatos($campos);
+
+        $resultado = $this->model->editarUsuario($id, $datos);
 
         echo json_encode([
             'success' => $resultado,
-            'message' => $resultado ? 'Usuario eliminado correctamente' : 'Error al eliminar el usuario'
+            'message' => $resultado ? 'Usuario actualizado correctamente' : 'Error al actualizar usuario',
+            'usuario' => $resultado ? $this->model->obtenerPorId($id) : null
         ]);
         exit;
     }
 
-    public function editarUsuario($id, $datos) {
-        $usuarioModel = new Usuario();
-        $resultado = $usuarioModel->editarUsuario($id, $datos);
+    // === Cambiar estado ===
+    public function cambiarEstado() {
+        $id = $_POST['id'] ?? 0;
+        $estado = $_POST['estado'] ?? 'activo';
+        $resultado = $this->model->actualizarEstado($id, $estado);
 
-        if ($resultado) {
-            echo json_encode(['success' => true, 'message' => 'Usuario actualizado correctamente']);
-        } else {
-            echo json_encode(['success' => false, 'message' => 'Error al editar el usuario']);
+        echo json_encode([
+            'success' => $resultado,
+            'message' => $resultado ? 'Estado actualizado correctamente' : 'Error al actualizar el estado',
+            'usuario' => $resultado ? $this->model->obtenerPorId($id) : null
+        ]);
+        exit;
+    }
+
+    // === Eliminar usuario ===
+    public function eliminarUsuario() {
+        $id = $_POST['id'] ?? 0;
+
+        try {
+            $sql = "DELETE FROM usuarios WHERE id = :id";
+            $stmt = $this->model->pdo->prepare($sql);
+            $stmt->execute([':id' => $id]);
+
+            echo json_encode([
+                'success' => true,
+                'message' => 'Usuario eliminado correctamente'
+            ]);
+        } catch (Exception $e) {
+            echo json_encode(['success' => false, 'message' => 'Error al eliminar: ' . $e->getMessage()]);
         }
+        exit;
+    }
+
+    // === Obtener usuario por ID ===
+    public function obtenerUsuario($id) {
+        $usuario = $this->model->obtenerPorId($id);
+        echo json_encode([
+            'success' => (bool)$usuario,
+            'usuario' => $usuario,
+            'message' => $usuario ? '' : 'Usuario no encontrado'
+        ]);
         exit;
     }
 }
 
-// Ejecutar el controlador
-$controller = new UserController();
-$controller->handleRequest();
+// === Disparar acción ===
+$ctrl = new UserController();
+$action = $_GET['action'] ?? 'index';
+$id = $_GET['id'] ?? null;
+
+if ($action === 'obtenerUsuario' && $id) {
+    $ctrl->obtenerUsuario($id);
+    exit;
+}
+
+if (in_array($action, ['crearUsuario','actualizarUsuario','cambiarEstado','eliminarUsuario'])) {
+    $ctrl->$action();
+    exit;
+}
+
+$ctrl->index();

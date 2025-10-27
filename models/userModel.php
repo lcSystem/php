@@ -9,6 +9,18 @@ class Usuario {
         $this->pdo = $pdo;
     }
 
+        public function listarUsuarios() {
+        $sql = "SELECT id, username, email, nombre_completo, fecha_registro, estado, telefono, direccion, edad, avatar, rol 
+                FROM usuarios";
+        $stmt = $this->pdo->prepare($sql);
+        
+        // Ejecutar la consulta
+        $stmt->execute();
+
+        // Obtener todos los resultados
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
   public function verificarExistencia($username, $email) {
         $sql = "SELECT id,username FROM usuarios WHERE username = :username OR email = :email LIMIT 1";
         $stmt = $this->pdo->prepare($sql);

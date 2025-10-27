@@ -39,11 +39,8 @@ renderTable('servicio', 'Servicios Registrados', $columns, $servicios, $actions,
 
   <script type="text/javascript">
 const servicios = <?= json_encode($servicios, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP) ?>;
-
- const SERVICIO_CONTROLLER_URL =  "<?= SERVICIO_CONTROLLER_URL ?>";
- var estados = ["activo", "inactivo"];
-
-
+ const estados = ["activo", "inactivo"];
+  const SERVICIO_CONTROLLER_URL =  "<?= SERVICIO_CONTROLLER_URL ?>";
   const camposServicio = [
       { nombre: "nombre", etiqueta: "nombre", tipo: "text" },
       { nombre: "duracion_minutos", etiqueta: "duracion minutos", tipo: "number" },
@@ -65,44 +62,6 @@ function abrirModalAgregarServicio() {
 function abrirModalEditarServicio(id, datosServicio) {
     abrir(camposServicio, datosServicio, "Servicio", (dataActualizada) => {
         actualizarServicio(id, dataActualizada);
-    });
-}
-
-function refrescarTabla(entidad) {
-    const table = document.getElementById(entidad);
-    if (!table) return;
-
-    // Limpiar tbody
-    const tbody = table.querySelector("tbody");
-    tbody.innerHTML = "";
-
-    // Agregar filas nuevas
-    servicios.forEach(row => {
-        const tr = document.createElement("tr");
-
-        // Columnas
-        <?php foreach ($columns as $key => $label): ?>
-        const td<?= $key ?> = document.createElement("td");
-        td<?= $key ?>.textContent = row["<?= $key ?>"] ?? "";
-        tr.appendChild(td<?= $key ?>);
-        <?php endforeach; ?>
-
-        // Acciones
-        const tdAcciones = document.createElement("td");
-        tdAcciones.innerHTML = `
-            <button class="btn-edit" onclick='abrirModalEditarServicio(${row.id}, ${JSON.stringify(row)})'>
-                <i class="fas fa-edit"></i>
-            </button>
-            <button class="btn-delete" onclick='eliminarServicio(${row.id})'>
-                <i class="fas fa-trash-alt"></i>
-            </button>
-            <button class="btn-toggle" onclick='cambiarEstadoServicio(${row.id}, "${row.estado}")'>
-                ${row.estado === "activo" ? '<i class="fas fa-check-circle"></i>' : '<i class="fas fa-times-circle"></i>'}
-            </button>
-        `;
-        tr.appendChild(tdAcciones);
-
-        tbody.appendChild(tr);
     });
 }
 

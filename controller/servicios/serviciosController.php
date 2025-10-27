@@ -1,8 +1,11 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 require_once __DIR__ . '/../../config/paths.php';
 require_once SERVICIOS_MODEL;
-require_once UT_UTILIDADES_PHP; 
+require_once UT_UTILIDADES_PHP; // archivo con funciones CRUD genéricas
 
 class ServiciosController {
     private $model;

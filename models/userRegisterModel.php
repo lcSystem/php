@@ -10,17 +10,6 @@ class usuarioRegistro {
         $this->pdo = $pdo;
     }
 
-    public function listarUsuarios() {
-        $sql = "SELECT id, username, email, nombre_completo, fecha_registro, estado, telefono, direccion, edad, avatar, rol 
-                FROM usuarios";
-        $stmt = $this->pdo->prepare($sql);
-        
-        // Ejecutar la consulta
-        $stmt->execute();
-
-        // Obtener todos los resultados
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
 
   public function eliminarUsuario($id) {
         if (!$id) {

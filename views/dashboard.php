@@ -13,14 +13,9 @@
           switch ($_GET['page']) {
               case 'formulario':
                   include FORMULARIO_VIEW;
-                  break;
-                  
+                  break;        
               case 'servicios':
-               if (!isset($_SESSION['user_rol']) || $_SESSION['user_rol'] !== 'admin') {
-                echo "<div class='card'><h3>Acceso denegado</h3><p>No tienes permisos para acceder a esta sección.</p></div>";
-                break;
-                }
-                 require_once  SERVICIO_CONTROLLER;
+                    require_once  SERVICIO_CONTROLLER;
                   break;
 
               case 'citas':
@@ -28,14 +23,8 @@
                   break;
 
              case 'users':
-                if (!isset($_SESSION['user_rol']) || $_SESSION['user_rol'] !== 'admin') {
-                echo "<div class='card'><h3>Acceso denegado</h3><p>No tienes permisos para acceder a esta sección.</p></div>";
-                break;
-                }
-                require_once USER_CONTROLLER;
-                $ctrl = new UserController();
-                $ctrl->mostrarUsuarios(); 
-                break;
+                  require_once USER_CONTROLLER;
+                  break;
 
              case 'config':
                 include CONFIG_VIEW;

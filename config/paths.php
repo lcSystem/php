@@ -65,7 +65,7 @@ define('BUNDLET_JS', JS_URL . '/bootstrap.bundle.min.js');                      
 define('JQUERY_JS', JS_URL . '/jquery-3.6.4.min.js');                           define('SWET_JS', JS_URL . '/sweetalert2@11.js');
 define('ALERTA_JS', JS_URL . '/alertas.js');                                    define('ALERTFY_JS', JS_URL . '/alertify.min.js');
 define('FLATPICKR_JS', JS_URL . '/flatpickr.js');                               define('JQUERY_DT_JS', JS_URL . '/jquery.dataTables.min.js');
-define('USEREGISTER_JS', JS_URL . '/userRegister.js');                          define('T_MENU_JS', JS_URL . '/togel_menu.js');
+                          define('T_MENU_JS', JS_URL . '/togel_menu.js');
 define('CITA_JS', JS_URL . '/citas/citas.js');                                  define('SERVICIOS_JS', JS_URL . '/servicios/servicios.php'); 
  define('CONST_JS', HELPER_PATH . '/const_js/const_js.php'); 
 // IMG --------------------------------------------------------------------------------------------------------------------------------------------
