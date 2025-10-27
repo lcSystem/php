@@ -16,6 +16,10 @@
                   break;
                   
               case 'servicios':
+               if (!isset($_SESSION['user_rol']) || $_SESSION['user_rol'] !== 'admin') {
+                echo "<div class='card'><h3>Acceso denegado</h3><p>No tienes permisos para acceder a esta sección.</p></div>";
+                break;
+                }
                  require_once  SERVICIO_CONTROLLER;
                   break;
 

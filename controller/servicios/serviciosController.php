@@ -1,9 +1,8 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+
 require_once __DIR__ . '/../../config/paths.php';
 require_once SERVICIOS_MODEL;
+require_once UT_UTILIDADES_PHP; 
 
 class ServiciosController {
     private $model;
@@ -19,63 +18,50 @@ class ServiciosController {
         require_once SERVICIOS_VIEW;
     }
 
-public function crearservicio() {
-
-    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-        echo json_encode(['success' => false, 'message' => 'Método no permitido']);
-        exit;
+    public function crearservicio() {
+        $campos = [
+            'nombre' => '',
+            'descripcion' => null,
+            'duracion_minutos' => 60,
+            'estado' => 'activo',
+            'precio' => 1000
+        ];
+        $datos = extraerDatos($campos);
+        guardarRegistro($this->model, $datos);
     }
 
-    $datos = [
-        'id'       =>           $_POST['id'] ?? 0,
-        'nombre'      =>        $_POST['nombre'] ?? 0,
-        'descripcion'      =>   $_POST['descripcion'] ?? null,
-        'duracion_minutos' =>   $_POST['duracion_minutos'] ?? '',
-        'estado'        =>      $_POST['estado'] ?? 'activo',
-        'precio' =>             $_POST['precio'] ?? 1000
-    ];
-
-    try {
-        $exito = $this->model->crearServicio($datos);
-
-        if ($exito) {
-            echo json_encode(['success' => true, 'servicio' => $datos]);
-        } else {
-            echo json_encode(['success' => false, 'message' => 'Error en INSERT del modelo']);
-        }
-    } catch (Exception $e) {
-        echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+    public function actualizarServicio() {
+        $id = $_POST['id'] ?? 0;
+        $campos = [
+            'nombre' => '',
+            'descripcion' => null,
+            'duracion_minutos' => 60,
+            'estado' => 'activo',
+            'precio' => 1000
+        ];
+        $datos = extraerDatos($campos);
+        actualizarRegistro($this->model, $id, $datos);
     }
 
-    exit;
+    public function cambiarEstado() {
+        $id = $_POST['id'] ?? 0;
+        $estado = $_POST['estado'] ?? 'activo';
+        cambiarEstadoRegistro($this->model, $id, $estado);
+    }
+
+    public function eliminarServicio() {
+        $id = $_POST['id'] ?? 0;
+        eliminarRegistro($this->model, $id);
+    }
 }
 
-public function eliminarServicio($id) {
-    $filasEliminadas = $this->model->eliminarServicio($id);
-
-    echo json_encode([
-        'success' => $filasEliminadas > 0,
-        'message' => $filasEliminadas > 0
-            ? 'Servicio eliminado correctamente'
-            : 'Error al eliminar el servicio o no existe el ID'
-    ]);
-    exit;
-}
-
-}
-
+// Disparar acción
 $ctrl = new ServiciosController();
-
 $action = $_GET['action'] ?? 'index';
 
-switch ($action) {
-    case 'crearservicio':
-        $ctrl->crearservicio();
-        break;
-    case 'eliminarServicio':
-    $ctrl->eliminarServicio($_POST['id'] ?? 0);
-    break;
-    default:
-        $ctrl->index();
-        break;
+if (in_array($action, ['crearservicio','actualizarServicio','cambiarEstado','eliminarServicio'])) {
+    $ctrl->$action();
+    exit; 
+} else {
+    $ctrl->index();
 }

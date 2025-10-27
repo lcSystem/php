@@ -39,19 +39,26 @@ function renderTable($idTable, $caption, $columns, $data, $actions = [], $addBut
                <?php if (!empty($actions)): ?>
 <td>
     <div class="action-buttons">
-        <?php if (isset($actions['editar'])): ?>
-            <button class="btn-edit" title="Editar" onclick="<?= $actions['editar'] ?>(<?= json_encode($row['id']) ?>)">
-                <i class="fas fa-edit"></i>
-            </button>
-        <?php endif; ?>
+<?php if (isset($actions['editar'])): ?>
+<?php 
+    // Convierte el objeto PHP a JSON y escapa comillas simples
+    $jsonData = json_encode($row, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP); 
+?>
+<button class="btn-edit" title="Editar" 
+        onclick='<?= $actions['editar'] ?>(<?= (int)$row['id'] ?>, <?= $jsonData ?>)'>
+    <i class="fas fa-edit"></i>
+</button>
+<?php endif; ?>
         <?php if (isset($actions['eliminar'])): ?>
             <button class="btn-delete" title="Eliminar" onclick="<?= $actions['eliminar'] ?>(<?= json_encode($row['id']) ?>)">
                 <i class="fas fa-trash-alt"></i>
             </button>
         <?php endif; ?>
-        <?php if (isset($actions['toggle'])): ?>
-            <button class="btn-toggle" title="Activar/Inactivar" onclick="<?= $actions['toggle'] ?>(<?= json_encode($row['id']) ?>, <?= json_encode($row['estado'] ?? '') ?>)">
-                <?php if(($row['estado'] ?? '') === 'activo'): ?>
+      <?php if (isset($actions['toggle'])): ?>
+            <?php $estado = ($row['estado'] ?? 'activo') === 'activo' ? 'activo' : 'inactivo'; ?>
+            <button class="btn-toggle" title="Activar/Inactivar" 
+                    onclick="<?= $actions['toggle'] ?>(<?= (int)$row['id'] ?>, '<?= addslashes($estado) ?>')">
+                <?php if($estado === 'activo'): ?>
                     <i class="fas fa-check-circle"></i>
                 <?php else: ?>
                     <i class="fas fa-times-circle"></i>

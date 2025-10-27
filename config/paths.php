@@ -6,21 +6,18 @@ define('BASE_URL', '/plantilla');
 
 define('BASE_PATH', $_SERVER['DOCUMENT_ROOT'] . '/plantilla');
 // directorios Assets --------------------------------------------------------------------------------------------------------------------------------------
-define('ASSETS_URL', BASE_URL . '/assets');
-define('CONFIG', BASE_URL . '/config');
-define('CSS_URL', ASSETS_URL . '/css');
-define('WEBFONT_URL', ASSETS_URL . '/webfont');
-define('JS_URL', ASSETS_URL . '/js');
-define('IMG_URL', ASSETS_URL . '/img');
-define('IMG_UPLOADS_URL', IMG_URL . '/uploads');
-define('CP_COMPONENTS', BASE_URL . '/components');
-define('CP_COMPONENTS_PATH', BASE_PATH . '/components');
+define('ASSETS_URL', BASE_URL . '/assets');                      define('CONFIG', BASE_URL . '/config');
+define('CSS_URL', ASSETS_URL . '/css');                          define('WEBFONT_URL', ASSETS_URL . '/webfont');
+define('JS_URL', ASSETS_URL . '/js');                            define('IMG_URL', ASSETS_URL . '/img');
+define('IMG_UPLOADS_URL', IMG_URL . '/uploads');                 
 
 // directorios de estructura -------------------------------------------------------------------------------------------------------------------------------
 define('VIEWS_PATH', BASE_PATH . '/views');				 define('VIEWS_URL', BASE_URL . '/views');
 define('CONTROLLER_PATH', BASE_PATH . '/controller');    define('CONTROLLER_URL', BASE_URL . '/controller');
 define('MODELS_PATH', BASE_PATH . '/models');            define('MODELS_URL', BASE_URL . '/models');
 define('HELPER_PATH', BASE_PATH . '/helpers');            define('HELPER_URL', BASE_URL . '/helpers');
+define('CP_COMPONENTS_PATH', BASE_PATH . '/components');  define('UT_UTILIDADES', BASE_PATH . '/utilidades');
+define('CP_COMPONENTS', BASE_URL . '/components');        define('UT_UTILIDADES_URL', BASE_URL . '/utilidades');
 
 // Views ---------------------------------------------------------------------------------------------------------------------------------------------------
 define('DASHBOARD_URL', VIEWS_URL . '/dashboard.php');                            define('PERFIL_VIEW', VIEWS_PATH . '/perfil/perfil.php');
@@ -32,6 +29,7 @@ define('SERVICIOS_VIEW', VIEWS_PATH . '/servicios/servicios.php');
 // Archivos específicos (opcional) -------------------------------------------------------------------------------------------------------------------------
 define('LOGIN_PAGE', BASE_URL . '/login.php');                                    define('WELCOME_PAGE', BASE_URL . '/welcome.php');
  define('CP_TABLE', CP_COMPONENTS_PATH . '/tableComponent.php');                  define('CP_MODALS', CP_COMPONENTS . '/modalComponent.js');
+ define('UT_UTILIDADES_JS', UT_UTILIDADES_URL . '/utilidadesJS.js');               define('UT_UTILIDADES_PHP', UT_UTILIDADES . '/utilidadesPHP.php');
 // Controllers ---------------------------------------------------------------------------------------------------------------------------------------------
 define('SERVICIO_CONTROLLER_URL', CONTROLLER_URL . '/servicios/serviciosController.php');  define('CITAS_CONTROLLER', CONTROLLER_PATH . '/citas/citasController.php');
 define('LOGOUT_CONTROLLER', CONTROLLER_URL . '/logout.php');                           define('REGISTRO_CONTROLLER', CONTROLLER_PATH . '/usuario/registroController.php');
