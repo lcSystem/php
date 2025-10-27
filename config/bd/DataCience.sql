@@ -41,6 +41,7 @@ CREATE TABLE servicios (
   nombre VARCHAR(100) NOT NULL,
   descripcion TEXT,
   duracion_minutos INT DEFAULT 30,
+  estado ENUM('activo','inactivo') DEFAULT 'activo',
   precio DECIMAL(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

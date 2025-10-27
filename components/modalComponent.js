@@ -1,8 +1,16 @@
-
+/**
+ * Crear un modal genérico (solo uno en el DOM)
+ */
 function crearModalGenerico() {
+  // ✅ Reutilizar si ya existe
+  let modalExistente = document.querySelector(".modal");
+  if (modalExistente) return modalExistente;
+
   const template = document.getElementById("templateComponent-modal");
   const clone = document.importNode(template.content, true);
   const modal = clone.querySelector(".modal");
+
+  // Botón cerrar
   const closeBtn = clone.querySelector(".close");
   closeBtn.onclick = () => modal.style.display = "none";
 
@@ -12,18 +20,25 @@ function crearModalGenerico() {
   });
 
   document.body.appendChild(clone);
-  return document.querySelector(".modal");
+  return modal;
 }
 
+/**
+ * Abrir un modal genérico con campos dinámicos
+ * @param {Object} options 
+ *  - titulo: Título del modal
+ *  - campos: Array de campos { nombre, etiqueta, tipo, opciones?, filas? }
+ *  - valores: Valores iniciales { campo: valor }
+ *  - onGuardar: Callback al presionar "Guardar"
+ */
 function abrirModalGenerico({ titulo = "Formulario", campos = [], valores = {}, onGuardar } = {}) {
   let modal = document.querySelector(".modal");
   if (!modal) modal = crearModalGenerico();
 
   const form = modal.querySelector("form");
-  form.innerHTML = "";
+  form.innerHTML = ""; // limpiar formulario
   modal.querySelector(".modal-title").textContent = titulo;
 
-  // Si no hay campos, mostramos un mensaje simple
   if (!campos.length) {
     const p = document.createElement("p");
     p.textContent = "No hay campos definidos.";
@@ -67,21 +82,24 @@ function abrirModalGenerico({ titulo = "Formulario", campos = [], valores = {}, 
     });
   }
 
-  // Botón guardar
+  // Botón Guardar
   const btn = document.createElement("button");
   btn.type = "button";
   btn.className = "btn-save";
   btn.textContent = "Guardar";
   btn.onclick = () => {
     const data = Object.fromEntries(new FormData(form).entries());
-    if (onGuardar) onGuardar(data);
-    modal.style.display = "none";
+    if (onGuardar) onGuardar(data); // callback externo
+    modal.style.display = "none";   // cerrar modal
   };
   form.appendChild(btn);
 
   modal.style.display = "flex";
 }
 
+/**
+ * Función simplificada para abrir un modal
+ */
 function abrir(campos = [], valores = {}, titulo = "Formulario", onGuardar) {
   abrirModalGenerico({ campos, valores, titulo, onGuardar });
 }

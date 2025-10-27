@@ -33,12 +33,12 @@ define('SERVICIOS_VIEW', VIEWS_PATH . '/servicios/servicios.php');
 define('LOGIN_PAGE', BASE_URL . '/login.php');                                    define('WELCOME_PAGE', BASE_URL . '/welcome.php');
  define('CP_TABLE', CP_COMPONENTS_PATH . '/tableComponent.php');                  define('CP_MODALS', CP_COMPONENTS . '/modalComponent.js');
 // Controllers ---------------------------------------------------------------------------------------------------------------------------------------------
-                                                                                  define('CITAS_CONTROLLER', CONTROLLER_PATH . '/citas/citasController.php');
-define('LOGOUT_CONTROLLER', CONTROLLER_URL . '/logout.php');                      define('REGISTRO_CONTROLLER', CONTROLLER_PATH . '/usuario/registroController.php');
-                                                                                  define('USER_CONTROLLER', CONTROLLER_PATH . '/usuario/userController.php');  
-define('PERFIL_CONTROLLER_URL', CONTROLLER_URL . '/perfil/perfilController.php'); define('PERFIL_CONTROLLER', CONTROLLER_PATH . '/perfil/perfilController.php');
-define('USER_CONTROLLER_URL', CONTROLLER_URL . '/usuario/userController.php');    define('LOGIN_CONTROLLER', CONTROLLER_PATH . '/loginController.php');
-define('CITAS_CONTROLLER_URL', CONTROLLER_URL . '/citas/citasController.php');    define('SERVICIO_CONTROLLER', CONTROLLER_PATH . '/servicios/serviciosController.php'); 
+define('SERVICIO_CONTROLLER_URL', CONTROLLER_URL . '/servicios/serviciosController.php');  define('CITAS_CONTROLLER', CONTROLLER_PATH . '/citas/citasController.php');
+define('LOGOUT_CONTROLLER', CONTROLLER_URL . '/logout.php');                           define('REGISTRO_CONTROLLER', CONTROLLER_PATH . '/usuario/registroController.php');
+                                                                                       define('USER_CONTROLLER', CONTROLLER_PATH . '/usuario/userController.php');  
+define('PERFIL_CONTROLLER_URL', CONTROLLER_URL . '/perfil/perfilController.php');      define('PERFIL_CONTROLLER', CONTROLLER_PATH . '/perfil/perfilController.php');
+define('USER_CONTROLLER_URL', CONTROLLER_URL . '/usuario/userController.php');         define('LOGIN_CONTROLLER', CONTROLLER_PATH . '/loginController.php');
+define('CITAS_CONTROLLER_URL', CONTROLLER_URL . '/citas/citasController.php');      define('SERVICIO_CONTROLLER', CONTROLLER_PATH . '/servicios/serviciosController.php');
 // models --------------------------------------------------------------------------------------------------------------------------------------------------
 
 define('USER_MODEL', MODELS_PATH . '/userModel.php');   						   define('REGISTER_MODEL', MODELS_PATH . '/userRegisterModel.php');

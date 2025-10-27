@@ -11,7 +11,7 @@ class Servicios {
 
     // Listar todos los servicios
     public function listarServicios() {
-        $sql = "SELECT id, nombre, descripcion, duracion_minutos, precio 
+        $sql = "SELECT id, nombre, descripcion, duracion_minutos, precio ,estado
                 FROM servicios 
                 ORDER BY nombre";
         $stmt = $this->pdo->query($sql);
@@ -20,7 +20,7 @@ class Servicios {
 
     // Obtener un servicio por ID
     public function obtenerPorId($id) {
-        $sql = "SELECT id, nombre, descripcion, duracion_minutos, precio 
+        $sql = "SELECT id, nombre, descripcion, duracion_minutos, precio ,estado
                 FROM servicios 
                 WHERE id = :id";
         $stmt = $this->pdo->prepare($sql);
@@ -31,21 +31,22 @@ class Servicios {
 
     // Crear un nuevo servicio
     public function crearServicio($datos) {
-        $sql = "INSERT INTO servicios (nombre, descripcion, duracion_minutos, precio) 
-                VALUES (:nombre, :descripcion, :duracion_minutos, :precio)";
+        $sql = "INSERT INTO servicios (nombre, descripcion, duracion_minutos, precio,estado) 
+                VALUES (:nombre, :descripcion, :duracion_minutos, :precio ,:estado)";
         $stmt = $this->pdo->prepare($sql);
         return $stmt->execute([
             ':nombre' => $datos['nombre'],
             ':descripcion' => $datos['descripcion'],
             ':duracion_minutos' => $datos['duracion_minutos'],
-            ':precio' => $datos['precio']
+            ':precio' => $datos['precio'],
+            ':estado' => $datos['estado']
         ]);
     }
 
     // Actualizar un servicio
     public function actualizarServicio($id, $datos) {
         $sql = "UPDATE servicios 
-                SET nombre = :nombre, descripcion = :descripcion, duracion_minutos = :duracion_minutos, precio = :precio 
+                SET nombre = :nombre, descripcion = :descripcion, duracion_minutos = :duracion_minutos, precio = :precio ,estado = :estado 
                 WHERE id = :id";
         $stmt = $this->pdo->prepare($sql);
         return $stmt->execute([
@@ -58,9 +59,10 @@ class Servicios {
     }
 
     // Eliminar un servicio
-    public function eliminarServicio($id) {
-        $sql = "DELETE FROM servicios WHERE id = :id";
-        $stmt = $this->pdo->prepare($sql);
-        return $stmt->execute([':id' => $id]);
-    }
+public function eliminarServicio($id) {
+    $sql = "DELETE FROM servicios WHERE id = :id";
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->execute([':id' => $id]);
+    return $stmt->rowCount(); 
+}
 }

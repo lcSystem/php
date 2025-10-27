@@ -42,31 +42,89 @@ renderTable('servicio', 'Servicios Registrados', $columns, $servicios, $actions,
 
   <script type="text/javascript">
 const servicios = <?= json_encode($servicios, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP) ?>;
-  const camposCita = [
-      { nombre: "id", etiqueta: "ID", tipo: "text"},
+ const SERVICIO_CONTROLLER_URL =  "<?= SERVICIO_CONTROLLER_URL ?>";
+  const camposServicio = [
       { nombre: "nombre", etiqueta: "nombre", tipo: "text" },
-      { nombre: "duracion_minutos", etiqueta: "duracion_minutos", tipo: "time" },
-      { nombre: "descripcion", etiqueta: "descripcion", tipo: "textarea" }
+      { nombre: "duracion_minutos", etiqueta: "duracion minutos", tipo: "number" },
+      { nombre: "precio", etiqueta: "precio", tipo: "number" },
+      { nombre: "descripcion", etiqueta: "descripcion", tipo: "textarea" },
+      { nombre: "estado", etiqueta: "Estado", tipo: "select", 
+        opciones: servicios.map(c => ({ value: c.estado, text: c.estado }))}
 
     ];
 
   const valores = {
-    id: 1,
-    cliente: usuarioActual ? usuarioActual.id : "",
-    fecha: fechaActual,
-    hora: horaActual,
     servicio: 1,
-    observaciones: ""
+    estado: 'activo',
+    descripcion: ""
   };
 
 
 function abrirModalAgregarServicio() {
-  abrir(camposCita, "", "Servicio", (data) => {
-    guardarServicio(data)
-
+  abrir(camposServicio, "", "Servicio", (data) => {
+    guardarServicio(data);
+    
   });
 }
+
+function guardarServicio(data) {
+    const datos = {
+        nombre: data.nombre,
+        descripcion: data.descripcion,
+        duracion_minutos: parseInt(data.duracion_minutos) || 60,
+        estado: 'activo',
+        precio: data.precio
+    };
+
+    console.log("📤 Enviando datos:", datos);
+
+    $.post(`${SERVICIO_CONTROLLER_URL}?action=crearservicio`, datos, function(response) {
+        console.log("📥 Respuesta del servidor:", response);
+
+        if (response && response.success) {
+            showToast("Servicio guardada correctamente", "success");
+            servicios.push(response.servicios);
+            $('#modalCita').modal('hide');
+        } else {
+            showToast("Error al guardar el servicio: " + (response?.message || "Desconocido"), "error");
+        }
+    }, 'json').fail(function(xhr, status, error) {
+        console.error("🚨 Error AJAX:", error, xhr.responseText);
+        showToast("Error en el servidor: " + error, "error");
+    });
+}
+
+
+// Función para eliminar un servicio
+function eliminarServicio(id) {
+    const mensaje = `¿Estás seguro de que deseas eliminar este servicio? `;
+showConfirmation(mensaje, () => {
+       $.ajax({
+    url: `${SERVICIO_CONTROLLER_URL}?action=eliminarServicio`,
+    type: 'POST',
+    data: { id: id },
+    dataType: 'json',
+    success: function(response) {
+        if (response.success) {
+            showToast("Servicio eliminado correctamente", "success");
+        } else {
+            showToast("Error al eliminar el Servicio: " + response.message, "error");
+        }
+    },
+    error: function(xhr, status, error) {
+        showToast("Error en el servidor: " + error, "error");
+    }
+});
+     }, () => { // callback si cancela
+        showToast('Acción cancelada', 'warning');
+    });
+}
+
+//.........................................................
+//dejar controlador optimocon estandares utilidades en metodos para evitar codigo este va ser el ejemplo 
+// optimizar metodos eliminar guardar para que tamsolo con llamarlo y pasarle datos funcione solucionar problema de que no actualiza el registro 
+// eliinado o mostrando agregado
 </script>
 
 <script src="<?php echo JQUERY_JS; ?>"></script>
- <script src="<?php echo SERVICIOS_JS ?>"></script>
+
