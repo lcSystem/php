@@ -58,7 +58,7 @@ define('ALL_CSS', CSS_URL . '/all.min.css');                                    
 define('MODAL_LOG_CSS', CSS_URL . '/modal-log.css');                            define('STYLEUSER_CSS', CSS_URL . '/styleUser.css');
 define('PERFIL_CSS', CSS_URL . '/perfil.css');                                  define('MODALEDIT_CSS', CSS_URL . '/modalComponent.css');
 define('JQUERY_DATAT_CSS', CSS_URL . '/jquery.dataTables.min.css');             define('FLATPICKR_CSS', CSS_URL . '/flatpickr.min.css');
-define('STYLEBUTTONS_CSS', CSS_URL . '/styleButtons.css');
+define('STYLEBUTTONS_CSS', CSS_URL . '/styleButtons.css');                      define('RESPONSIVEDT_CSS', CSS_URL . '/responsive.dataTables.min.css');
 
 // JS --------------------------------------------------------------------------------------------------------------------------------------------
 define('LOGIN_JS', JS_URL . '/login.js');                                       define('NOTIFY_JS', JS_URL . '/notifications.js');

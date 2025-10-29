@@ -50,28 +50,35 @@ const estados = ["activo", "inactivo"];
 const roles = ["usuario", "admin", "cliente"];
 const USUARIO_CONTROLLER_URL = "<?= USER_CONTROLLER_URL ?>";
 
-const camposUsuario = [
-    { nombre: "username", etiqueta: "Username", tipo: "text" },
-    { nombre: "email", etiqueta: "Email", tipo: "email" },
-    { nombre: "nombre_completo", etiqueta: "Nombre Completo", tipo: "text" },
+const camposUsuario = [ 
+    { nombre: "username", etiqueta: "Username", tipo: "text",requerido: true },
+    { nombre: "email", etiqueta: "Email", tipo: "email", requerido: true },
+    { nombre: "nombre_completo", etiqueta: "Nombre Completo", tipo: "text", requerido: true },
     { nombre: "telefono", etiqueta: "Teléfono", tipo: "text" },
-    { nombre: "direccion", etiqueta: "Dirección", tipo: "text" },
-    { nombre: "edad", etiqueta: "Edad", tipo: "number" },
+    { nombre: "direccion", etiqueta: "Dirección", tipo: "text",requerido: true },
+    { nombre: "edad", etiqueta: "Edad", tipo: "number",requerido: true },
     { nombre: "rol", etiqueta: "Rol", tipo: "select", opciones: roles.map(r => ({ value: r, text: r })) },
     { nombre: "estado", etiqueta: "Estado", tipo: "select", opciones: estados.map(e => ({ value: e, text: e })) },
-    { nombre: "clave", etiqueta: "contraseña", tipo: "text" },
-    { nombre: "password", etiqueta: "confirmación de contraseña", tipo: "text" }
+    { nombre: "password", etiqueta: "contraseña", tipo: "text", requerido: true },
+    { nombre: "confirmPassword", etiqueta: "confirmación de contraseña", tipo: "text" , requerido: true }
 ];
 
 function abrirModalAgregarUsuario() {
-    abrir(camposUsuario, {}, "Usuario", (data) => {
-        guardarUsuario(data);
+    abrir({
+        campos: camposUsuario, btnId: "idbotonGuardarModal", valores: {}, titulo: "Usuario", onGuardar: (data) => {
+            guardarUsuario(data);
+        },  validaciones: [{
+            tipo: "passwordConfirm", 
+            campos: ["password", "confirmPassword"] 
+        }]
     });
 }
 
 function abrirModalEditarUsuario(id, datosUsuario) {
-    abrir(camposUsuario, datosUsuario, "Usuario", (dataActualizada) => {
-        actualizarUsuario(id, dataActualizada);
+    abrir({
+        campos: camposUsuario, btnId: "idbotonGuardarModal", valores: datosUsuario, titulo: "Usuario",onGuardar: (dataActualizada) => {
+            actualizarUsuario(id, dataActualizada);
+        } 
     });
 }
 
@@ -106,5 +113,6 @@ function toggleUsuario(id, estadoActual) {
        refrescarTabla('servicio');
     });
 }
+
 
 </script>

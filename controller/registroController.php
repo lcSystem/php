@@ -40,7 +40,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $response["titulo"] = "Usuario existente";
         } else {
             $passwordHash = password_hash($password, PASSWORD_DEFAULT);
-            $isRegistered = $usuario->registrar($username, $email, $passwordHash, $nombreCompleto, $telefono, $direccion, $edad, $sexo);
+
+            $datos = [
+                'username'        => $username,
+                'email'           => $email,
+                'password'        => $passwordHash,
+                'nombre_completo' => $nombreCompleto,
+                'telefono'        => $telefono,
+                'direccion'       => $direccion,
+                'edad'            => $edad,
+                'sexo'            => $sexo
+            ];
+
+                $isRegistered = $usuario->registrar($datos);
+
 
             if ($isRegistered) {
                 $response["success"] = true;

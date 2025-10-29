@@ -41,6 +41,7 @@ if (!isset($_SESSION['user_id'])) {
 <link rel="stylesheet" href="<?php echo FLATPICKR_CSS; ?>">
 <link rel="stylesheet" href="<?= NOTIFY_CSS ?>">
 <link rel="stylesheet" href="<?php echo STYLEBUTTONS_CSS; ?>">
+<link rel="stylesheet" href="<?php echo RESPONSIVEDT_CSS; ?>">
 </head>
 <body>
 <header>

@@ -103,4 +103,9 @@
 
 
 </body>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    initValidacionPassword('#password', '#confirmarPassword','#mensajePassword', '#botonRegistrar');
+});
+</script>
 </html>

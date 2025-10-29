@@ -42,26 +42,28 @@ const servicios = <?= json_encode($servicios, JSON_HEX_TAG | JSON_HEX_APOS | JSO
  const estados = ["activo", "inactivo"];
   const SERVICIO_CONTROLLER_URL =  "<?= SERVICIO_CONTROLLER_URL ?>";
   const camposServicio = [
-      { nombre: "nombre", etiqueta: "nombre", tipo: "text" },
-      { nombre: "duracion_minutos", etiqueta: "duracion minutos", tipo: "number" },
-      { nombre: "precio", etiqueta: "precio", tipo: "number" },
-      { nombre: "descripcion", etiqueta: "descripcion", tipo: "textarea" },
+      { nombre: "nombre", etiqueta: "nombre", tipo: "text",requerido: true },
+      { nombre: "duracion_minutos", etiqueta: "duracion minutos", tipo: "number",requerido: true },
+      { nombre: "precio", etiqueta: "precio", tipo: "number",requerido: true },
+      { nombre: "descripcion", etiqueta: "descripcion", tipo: "textarea",requerido: true },
       { nombre: "estado", etiqueta: "Estado", tipo: "select", 
                  opciones: estados.map(e => ({ value: e, text: e }))}
 
     ];
-
-
-function abrirModalAgregarServicio() {
-  abrir(camposServicio, "", "Servicio", (data) => {
-    guardarServicio(data);
-    
-  });
+function abrirModalAgregarServicio(id, datosUsuario) {
+    abrir({
+        campos: camposServicio, valores: "", titulo: "Servicio",onGuardar: (data) => {
+             guardarServicio(data);
+        } 
+    });
 }
 
+
 function abrirModalEditarServicio(id, datosServicio) {
-    abrir(camposServicio, datosServicio, "Servicio", (dataActualizada) => {
-        actualizarServicio(id, dataActualizada);
+    abrir({
+        campos: camposServicio, valores: datosServicio, titulo: "Servicio",onGuardar: (dataActualizada) => {
+           actualizarServicio(id, dataActualizada);
+        } 
     });
 }
 

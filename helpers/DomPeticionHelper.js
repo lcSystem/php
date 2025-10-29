@@ -16,14 +16,32 @@ function evaluarFortalezaPassword(password) {
     return "fuerte";
 }
 
-// === Escuchar cambios en tiempo real ===
-document.addEventListener('DOMContentLoaded', () => {
-    const pass1 = document.getElementById('password');
-    const pass2 = document.getElementById('confirmarPassword');
-    const mensaje = document.getElementById('mensajePassword');
-    const boton = document.getElementById('botonRegistrar');
+/**
+ * Inicializa la validación de contraseñas en tiempo real.
+ * @param {string|HTMLElement} selectorPass1 - input de contraseña
+ * @param {string|HTMLElement} selectorPass2 - input de confirmación
+ * @param {string|HTMLElement|null} selectorMensaje - elemento para mostrar mensaje (opcional)
+ * @param {string|HTMLElement} selectorBoton - botón a bloquear/habilitar
+ */
+function initValidacionPassword(selectorPass1, selectorPass2, selectorMensaje = null, selectorBoton) {
+    const pass1 = typeof selectorPass1 === "string" ? document.querySelector(selectorPass1) : selectorPass1;
+    const pass2 = typeof selectorPass2 === "string" ? document.querySelector(selectorPass2) : selectorPass2;
+    let mensaje = selectorMensaje 
+        ? (typeof selectorMensaje === "string" ? document.querySelector(selectorMensaje) : selectorMensaje)
+        : null;
+    const boton = typeof selectorBoton === "string" ? document.querySelector(selectorBoton) : selectorBoton;
 
-    // 🔒 Inicia bloqueado
+    if (!pass1 || !pass2 || !boton) return console.error('No se encontraron los elementos para la validación');
+
+    // Crear mensaje automáticamente si no existe
+    if (!mensaje) {
+        mensaje = document.createElement('small');
+        mensaje.style.color = 'orange';
+        mensaje.style.fontWeight = 'bold';    
+        pass2.insertAdjacentElement('afterend', mensaje);
+    }
+
+    // 🔒 Bloquear botón inicialmente
     boton.disabled = true;
     boton.style.opacity = "0.6";
     boton.style.cursor = "not-allowed";
@@ -32,33 +50,33 @@ document.addEventListener('DOMContentLoaded', () => {
         const p1 = pass1.value;
         const p2 = pass2.value;
 
-        // Verificar fortaleza
         const nivel = evaluarFortalezaPassword(p1);
         let texto = "";
 
+        // Verificar fortaleza
         if (p1 && nivel === "débil") {
-            texto = "⚠️ La contraseña es débil. Usa mayúsculas, números y símbolos.";
+            texto = " ⚠️ La contraseña es débil. Usa mayúsculas, números y símbolos.";
             mensaje.style.color = "red";
         } else if (p1 && nivel === "media") {
-            texto = "🟡 Seguridad media. Agrega más complejidad.";
+            texto = " 🟡 Seguridad media. Agrega más complejidad.";
             mensaje.style.color = "orange";
         } else if (p1 && nivel === "fuerte") {
-            texto = "\n🟢 ";
+            texto = "  \n 🟢 ";
             mensaje.style.color = "green";
         }
 
         // Verificar coincidencia
-        let coinciden = contraseñasCoinciden(p1, p2);
+        const coinciden = contraseñasCoinciden(p1, p2);
         if (p1 && p2 && !coinciden) {
             texto += "\n❌ Las contraseñas no coinciden.";
             mensaje.style.color = "red";
         } else if (p1 && p2 && coinciden && nivel === "fuerte") {
-            texto += "\n✅ ";
+            texto += " \n ✅ ";
         }
 
         mensaje.textContent = texto;
 
-        // 🔓 Habilitar o bloquear el botón según la validación
+        // 🔓 Habilitar o bloquear el botón
         if (coinciden && nivel === "fuerte") {
             boton.disabled = false;
             boton.style.opacity = "1";
@@ -72,4 +90,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
     pass1.addEventListener('input', validarPassword);
     pass2.addEventListener('input', validarPassword);
-});
+}

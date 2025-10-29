@@ -36,6 +36,7 @@ require_once __DIR__ . '/../config/paths.php';
 <script src="<?php echo NOTIFY_JS ?>"></script> 
 <script src="<?php echo T_MENU_JS ?>"></script> 
 <script src="<?php echo CP_MODALS ?>"></script> 
+<script src="<?php echo HP_DOMPETICION; ?>"></script>
 
 
 </html>

@@ -31,7 +31,7 @@ function crearModalGenerico() {
  *  - valores: Valores iniciales { campo: valor }
  *  - onGuardar: Callback al presionar "Guardar"
  */
-function abrirModalGenerico({ titulo = "Formulario", campos = [], valores = {}, onGuardar } = {}) {
+function abrirModalGenerico({ titulo = "Formulario",  campos = [], valores = {}, onGuardar, btnId, validaciones = []  } = {}) {
   let modal = document.querySelector(".modal");
   if (!modal) modal = crearModalGenerico();
 
@@ -72,6 +72,8 @@ function abrirModalGenerico({ titulo = "Formulario", campos = [], valores = {}, 
           input = document.createElement("input");
           input.type = campo.tipo || "text";
           input.placeholder = "Ingresa " + campo.etiqueta.toLowerCase();
+          if (campo.id) input.id = campo.id;
+          if (campo.requerido) input.required = true;
       }
 
       input.name = campo.nombre;
@@ -87,12 +89,26 @@ function abrirModalGenerico({ titulo = "Formulario", campos = [], valores = {}, 
   btn.type = "button";
   btn.className = "btn-save";
   btn.textContent = "Guardar";
+  if (btnId) btn.id = btnId;
+
   btn.onclick = () => {
+     if (!form.reportValidity()) return; 
     const data = Object.fromEntries(new FormData(form).entries());
     if (onGuardar) onGuardar(data); // callback externo
     modal.style.display = "none";   // cerrar modal
   };
   form.appendChild(btn);
+
+      
+validaciones.forEach(valid => {
+    if(valid.tipo === "passwordConfirm") {
+        const [campo1, campo2] = valid.campos;
+        const input1 = form.querySelector(`[name="${campo1}"]`);
+        const input2 = form.querySelector(`[name="${campo2}"]`);
+        if(input1 && input2) initValidacionPassword(input1, input2, null, btn);
+    }
+});
+
 
   modal.style.display = "flex";
 }
@@ -100,6 +116,6 @@ function abrirModalGenerico({ titulo = "Formulario", campos = [], valores = {}, 
 /**
  * Función simplificada para abrir un modal
  */
-function abrir(campos = [], valores = {}, titulo = "Formulario", onGuardar) {
-  abrirModalGenerico({ campos, valores, titulo, onGuardar });
+function abrir(options = {}) {
+  abrirModalGenerico(options);
 }
