@@ -1,114 +1,93 @@
--- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
---
--- Servidor: localhost
--- Tiempo de generación: 18-09-2025 a las 02:25:08
--- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.2.12
+-- ======================================
+-- BASE DE DATOS: DataCience (Sistema de Citas)
+-- ======================================
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
+CREATE DATABASE IF NOT EXISTS DataCience CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE DataCience;
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+-- ======================================
+-- 1️ TABLA USUARIOS (Clientes, Empleados, Admin)
+-- ======================================
 
---
--- Base de datos: `DataCience`
---
+CREATE TABLE usuarios (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  username VARCHAR(50) NOT NULL,
+  email VARCHAR(100) NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  nombre_completo VARCHAR(100) DEFAULT NULL,
+  telefono VARCHAR(20) DEFAULT NULL,
+  direccion TEXT DEFAULT NULL,
+  edad INT(2) DEFAULT NULL,
+  sexo ENUM('M','F') DEFAULT NULL,
+  avatar VARCHAR(255) DEFAULT NULL,
+  rol ENUM('admin','empleado','cliente') DEFAULT 'cliente',
+  estado ENUM('activo','inactivo') DEFAULT 'activo',
+  fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  UNIQUE KEY (username),
+  UNIQUE KEY (email)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- ======================================
+-- 2️ TABLA SERVICIOS
+-- ======================================
 
--- --------------------------------------------------------
+CREATE TABLE servicios (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(100) NOT NULL,
+  descripcion TEXT,
+  duracion_minutos INT DEFAULT 30,
+  estado ENUM('activo','inactivo') DEFAULT 'activo',
+  precio DECIMAL(10,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Estructura de tabla para la tabla `usuarios`
---
+-- ======================================
+-- 3️ TABLA HORARIOS DE EMPLEADOS
+-- ======================================
 
-CREATE TABLE `usuarios` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(50) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `nombre_completo` varchar(100) DEFAULT NULL,
-  `fecha_registro` timestamp NOT NULL DEFAULT current_timestamp(),
-  `estado` enum('inactivo','activo') DEFAULT 'inactivo',
-  `telefono` varchar(20) DEFAULT NULL,
-  `direccion` text DEFAULT NULL,
-  `edad` int(2) DEFAULT NULL,
-  `sexo` varchar(1) DEFAULT NULL, 
-  `avatar` varchar(255) DEFAULT NULL,
-  `rol` enum('usuario','admin','cliente') DEFAULT 'usuario',
-  `ejecutables` varchar(20) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `username` (`username`),
-  UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+CREATE TABLE horarios_empleado (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  empleado_id INT NOT NULL,
+  dia_semana ENUM('lunes','martes','miercoles','jueves','viernes','sabado','domingo') NOT NULL,
+  hora_inicio TIME NOT NULL,
+  hora_fin TIME NOT NULL,
+  FOREIGN KEY (empleado_id) REFERENCES usuarios(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- ======================================
+-- 4️ TABLA DÍAS NO LABORALES (Festivos o cierre)
+-- ======================================
 
--- Indices de la tabla `usuarios`
---
-ALTER TABLE `usuarios`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `username` (`username`),
-  ADD UNIQUE KEY `email` (`email`);
+CREATE TABLE dias_no_laborales (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  fecha DATE NOT NULL,
+  motivo VARCHAR(255)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- AUTO_INCREMENT de las tablas volcadas
---
+-- ======================================
+-- 5️ TABLA CITAS
+-- ======================================
 
--- AUTO_INCREMENT de la tabla `usuarios`
---
-ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+CREATE TABLE citas (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  cliente_id INT NOT NULL,                -- Cliente que recibe el servicio
+  servicio_id INT NOT NULL,               -- Tipo de servicio
+  empleado_id INT DEFAULT NULL,           -- Empleado asignado
+  fecha_cita DATE NOT NULL,
+  hora_cita TIME NOT NULL,
+  duracion_minutos INT DEFAULT 30,        -- Copia del servicio (por si cambia después)
+  estado ENUM('pendiente','confirmada','cancelada','completada','no_asistio') DEFAULT 'pendiente',
+  comentarios TEXT,
+  creada_por INT DEFAULT NULL,            -- Quién registró la cita (cliente o empleado)
+  fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (cliente_id) REFERENCES usuarios(id) ON DELETE CASCADE,
+  FOREIGN KEY (servicio_id) REFERENCES servicios(id) ON DELETE CASCADE,
+  FOREIGN KEY (empleado_id) REFERENCES usuarios(id) ON DELETE SET NULL,
+  FOREIGN KEY (creada_por) REFERENCES usuarios(id) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 COMMIT;
-
---
--- Tabla de servicios del salón
---
-CREATE TABLE `servicios` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `nombre` VARCHAR(100) NOT NULL,
-  `descripcion` TEXT DEFAULT NULL,
-  `duracion_minutos` INT(11) NOT NULL DEFAULT 30,
-  `precio` DECIMAL(10,2) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Tabla de empleados (opcional, si quieres asignar estilistas)
---
-CREATE TABLE `empleados` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `nombre_completo` VARCHAR(100) NOT NULL,
-  `telefono` VARCHAR(20) DEFAULT NULL,
-  `email` VARCHAR(100) DEFAULT NULL,
-  `especialidad` VARCHAR(100) DEFAULT NULL,
-  `estado` ENUM('activo','inactivo') DEFAULT 'activo',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Tabla de citas (agenda)
---
-CREATE TABLE `citas` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `usuario_id` INT(11) NOT NULL,
-  `servicio_id` INT(11) NOT NULL,
-  `empleado_id` INT(11) DEFAULT NULL,
-  `fecha_cita` DATE NOT NULL,
-  `hora_cita` TIME NOT NULL,
-  `estado` ENUM('pendiente','confirmada','cancelada','completada') DEFAULT 'pendiente',
-  `comentarios` TEXT DEFAULT NULL,
-  `fecha_creacion` TIMESTAMP NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`),
-  KEY `usuario_id` (`usuario_id`),
-  KEY `servicio_id` (`servicio_id`),
-  KEY `empleado_id` (`empleado_id`),
-  CONSTRAINT `citas_usuario_fk` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `citas_servicio_fk` FOREIGN KEY (`servicio_id`) REFERENCES `servicios` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `citas_empleado_fk` FOREIGN KEY (`empleado_id`) REFERENCES `empleados` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
