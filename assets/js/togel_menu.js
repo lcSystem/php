@@ -1,29 +1,31 @@
-   function toggleMenu() {
+function toggleMenu() {
   document.getElementById("dropdown").classList.toggle("hidden");
 }
 
 $(document).ready(function() {
-    $('table').each(function() {
-        if (!$.fn.DataTable.isDataTable(this)) {
-            $(this).DataTable({
-                responsive: true,
-                paging: true,
-                searching: true,
-                lengthChange: true,
-                pageLength: 5, // Número de registros por página
-                language: {
-                    search: "Buscar:",
-                    lengthMenu: "Mostrar _MENU_ registros por página",
-                    info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
-                    paginate: {
-                        first: "Primero",
-                        last: "Último",
-                        next: "Siguiente",
-                        previous: "Anterior"
-                    }
-                }
-            });
-        }
+    const tabla = $('table').DataTable({
+        responsive: true,
+        paging: true,
+        searching: true, 
+        lengthChange: false,
+        pageLength: 5,
+        language: {
+            info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
+            infoEmpty: "No hay registros disponibles",
+            zeroRecords: "No se encontraron resultados",
+            paginate: {
+                first: "Primero",
+                last: "Último",
+                next: "Siguiente",
+                previous: "Anterior"
+            }
+        },
+        dom: "t<'d-flex justify-content-between mt-2'<'info'i><'pagination'p>>" // reorganizamos la info y paginación
+    });
+
+    // 🔹 Buscador externo
+    // Asegúrate que #mi-buscador esté en el DOM al momento de ejecutar esto
+    $('#mi-buscador').on('input', function() {
+        tabla.search(this.value).draw();
     });
 });
-

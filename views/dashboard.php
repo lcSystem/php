@@ -3,7 +3,7 @@
 <div class="container">
     <!-- Search -->
     <div class="search-box">
-      <input type="text" placeholder="Buscar en el sistema...">
+      <input type="text" id="mi-buscador" placeholder="Buscar en el sistema...">
     </div>
 
     <!-- Cards dinámicas -->

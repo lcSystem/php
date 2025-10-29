@@ -1,18 +1,17 @@
 .modal {
     position: fixed;
-    top: 50%;
+    top: 0;                 /* 🔹 desde arriba */
     left: 0;
     width: 100%;
-    height: auto; /* que se ajuste al contenido */
+    height: 100vh;          /* 🔹 ocupa toda la ventana */
     background: rgba(0,0,0,0.6);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 1000;
-    overflow-y: auto;
+    overflow-y: auto;        /* permite scroll si el modal es largo */
     padding: 20px;
     font-family: 'Poppins', sans-serif;
-    transform: translateY(-50%);
 }
 /* Contenido modal */
 .modal .modal-content {
@@ -187,6 +186,7 @@
     box-shadow: 0 0 10px rgba(212,175,55,0.35);
 }
 
+
 /* Botón dorado agregar */
 .btn-gold {
     background-color: #e0ac3d; /* dorado sólido */
@@ -201,6 +201,12 @@
     letter-spacing: 1px;
     transition: all 0.3s ease;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16);
+    display: inline-flex; 
+    align-items: center;
+    justify-content: center;
+    float: right;
+    margin-bottom: 0px; /* margen por defecto */
+     margin-right: 11px;
 }
 
 .btn-gold:hover {
@@ -222,4 +228,11 @@
 .btn-gold:hover i {
     transform: rotate(15deg);
 }
+
+@media (max-width: 768px) {
+    .btn-gold {
+        float: none;
+        display: block; 
+        margin: 0 auto 15px auto;
+    }
 }
