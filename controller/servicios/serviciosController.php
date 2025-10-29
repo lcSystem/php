@@ -25,7 +25,7 @@ class ServiciosController {
         $servicios = $this->servicios; 
         require_once SERVICIOS_VIEW;
     }
-
+    
     public function crearservicio() {
         $campos = [
             'nombre' => '',

@@ -85,7 +85,6 @@ function abrirModalEditarUsuario(id, datosUsuario) {
 function guardarUsuario(data) {
     guardarRegistro(`${USUARIO_CONTROLLER_URL}?action=crearUsuario`, data, 'usuario', (response) => {
         usuarios.push(response.usuario);
-       refrescarTabla('servicio');
     });
 }
 
@@ -94,7 +93,6 @@ function actualizarUsuario(id, data) {
         // reemplazar datos locales
         const index = usuarios.findIndex(u => u.id === id);
         if(index >= 0) usuarios[index] = response.usuario;
-        refrescarTabla('servicio');
     });
 }
 
@@ -102,7 +100,6 @@ function eliminarUsuario(id) {
     eliminarRegistro(`${USUARIO_CONTROLLER_URL}?action=eliminarUsuario`, id, 'usuario', () => {
         const index = usuarios.findIndex(u => u.id === id);
         if(index >= 0) usuarios.splice(index, 1);
-        refrescarTabla('servicio');
     });
 }
 
@@ -110,7 +107,6 @@ function toggleUsuario(id, estadoActual) {
     cambiarEstado(`${USUARIO_CONTROLLER_URL}?action=cambiarEstado`, id, estadoActual, 'usuario', (response, nuevoEstado) => {
         const index = usuarios.findIndex(u => u.id === id);
         if(index >= 0) usuarios[index].estado = nuevoEstado;
-       refrescarTabla('servicio');
     });
 }
 

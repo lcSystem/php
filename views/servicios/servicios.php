@@ -79,13 +79,11 @@ function guardarServicio(data) {
 
     guardarRegistro(`${SERVICIO_CONTROLLER_URL}?action=crearservicio`, datos, 'servicio', (response) => {
         servicios.push(response.servicio);
-        refrescarTabla('servicio'); 
     });
 }
 
 function eliminarServicio(id) {
     eliminarRegistro(`${SERVICIO_CONTROLLER_URL}?action=eliminarServicio`, id, 'servicio', () => {
-        refrescarTabla('servicio');
     });
 }
 
@@ -95,14 +93,12 @@ function actualizarServicio(id, data) {
         { id, ...data }, 
         'servicio', 
         (response) => {
-            refrescarTabla('servicio');
         }
     );
 }
 
 function cambiarEstadoServicio(id, estadoActual) {
     cambiarEstado(`${SERVICIO_CONTROLLER_URL}?action=cambiarEstado`, id, estadoActual, 'servicio', () => {
-        refrescarTabla('servicio');
     });
 }
 
