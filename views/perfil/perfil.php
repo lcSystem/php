@@ -19,7 +19,7 @@ require_once __DIR__ . '/../../config/paths.php';
            src="<?= !empty($usuario['avatar']) ? IMG_UPLOADS_URL . '/' . htmlspecialchars($usuario['avatar']) : ASSETS_URL . '/img/logof.png' ?>" 
            alt="Avatar">
       <div class="small">Usuario: <strong><?= htmlspecialchars($usuario['username'] ?? '') ?></strong></div>
-        <form id="fotoForm" action="<?= PERFIL_CONTROLLER ?>" method="POST" enctype="multipart/form-data" class="full">
+        <form id="fotoForm" action="<?= PERFIL_CONTROLLER_URL ?>" method="POST" enctype="multipart/form-data" class="full">
         <input type="file" name="foto" id="fotoFile" accept="image/*">
         <div class="note">Elige una imagen JPG/PNG. Máx 2MB (si no subes, no se cambia).</div>
         <div style="margin-top:8px;">

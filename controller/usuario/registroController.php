@@ -1,6 +1,5 @@
 <?php
-
-require_once '../models/userModel.php';  
+require_once '../../models/userModel.php';  
 
 header('Content-Type: application/json'); 
 
@@ -40,20 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $response["titulo"] = "Usuario existente";
         } else {
             $passwordHash = password_hash($password, PASSWORD_DEFAULT);
-
-            $datos = [
-                'username'        => $username,
-                'email'           => $email,
-                'password'        => $passwordHash,
-                'nombre_completo' => $nombreCompleto,
-                'telefono'        => $telefono,
-                'direccion'       => $direccion,
-                'edad'            => $edad,
-                'sexo'            => $sexo
-            ];
-
-                $isRegistered = $usuario->registrar($datos);
-
+            $isRegistered = $usuario->registrar($username, $email, $passwordHash, $nombreCompleto, $telefono, $direccion, $edad, $sexo);
 
             if ($isRegistered) {
                 $response["success"] = true;

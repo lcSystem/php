@@ -9,6 +9,18 @@ class Usuario {
         $this->pdo = $pdo;
     }
 
+        public function listarUsuarios() {
+        $sql = "SELECT id, username, email, nombre_completo, fecha_registro, estado, telefono, direccion, edad, avatar, rol 
+                FROM usuarios";
+        $stmt = $this->pdo->prepare($sql);
+        
+        // Ejecutar la consulta
+        $stmt->execute();
+
+        // Obtener todos los resultados
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
   public function verificarExistencia($username, $email) {
         $sql = "SELECT id,username FROM usuarios WHERE username = :username OR email = :email LIMIT 1";
         $stmt = $this->pdo->prepare($sql);
@@ -19,22 +31,25 @@ class Usuario {
     }
 
 
-    public function registrar($username, $email, $password, $nombreCompleto, $telefono, $direccion, $edad, $sexo) {
-        $sql = "INSERT INTO usuarios (username, email, password, nombre_completo, telefono, direccion, edad, sexo, rol) 
-                VALUES (:username, :email, :password, :nombre_completo, :telefono, :direccion, :edad, :sexo, 'cliente')";
-        
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->bindParam(':username', $username);
-        $stmt->bindParam(':email', $email);
-        $stmt->bindParam(':password', $password);
-        $stmt->bindParam(':nombre_completo', $nombreCompleto);
-        $stmt->bindParam(':telefono', $telefono);
-        $stmt->bindParam(':direccion', $direccion);
-        $stmt->bindParam(':edad', $edad);
-        $stmt->bindParam(':sexo', $sexo);
-        
-        return $stmt->execute();
-    }
+public function registrar(array $datos) {
+    $sql = "INSERT INTO usuarios 
+            (username, email, password, nombre_completo, telefono, direccion, edad, sexo, rol) 
+            VALUES 
+            (:username, :email, :password, :nombre_completo, :telefono, :direccion, :edad, :sexo, 'cliente')";
+
+    $stmt = $this->pdo->prepare($sql);
+
+    return $stmt->execute([
+        ':username'        => $datos['username'],
+        ':email'           => $datos['email'],
+        ':password'        => $datos['password'],
+        ':nombre_completo' => $datos['nombre_completo'],
+        ':telefono'        => $datos['telefono'],
+        ':direccion'       => $datos['direccion'],
+        ':edad'            => $datos['edad'],
+        ':sexo'            => $datos['sexo']
+    ]);
+}
 
 
     public function login($identifier, $password) {
@@ -90,7 +105,8 @@ public function obtenerPorId($id) {
                     telefono = :telefono,
                     direccion = :direccion,
                     edad = :edad,
-                    rol = :rol
+                    rol = :rol,
+                    password = :password
                 WHERE id = :id";
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindParam(':username', $datos['username']);
@@ -101,8 +117,17 @@ public function obtenerPorId($id) {
         $stmt->bindParam(':direccion', $datos['direccion']);
         $stmt->bindParam(':edad', $datos['edad']);
         $stmt->bindParam(':rol', $datos['rol']);
+        $stmt->bindParam(':password', $datos['password']);
         $stmt->bindParam(':id', $id);
         return $stmt->execute(); // esto devuelve true o false
+    }
+
+
+    public function eliminarUsuario($id) {
+        $sql = "DELETE FROM usuarios WHERE id = :id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([':id' => $id]);
+        return $stmt->rowCount(); 
     }
 
     // Actualizar solo la foto de perfil
@@ -116,7 +141,6 @@ public function obtenerPorId($id) {
         return $stmt->execute();
     }
 
-    // 🔑 Nuevo: actualizar contraseña
     public function actualizarPassword($id, $password) {
         $hashed = password_hash($password, PASSWORD_DEFAULT);
         $sql = "UPDATE usuarios 
@@ -150,6 +174,37 @@ public function saveResetToken($userId, $token, $expiry) {
         'id' => $userId
     ]);
 }
+
+// Incrementa intentos fallidos
+public function incrementarIntento($id) {
+    $sql = "UPDATE usuarios 
+            SET intentos_fallidos = intentos_fallidos + 1 
+            WHERE id = :id";
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->bindParam(':id', $id);
+    $stmt->execute();
+}
+
+// Reinicia los intentos al hacer login correcto
+public function resetearIntentos($id) {
+    $sql = "UPDATE usuarios 
+            SET intentos_fallidos = 0 
+            WHERE id = :id";
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->bindParam(':id', $id);
+    $stmt->execute();
+}
+
+// Inactiva usuario
+public function inactivarUsuario($id) {
+    $sql = "UPDATE usuarios 
+            SET estado = 'inactivo' 
+            WHERE id = :id";
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->bindParam(':id', $id);
+    $stmt->execute();
+}
+
 
 }
 ?>

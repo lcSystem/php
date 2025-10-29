@@ -2,7 +2,6 @@
 declare(strict_types=1);
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-// controller/perfil/perfilController.php
 
 require_once __DIR__ . '/../../models/userModel.php';
 require_once __DIR__ . '/../../config/paths.php';
@@ -12,7 +11,7 @@ class PerfilController {
     private $usuarioModel;
 
     public function __construct() {
-        $this->usuarioModel = new Usuario(); // clase definida en userModel.php
+        $this->usuarioModel = new Usuario(); 
     }
 
     /**
@@ -39,7 +38,9 @@ class PerfilController {
     // Mostrar perfil de un usuario
     public function mostrarPerfil(int $idUsuario) : array {
         if ($idUsuario <= 0) return [];
+
         $u = $this->usuarioModel->obtenerPorId($idUsuario);
+
         return $u ?: [];
     }
 
@@ -86,7 +87,6 @@ class PerfilController {
 
 public function actualizarFoto(int $idUsuario, array $archivo) : bool {
     if ($idUsuario <= 0) {
-        echo "ID de usuario inválido"; // depuración
         return false;
     }
 
@@ -95,7 +95,7 @@ public function actualizarFoto(int $idUsuario, array $archivo) : bool {
         $usuario = $this->mostrarPerfil($idUsuario);
         if (!empty($usuario['avatar'])) {
             $old = $this->getUploadsPath() . $usuario['avatar'];
-           // echo "Borrando archivo anterior: $old\n"; // depuración
+           // echo "Borrando archivo anterior: $old\n";
             if (file_exists($old)) @unlink($old);
         }
         return $this->usuarioModel->actualizarFoto($idUsuario, null);
@@ -103,13 +103,13 @@ public function actualizarFoto(int $idUsuario, array $archivo) : bool {
 
     // Validar errores del upload
     if (!isset($archivo['error']) || $archivo['error'] !== UPLOAD_ERR_OK) {
-        echo "Error en upload: " . ($archivo['error'] ?? 'No seteado') . "\n"; // depuración
+        echo "Error en upload: " . ($archivo['error'] ?? 'No seteado') . "\n"; 
         return false;
     }
 
     // Validar tamaño máximo (2MB)
     if (isset($archivo['size']) && $archivo['size'] > 4 * 1024 * 1024) {
-        echo "Archivo demasiado grande: " . $archivo['size'] . "\n"; // depuración
+        echo "Archivo demasiado grande: " . $archivo['size'] . "\n"; 
         return false;
     }
 
@@ -117,7 +117,7 @@ public function actualizarFoto(int $idUsuario, array $archivo) : bool {
     $finfo = finfo_open(FILEINFO_MIME_TYPE);
     $mime = finfo_file($finfo, $archivo['tmp_name']);
     finfo_close($finfo);
-    //echo "MIME detectado: $mime\n"; // depuración
+    //echo "MIME detectado: $mime\n"; 
     $allowedMimes = [
     'image/jpeg',   // JPG/JPEG estándar
     'image/jpg',    // JPG alternativo

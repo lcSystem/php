@@ -32,9 +32,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($user['estado'] !== 'activo') {
                 $response['mensaje'] = "El usuario no está activo.";
             } elseif (!password_verify($password, $user['password'])) {
+             $usuario->incrementarIntento($user['id']);
+
+            $userActualizado = $usuario->login($username, $password);
+                if ($userActualizado['intentos_fallidos'] >= INTENTOS) {
+                    $usuario->inactivarUsuario($user['id']);
+                    $response['mensaje'] = "Usuario bloqueado por demaciados intentos fallidos.";
+                } else {
+                    $restantes = INTENTOS - $userActualizado['intentos_fallidos'];
+                    $response['mensaje'] = "Contraseña incorrecta. Intentos restantes: $restantes.";
+                }
                 $response['mensaje'] = "La contraseña no coincide.";
             } else {
                 // Login correcto
+                 $usuario->resetearIntentos($user['id']);
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['username'] = $username;
                 $_SESSION['user_rol'] = $user['rol']; 

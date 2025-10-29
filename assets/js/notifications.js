@@ -38,7 +38,7 @@ function showToast(message, type = 'info', duration = 3000) {
     });
 }
 
-/* ==== Modal Confirmación Aislado ==== */
+/* ==== Modal Confirmación  ==== */
 function showConfirmation(message, onAccept = () => {}, onCancel = () => {}) {
     const modalId = 'modalConfirm'; // ID único para este modal
     let modal = document.getElementById(modalId);
