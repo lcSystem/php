@@ -1,0 +1,238 @@
+.modal {
+    position: fixed;
+    top: 0;                 /* 🔹 desde arriba */
+    left: 0;
+    width: 100%;
+    height: 100vh;          /* 🔹 ocupa toda la ventana */
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    overflow-y: auto;        /* permite scroll si el modal es largo */
+    padding: 20px;
+    font-family: 'Poppins', sans-serif;
+}
+/* Contenido modal */
+.modal .modal-content {
+    background: #fff;
+    border-radius: 18px;
+    padding: 35px 30px;
+    max-width: 760px;
+    width: 100%;
+    box-shadow: 0 12px 28px rgba(0,0,0,0.2);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    position: relative;
+    animation: fadeIn 0.35s ease-in-out;
+    max-height: 90vh; /* máximo 90% de la pantalla */
+    overflow-y: auto;
+}
+
+/* Animación */
+@keyframes fadeIn {
+    from {opacity:0; transform: translateY(-25px);}
+    to {opacity:1; transform: translateY(0);}
+}
+
+/* Botón cerrar */
+.modal .close {
+    position: absolute;
+    top: 18px;
+    right: 20px;
+    font-size: 28px;
+    cursor: pointer;
+    color: #d4a017;
+    transition: color 0.2s;
+}
+.modal .close:hover {
+    color: #ffd24d;
+}
+
+/* Encabezado */
+.modal h2 {
+    text-align: center;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 25px;
+}
+
+/* Formulario */
+.form-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px 15px;
+}
+.form-container .full { grid-column: 1 / -1; }
+
+.form-container label {
+    font-weight: 600;
+    font-size: 13px;
+    color: #333;
+    display: block;
+    margin-bottom: 6px;
+}
+
+/* Inputs y Select */
+.form-container input[type="text"],
+.form-container input[type="email"],
+.form-container input[type="date"],
+.form-container select {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    background: #fdfdfd;
+    box-sizing: border-box;
+    box-shadow: inset 0 2px 6px rgba(0,0,0,0.05);
+    font-size: 0.95rem;
+    transition: all 0.25s;
+}
+.form-container input:focus,
+.form-container select:focus {
+    outline: none;
+    border-color: #d4a017;
+    box-shadow: 0 0 10px rgba(212,175,55,0.35);
+}
+
+/* Select con flecha personalizada */
+.form-container select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: #fdfdfd url("data:image/svg+xml;charset=US-ASCII,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12'><polygon points='0,0 12,0 6,6' fill='%23666'/></svg>") no-repeat right 16px center;
+    background-size: 12px;
+    cursor: pointer;
+}
+
+/* Botón guardar */
+.form-container .btn-save {
+    grid-column: 1 / -1;
+    padding: 14px 0;
+    border-radius: 12px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    background: linear-gradient(135deg,#FFD24D,#D4A017);
+    color: #111;
+    box-shadow: 0 8px 20px rgba(212,175,55,0.25);
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+.form-container .btn-save:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 30px rgba(212,175,55,0.35);
+}
+
+/* Nota / ayuda */
+.form-container .note {
+    font-size: 12px;
+    color: #666;
+    margin-top: 6px;
+}
+
+/* Responsive */
+@media (max-width: 820px) {
+    .form-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .modal {
+        padding: 10px;
+    }
+    .modal .modal-content {
+        padding: 20px 15px;
+    }
+}
+
+.form-container input[type="time"] {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    background: #fdfdfd;
+    box-sizing: border-box;
+    box-shadow: inset 0 2px 6px rgba(0,0,0,0.05);
+    font-size: 0.95rem;
+    transition: all 0.25s;
+}
+
+.form-container input[type="time"]:focus {
+    outline: none;
+    border-color: #d4a017;
+    box-shadow: 0 0 10px rgba(212,175,55,0.35);
+}
+
+/* Textarea */
+.form-container textarea {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    background: #fdfdfd;
+    box-sizing: border-box;
+    box-shadow: inset 0 2px 6px rgba(0,0,0,0.05);
+    font-size: 0.95rem;
+    transition: all 0.25s;
+    resize: none; /* evita que se pueda redimensionar */
+    min-height: 100px; /* altura mínima */
+}
+
+.form-container textarea:focus {
+    outline: none;
+    border-color: #d4a017;
+    box-shadow: 0 0 10px rgba(212,175,55,0.35);
+}
+
+
+/* Botón dorado agregar */
+.btn-gold {
+    background-color: #e0ac3d; /* dorado sólido */
+    color: #fff;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 18px;
+    cursor: pointer;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16);
+    display: inline-flex; 
+    align-items: center;
+    justify-content: center;
+    float: right;
+    margin-bottom: 0px; /* margen por defecto */
+     margin-right: 11px;
+}
+
+.btn-gold:hover {
+    background-color: #d49c2f; /* más intenso al pasar el mouse */
+    box-shadow: 0 5px 12px rgba(0,0,0,0.25);
+    transform: translateY(-2px);
+}
+
+.btn-gold:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.16);
+}
+
+.btn-gold i {
+    margin-left: 6px;
+    transition: transform 0.3s ease;
+}
+
+.btn-gold:hover i {
+    transform: rotate(15deg);
+}
+
+@media (max-width: 768px) {
+    .btn-gold {
+        float: none;
+        display: block; 
+        margin: 0 auto 15px auto;
+    }
+}
