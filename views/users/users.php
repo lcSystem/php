@@ -2,6 +2,7 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+
 require_once __DIR__ . '/../../config/paths.php';
 include_once CP_TABLE; 
 
@@ -57,7 +58,9 @@ const camposUsuario = [
     { nombre: "direccion", etiqueta: "Dirección", tipo: "text" },
     { nombre: "edad", etiqueta: "Edad", tipo: "number" },
     { nombre: "rol", etiqueta: "Rol", tipo: "select", opciones: roles.map(r => ({ value: r, text: r })) },
-    { nombre: "estado", etiqueta: "Estado", tipo: "select", opciones: estados.map(e => ({ value: e, text: e })) }
+    { nombre: "estado", etiqueta: "Estado", tipo: "select", opciones: estados.map(e => ({ value: e, text: e })) },
+    { nombre: "clave", etiqueta: "contraseña", tipo: "text" },
+    { nombre: "password", etiqueta: "confirmación de contraseña", tipo: "text" }
 ];
 
 function abrirModalAgregarUsuario() {

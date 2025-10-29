@@ -56,7 +56,7 @@ class CitaController {
 $slots = $this->generarSlotsDia($fechaHoy, 30);
 
         // servicios a listar
-        $servicio = $this->serviciosModel->listarServicios();
+        $servicio = $this->serviciosModel->listarServiciosInactivos();
 
 
         require_once CITAS_VIEW;

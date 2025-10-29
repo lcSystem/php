@@ -27,9 +27,10 @@ define('CONFIG_VIEW', VIEWS_PATH . '/config/config.php');                       
 define('SERVICIOS_VIEW', VIEWS_PATH . '/servicios/servicios.php');
 
 // Archivos específicos (opcional) -------------------------------------------------------------------------------------------------------------------------
-define('LOGIN_PAGE', BASE_URL . '/login.php');                                    define('WELCOME_PAGE', BASE_URL . '/welcome.php');
+ define('LOGIN_PAGE', BASE_URL . '/login.php');                                    define('WELCOME_PAGE', BASE_URL . '/welcome.php');
  define('CP_TABLE', CP_COMPONENTS_PATH . '/tableComponent.php');                  define('CP_MODALS', CP_COMPONENTS . '/modalComponent.js');
- define('UT_UTILIDADES_JS', UT_UTILIDADES_URL . '/utilidadesJS.js');               define('UT_UTILIDADES_PHP', UT_UTILIDADES . '/utilidadesPHP.php');
+ define('UT_UTILIDADES_JS', UT_UTILIDADES_URL . '/utilidadesJS.js');              define('UT_UTILIDADES_PHP', UT_UTILIDADES . '/utilidadesPHP.php');
+ define('HP_DOMPETICION', HELPER_URL . '/DomPeticionHelper.js');
 // Controllers ---------------------------------------------------------------------------------------------------------------------------------------------
 define('SERVICIO_CONTROLLER_URL', CONTROLLER_URL . '/servicios/serviciosController.php');  define('CITAS_CONTROLLER', CONTROLLER_PATH . '/citas/citasController.php');
 define('LOGOUT_CONTROLLER', CONTROLLER_URL . '/logout.php');                           define('REGISTRO_CONTROLLER', CONTROLLER_PATH . '/usuario/registroController.php');

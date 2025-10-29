@@ -14,9 +14,9 @@ function extraerDatos(array $campos) {
 }
 
 // Guardar registro
-function guardarRegistro($model, $datos) {
+function guardarRegistro($model, $datos, $method) {
     try {
-        $exito = $model->crearServicio($datos);
+        $exito = $model->$method($datos);
         echo json_encode([
             'success' => $exito,
             'servicio' => $exito ? $datos : null,
@@ -29,9 +29,9 @@ function guardarRegistro($model, $datos) {
 }
 
 // Actualizar registro
-function actualizarRegistro($model, $id, $datos) {
+function actualizarRegistro($model, $id, $datos, $method) {
     try {
-        $exito = $model->actualizarServicio($id, $datos);
+        $exito = $model->$method($id, $datos);
         echo json_encode([
             'success' => $exito,
             'servicio' => $exito ? $datos : null,
@@ -44,9 +44,9 @@ function actualizarRegistro($model, $id, $datos) {
 }
 
 // Cambiar estado
-function cambiarEstadoRegistro($model, $id, $estado) {
+function cambiarEstadoRegistro($model, $id, $estado,$method) {
     try {
-        $filas = $model->cambiarEstado($id, $estado); // usa la función correcta
+        $filas = $model->$method($id, $estado); // usa la función correcta
         echo json_encode([
             'success' => $filas > 0,
             'estado' => $estado,
@@ -59,9 +59,9 @@ function cambiarEstadoRegistro($model, $id, $estado) {
 }
 
 // Eliminar registro
-function eliminarRegistro($model, $id) {
+function eliminarRegistro($model, $id, $method) {
     try {
-        $filas = $model->eliminarServicio($id);
+        $filas = $model->$method($id);
         echo json_encode([
             'success' => $filas > 0,
             'message' => $filas > 0 ? 'Eliminado correctamente' : 'No se pudo eliminar o no existe'

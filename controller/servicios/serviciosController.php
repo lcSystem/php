@@ -17,6 +17,11 @@ class ServiciosController {
     }
 
     public function index() {
+           if (!isset($_SESSION['user_rol']) || $_SESSION['user_rol'] !== 'admin') {
+                echo "<div class='card'><h3>Acceso denegado</h3><p>No tienes permisos para acceder a esta sección.</p></div>";
+            return; 
+    }
+
         $servicios = $this->servicios; 
         require_once SERVICIOS_VIEW;
     }
@@ -30,7 +35,7 @@ class ServiciosController {
             'precio' => 1000
         ];
         $datos = extraerDatos($campos);
-        guardarRegistro($this->model, $datos);
+        guardarRegistro($this->model, $datos, 'crearServicio');
     }
 
     public function actualizarServicio() {
@@ -43,18 +48,18 @@ class ServiciosController {
             'precio' => 1000
         ];
         $datos = extraerDatos($campos);
-        actualizarRegistro($this->model, $id, $datos);
+        actualizarRegistro($this->model, $id, $datos, 'actualizarServicio');
     }
 
     public function cambiarEstado() {
         $id = $_POST['id'] ?? 0;
         $estado = $_POST['estado'] ?? 'activo';
-        cambiarEstadoRegistro($this->model, $id, $estado);
+        cambiarEstadoRegistro($this->model, $id, $estado, 'cambiarEstado');
     }
 
     public function eliminarServicio() {
         $id = $_POST['id'] ?? 0;
-        eliminarRegistro($this->model, $id);
+        eliminarRegistro($this->model, $id, 'eliminarServicio');
     }
 }
 

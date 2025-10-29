@@ -31,22 +31,25 @@ class Usuario {
     }
 
 
-    public function registrar($username, $email, $password, $nombreCompleto, $telefono, $direccion, $edad, $sexo) {
-        $sql = "INSERT INTO usuarios (username, email, password, nombre_completo, telefono, direccion, edad, sexo, rol) 
-                VALUES (:username, :email, :password, :nombre_completo, :telefono, :direccion, :edad, :sexo, 'cliente')";
-        
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->bindParam(':username', $username);
-        $stmt->bindParam(':email', $email);
-        $stmt->bindParam(':password', $password);
-        $stmt->bindParam(':nombre_completo', $nombreCompleto);
-        $stmt->bindParam(':telefono', $telefono);
-        $stmt->bindParam(':direccion', $direccion);
-        $stmt->bindParam(':edad', $edad);
-        $stmt->bindParam(':sexo', $sexo);
-        
-        return $stmt->execute();
-    }
+public function registrar(array $datos) {
+    $sql = "INSERT INTO usuarios 
+            (username, email, password, nombre_completo, telefono, direccion, edad, sexo, rol) 
+            VALUES 
+            (:username, :email, :password, :nombre_completo, :telefono, :direccion, :edad, :sexo, 'cliente')";
+
+    $stmt = $this->pdo->prepare($sql);
+
+    return $stmt->execute([
+        ':username'        => $datos['username'],
+        ':email'           => $datos['email'],
+        ':password'        => $datos['password'],
+        ':nombre_completo' => $datos['nombre_completo'],
+        ':telefono'        => $datos['telefono'],
+        ':direccion'       => $datos['direccion'],
+        ':edad'            => $datos['edad'],
+        ':sexo'            => $datos['sexo']
+    ]);
+}
 
 
     public function login($identifier, $password) {
@@ -102,7 +105,8 @@ public function obtenerPorId($id) {
                     telefono = :telefono,
                     direccion = :direccion,
                     edad = :edad,
-                    rol = :rol
+                    rol = :rol,
+                    password = :password
                 WHERE id = :id";
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindParam(':username', $datos['username']);
@@ -113,8 +117,17 @@ public function obtenerPorId($id) {
         $stmt->bindParam(':direccion', $datos['direccion']);
         $stmt->bindParam(':edad', $datos['edad']);
         $stmt->bindParam(':rol', $datos['rol']);
+        $stmt->bindParam(':password', $datos['password']);
         $stmt->bindParam(':id', $id);
         return $stmt->execute(); // esto devuelve true o false
+    }
+
+
+    public function eliminarUsuario($id) {
+        $sql = "DELETE FROM usuarios WHERE id = :id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([':id' => $id]);
+        return $stmt->rowCount(); 
     }
 
     // Actualizar solo la foto de perfil
@@ -128,7 +141,6 @@ public function obtenerPorId($id) {
         return $stmt->execute();
     }
 
-    // 🔑 Nuevo: actualizar contraseña
     public function actualizarPassword($id, $password) {
         $hashed = password_hash($password, PASSWORD_DEFAULT);
         $sql = "UPDATE usuarios 

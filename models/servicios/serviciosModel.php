@@ -18,6 +18,16 @@ class Servicios {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+      // Listar todos los servicios
+    public function listarServiciosInactivos() {
+        $sql = "SELECT id, nombre, descripcion, duracion_minutos, precio, estado
+                FROM servicios 
+                WHERE estado = 'activo'
+                ORDER BY nombre";
+        $stmt = $this->pdo->query($sql);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     // Obtener un servicio por ID
     public function obtenerPorId($id) {
         $sql = "SELECT id, nombre, descripcion, duracion_minutos, precio, estado

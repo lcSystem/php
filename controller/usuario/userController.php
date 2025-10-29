@@ -19,116 +19,87 @@ class UserController {
 
     // Página principal (lista)
     public function index() {
-   if (!isset($_SESSION['user_rol']) || $_SESSION['user_rol'] !== 'admin') {
-    echo "<div class='card'><h3>Acceso denegado</h3><p>No tienes permisos para acceder a esta sección.</p></div>";
-    return; // ✅
-}
+        if (!isset($_SESSION['user_rol']) || $_SESSION['user_rol'] !== 'admin') {
+            echo "<div class='card'><h3>Acceso denegado</h3><p>No tienes permisos para acceder a esta sección.</p></div>";
+        return; 
+        }
+
         $usuarios = $this->usuarios;
         require_once USERS_VIEW;
     }
 
     // === Crear usuario ===
     public function crearUsuario() {
-        $campos = [
+         $campos = [
             'username'        => '',
             'email'           => '',
+            'password'        => '',
             'nombre_completo' => '',
-            'estado'          => 'activo',
             'telefono'        => '',
             'direccion'       => '',
             'edad'            => '',
+            'estado'          => 'activo',
             'rol'             => 'usuario',
-            'avatar'          => ''
-        ];
+            'sexo'            => 'M' 
+            ];
+       
+    $datos = extraerDatos($campos);
 
-        $datos = extraerDatos($campos);
+    if (!empty($datos['password'])) {
+        $datos['password'] = password_hash($datos['password'], PASSWORD_DEFAULT);
+    }
 
-        try {
-            $sql = "INSERT INTO usuarios (username, email, nombre_completo, estado, telefono, direccion, edad, rol, avatar) 
-                    VALUES (:username, :email, :nombre_completo, :estado, :telefono, :direccion, :edad, :rol, :avatar)";
-            $stmt = $this->model->pdo->prepare($sql);
-            $stmt->execute($datos);
+    guardarRegistro($this->model, $datos, 'registrar');
 
-            echo json_encode([
-                'success' => true,
-                'message' => 'Usuario creado correctamente',
-                'usuario' => $datos
-            ]);
-        } catch (Exception $e) {
-            echo json_encode(['success' => false, 'message' => 'Error al crear usuario: ' . $e->getMessage()]);
-        }
-        exit;
     }
 
     // === Actualizar usuario ===
     public function actualizarUsuario() {
         $id = $_POST['id'] ?? 0;
 
-        $campos = [
+         $campos = [
             'username'        => '',
             'email'           => '',
+            'password'        => '',
             'nombre_completo' => '',
-            'estado'          => 'activo',
             'telefono'        => '',
             'direccion'       => '',
             'edad'            => '',
-            'rol'             => '',
-            'avatar'          => ''
-        ];
+            'estado'          => 'activo',
+            'rol'             => 'usuario',
+            'sexo'            => 'M' 
+            ];
+
         $datos = extraerDatos($campos);
 
-        $resultado = $this->model->editarUsuario($id, $datos);
+         if (!empty($datos['password'])) {
+            $datos['password'] = password_hash($datos['password'], PASSWORD_DEFAULT);
+             }
+       
+       
 
-        echo json_encode([
-            'success' => $resultado,
-            'message' => $resultado ? 'Usuario actualizado correctamente' : 'Error al actualizar usuario',
-            'usuario' => $resultado ? $this->model->obtenerPorId($id) : null
-        ]);
-        exit;
+       actualizarRegistro($this->model, $id, $datos, 'editarUsuario');
     }
+
 
     // === Cambiar estado ===
     public function cambiarEstado() {
-        $id = $_POST['id'] ?? 0;
-        $estado = $_POST['estado'] ?? 'activo';
-        $resultado = $this->model->actualizarEstado($id, $estado);
 
-        echo json_encode([
-            'success' => $resultado,
-            'message' => $resultado ? 'Estado actualizado correctamente' : 'Error al actualizar el estado',
-            'usuario' => $resultado ? $this->model->obtenerPorId($id) : null
-        ]);
-        exit;
+          $id = $_POST['id'] ?? 0;
+        $estado = $_POST['estado'] ?? 'activo';
+        cambiarEstadoRegistro($this->model, $id, $estado, 'actualizarEstado');
     }
 
     // === Eliminar usuario ===
     public function eliminarUsuario() {
-        $id = $_POST['id'] ?? 0;
-
-        try {
-            $sql = "DELETE FROM usuarios WHERE id = :id";
-            $stmt = $this->model->pdo->prepare($sql);
-            $stmt->execute([':id' => $id]);
-
-            echo json_encode([
-                'success' => true,
-                'message' => 'Usuario eliminado correctamente'
-            ]);
-        } catch (Exception $e) {
-            echo json_encode(['success' => false, 'message' => 'Error al eliminar: ' . $e->getMessage()]);
-        }
-        exit;
+          $id = $_POST['id'] ?? 0;
+        eliminarRegistro($this->model, $id, 'eliminarUsuario');
     }
 
     // === Obtener usuario por ID ===
     public function obtenerUsuario($id) {
         $usuario = $this->model->obtenerPorId($id);
-        echo json_encode([
-            'success' => (bool)$usuario,
-            'usuario' => $usuario,
-            'message' => $usuario ? '' : 'Usuario no encontrado'
-        ]);
-        exit;
+     exit;
     }
 }
 

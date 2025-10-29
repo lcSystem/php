@@ -6,7 +6,7 @@ require_once __DIR__ . '/../config/paths.php';
     <button class="<?php echo !isset($_GET['page']) ? 'active' : ''; ?>" onclick="window.location='dashboard.php'">
       <i class="fa-solid fa-house"></i><span>Inicio</span>
     </button>
-    <button class="<?php echo ($_GET['page'] ?? '') === 'formulario' ? 'active' : ''; ?>" onclick="window.location='dashboard.php?page=formulario'">
+    <button  style="display:none;" class="<?php echo ($_GET['page'] ?? '') === 'formulario' ? 'active' : ''; ?>" onclick="window.location='dashboard.php?page=formulario'">
       <i class="fa-solid fa-file-alt"></i><span>Formularios</span>
     </button>
         <button class="<?php echo ($_GET['page'] ?? '') === 'servicios' ? 'active' : ''; ?>" onclick="window.location='dashboard.php?page=servicios'"

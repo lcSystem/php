@@ -49,7 +49,7 @@ if (!isset($_SESSION['user_id'])) {
       <img  src="<?= !empty($usuario['avatar']) ? IMG_UPLOADS_URL . '/' . htmlspecialchars($usuario['avatar']) : LOGOF_PNG ?>"  
            alt="Avatar" class="avatar" onclick="toggleMenu()">
       <div id="dropdown" class="dropdown hidden">
-        <a href="../controller/logout.php">Cerrar sesión</a>
+         <a href="javascript:void(0);" onclick="confirmLogout()">Cerrar sesión</a>
          <a href="?page=perfil">Perfil</a>
       </div>
     </div>
@@ -61,3 +61,14 @@ if (!isset($_SESSION['user_id'])) {
   <div class="icon"><i class="fa-solid fa-bell"></i></div>
 
 </header>
+<script type="text/javascript">
+ function confirmLogout() {
+    const mensaje = "¿Seguro que quieres cerrar sesión?";
+    showConfirmation(mensaje, () => {
+        // Redirige al logout si confirma
+        window.location.href = '../controller/logout.php';
+    }, () => {
+        showToast("Acción cancelada", "warning");
+    });
+}
+</script>
