@@ -10,7 +10,7 @@ class CitaModel {
     }
 
     public function listarClientes() {
-    $sql = "SELECT id, nombre_completo FROM usuarios WHERE rol = 'cliente' AND estado = 'activo' ORDER BY nombre_completo";
+    $sql = "SELECT id, username FROM usuarios WHERE rol = 'cliente' AND estado = 'activo' ORDER BY nombre_completo";
     $stmt = $this->pdo->query($sql);
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }

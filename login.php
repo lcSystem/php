@@ -81,7 +81,7 @@
         <h2>Recuperar Contraseña</h2>
         <span class="close" onclick="closeForgotPassword()">&times;</span>
       </div>
-      <p>Ingresa tu correo electrónico para recibir un enlace de restablecimiento:</p>
+      <p>Ingresa tu correo electrónico asociado a la cuenta para recibir un enlace de restablecimiento:</p>
       <div class="input-field">
         <input type="email" name="email" placeholder="Correo electrónico" required>
         <i class="fa fa-envelope"></i>

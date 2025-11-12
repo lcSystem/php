@@ -70,6 +70,14 @@ function abrirModalGenerico({ titulo = "Formulario",  campos = [], valores = {},
           break;
         default:
           input = document.createElement("input");
+
+            if (campo.nombre === "precio") {
+    input.type = "text";
+  } else {
+    input.type = campo.tipo || "text";
+  }
+
+
           input.type = campo.tipo || "text";
           input.placeholder = "Ingresa " + campo.etiqueta.toLowerCase();
           if (campo.id) input.id = campo.id;
@@ -78,6 +86,25 @@ function abrirModalGenerico({ titulo = "Formulario",  campos = [], valores = {},
 
       input.name = campo.nombre;
       if (valores[campo.nombre] !== undefined) input.value = valores[campo.nombre];
+
+
+       // Si tiene valor inicial
+  if (valores[campo.nombre] !== undefined) {
+    let valor = valores[campo.nombre];
+    if (campo.nombre === "precio") valor = formatearValor(valor);
+    input.value = valor;
+  }
+
+      if (campo.nombre === "precio") {
+    input.addEventListener("input", (e) => {
+      let val = e.target.value.replace(/[^\d]/g, ""); // solo números
+      if (val === "") {
+        e.target.value = "";
+        return;
+      }
+      e.target.value = val.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    });
+  }
 
       div.appendChild(input);
       form.appendChild(div);
@@ -94,6 +121,9 @@ function abrirModalGenerico({ titulo = "Formulario",  campos = [], valores = {},
   btn.onclick = () => {
      if (!form.reportValidity()) return; 
     const data = Object.fromEntries(new FormData(form).entries());
+    if (data.precio) {
+        data.precio = desformatearValor(data.precio);
+    }
     if (onGuardar) onGuardar(data); // callback externo
     modal.style.display = "none";   // cerrar modal
   };

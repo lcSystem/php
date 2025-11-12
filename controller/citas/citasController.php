@@ -103,40 +103,59 @@ public function generarSlotsDia($fecha, $intervaloMinutos = 10) {
 }
 
 public function crearCita() {
+  $campos = [
+        'cliente_id'       => 0,
+        'servicio_id'      => 0,
+        'empleado_id'      => null,
+        'fecha_cita'       => '',
+        'hora_cita'        => '',
+        'duracion_minutos' => 30,
+        'estado'           => 'pendiente',
+        'comentarios'      => '',
+        'creada_por'       => 0
+    ];
+        $datos = extraerDatos($campos);
+        guardarRegistro($this->citaModel, $datos, 'crearCita');    
+}
 
-    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-        echo json_encode(['success' => false, 'message' => 'Método no permitido']);
-        exit;
-    }
 
-    $datos = [
-        'cliente_id'       => $_POST['cliente_id'] ?? 0,
-        'servicio_id'      => $_POST['servicio_id'] ?? 0,
-        'empleado_id'      => $_POST['empleado_id'] ?? null,
-        'fecha_cita'       => $_POST['fecha_cita'] ?? '',
-        'hora_cita'        => $_POST['hora_cita'] ?? '',
-        'duracion_minutos' => $_POST['duracion_minutos'] ?? 30,
-        'estado'           => $_POST['estado'] ?? 'pendiente',
-        'comentarios'      => $_POST['comentarios'] ?? '',
-        'creada_por'       => $_POST['creada_por'] ?? 0,
+public function crearCitas() {
+    $campos = [
+        'cliente_id'       => 0,
+        'servicio_id'      => 0,
+        'empleado_id'      => null,
+        'fecha_cita'       => '',
+        'hora_cita'        => '',
+        'duracion_minutos' => 30,
+        'estado'           => 'pendiente',
+        'comentarios'      => '',
+        'creada_por'       => 0
     ];
 
-    try {
-        $exito = $this->citaModel->crearCita($datos);
-
-        if ($exito) {
-            $datos['id'] = $this->citaModel->getLastInsertId();
-            // ✅ Solo enviar un JSON final
-            echo json_encode(['success' => true, 'cita' => $datos]);
-        } else {
-            echo json_encode(['success' => false, 'message' => 'Error en INSERT del modelo']);
-        }
-    } catch (Exception $e) {
-        echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+    // Extraer datos de POST o usar valores por defecto
+    $datos = [];
+    foreach ($campos as $k => $v) {
+        $datos[$k] = $_POST[$k] ?? $v;
     }
 
-    exit;
+    // Crear cita en la BD
+    $resultado = $this->citaModel->crearCita($datos);
+
+    if ($resultado) {
+        // Devolver JSON compatible con guardarRegistro()
+        echo json_encode([
+            'success' => true,
+            'cita' => $datos
+        ]);
+    } else {
+        http_response_code(500);
+        echo json_encode([
+            'success' => false,
+            'message' => 'No se pudo crear la cita'
+        ]);
+    }
 }
+
 }
 
 

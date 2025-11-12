@@ -22,7 +22,7 @@ define('CP_COMPONENTS', BASE_URL . '/components');        define('UT_UTILIDADES_
 // Views ---------------------------------------------------------------------------------------------------------------------------------------------------
 define('DASHBOARD_URL', VIEWS_URL . '/dashboard.php');                            define('PERFIL_VIEW', VIEWS_PATH . '/perfil/perfil.php');
 define('otr_VIEW', VIEWS_PATH . '/.php');                                         define('USERS_VIEW', VIEWS_PATH . '/users/users.php');
-define('CITAS_VIEW', VIEWS_PATH . '/citas/citas.php');                            define('FORMULARIO_VIEW', VIEWS_PATH . '/formulario/formulario.php');
+define('CITAS_VIEW', VIEWS_PATH . '/citas/citas.php');                            define('FORMULARIO_VIEW', VIEWS_PATH . '/formulario/calendario.php');
 define('CONFIG_VIEW', VIEWS_PATH . '/config/config.php');                         define('DASHBOARD_PATH', VIEWS_PATH . '/dashboard.php');
 define('SERVICIOS_VIEW', VIEWS_PATH . '/servicios/servicios.php');
 
@@ -66,9 +66,9 @@ define('BUNDLET_JS', JS_URL . '/bootstrap.bundle.min.js');                      
 define('JQUERY_JS', JS_URL . '/jquery-3.6.4.min.js');                           define('SWET_JS', JS_URL . '/sweetalert2@11.js');
 define('ALERTA_JS', JS_URL . '/alertas.js');                                    define('ALERTFY_JS', JS_URL . '/alertify.min.js');
 define('FLATPICKR_JS', JS_URL . '/flatpickr.js');                               define('JQUERY_DT_JS', JS_URL . '/jquery.dataTables.min.js');
-                          define('T_MENU_JS', JS_URL . '/togel_menu.js');
+define('T_MENU_JS', JS_URL . '/togel_menu.js');                                
 define('CITA_JS', JS_URL . '/citas/citas.js');                                  define('SERVICIOS_JS', JS_URL . '/servicios/servicios.php'); 
- define('CONST_JS', HELPER_PATH . '/const_js/const_js.php'); 
+define('CONST_JS', HELPER_PATH . '/const_js/const_js.php');                    
 // IMG --------------------------------------------------------------------------------------------------------------------------------------------
 	
 define('LOGOF_PNG', IMG_URL . '/logof.png');                                    define('MARTINEZ_PNG', IMG_URL . '/martinez.png');

@@ -1,5 +1,6 @@
-<?php 
- include 'header.php'  ?> 
+<?php  include 'header.php' ?> 
+<?php include CONST_JS  ?> 
+
 <div class="container">
     <!-- Search -->
     <div class="search-box">
@@ -11,7 +12,7 @@
       <?php
       if (isset($_GET['page'])) {
           switch ($_GET['page']) {
-              case 'formulario':
+              case 'calendario':
                   include FORMULARIO_VIEW;
                   break;        
               case 'servicios':
@@ -46,6 +47,4 @@
       ?>
     </div>
   </div>
-
-<?php include CONST_JS  ?> 
 <?php include 'footer.php'  ?> 

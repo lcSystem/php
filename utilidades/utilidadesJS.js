@@ -174,4 +174,46 @@ $(document).ready(function() {
     }
 });
 
+function formatearValor(valor) {
+  if (!valor) return "";
+  const num = String(valor).replace(/[^\d]/g, "");
+  return num.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+}
+
+// Quita los puntos para obtener el valor numérico real
+function desformatearValor(valor) {
+  if (!valor) return 0;
+  return Number(valor.toString().replace(/\./g, ""));
+}
+
+
+function fechaHora() {
+
+    let ahora = new Date();
+    let fechaActual = ahora.toLocaleDateString('en-CA'); // YYYY-MM-DD
+    let horaModificada = new Date(ahora);
+    let horaActual, ampm;
+
+    horaModificada.setHours(ahora.getHours() + T_ANTICIPADO_H);
+
+    if (F_HORARIO === '12') {
+        let horas = horaModificada.getHours();
+        const minutos = horaModificada.getMinutes().toString().padStart(2, '0');
+        ampm = horas >= 12 ? 'PM' : 'AM';
+        horas = horas % 12;
+        horas = horas ? horas : 12;
+        horaActual = `${horas.toString().padStart(2, '0')}:${minutos}`;
+    } else {
+        horaActual = horaModificada.toTimeString().split(':').slice(0, 2).join(':');
+        ampm = ''; 
+    }
+
+    return {
+        fecha: fechaActual,
+        hora: horaActual,
+        ampm: ampm
+    };
+}
+
+
 

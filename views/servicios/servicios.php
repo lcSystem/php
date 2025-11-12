@@ -40,7 +40,7 @@ renderTable('servicio', 'Servicios Registrados', $columns, $servicios, $actions,
   <script type="text/javascript">
 const servicios = <?= json_encode($servicios, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP) ?>;
  const estados = ["activo", "inactivo"];
-  const SERVICIO_CONTROLLER_URL =  "<?= SERVICIO_CONTROLLER_URL ?>";
+ 
   const camposServicio = [
       { nombre: "nombre", etiqueta: "nombre", tipo: "text",requerido: true },
       { nombre: "duracion_minutos", etiqueta: "duracion minutos", tipo: "number",requerido: true },
@@ -50,7 +50,7 @@ const servicios = <?= json_encode($servicios, JSON_HEX_TAG | JSON_HEX_APOS | JSO
                  opciones: estados.map(e => ({ value: e, text: e }))}
 
     ];
-function abrirModalAgregarServicio(id, datosUsuario) {
+function abrirModalAgregarServicio(id, datosServicio) {
     abrir({
         campos: camposServicio, valores: "", titulo: "Servicio",onGuardar: (data) => {
              guardarServicio(data);

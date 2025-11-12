@@ -34,7 +34,13 @@ function renderTable($idTable, $caption, $columns, $data, $actions = [], $addBut
         <?php foreach ($data as $row): ?>
             <tr>
                 <?php foreach ($columns as $key => $label): ?>
-                    <td><?= htmlspecialchars($row[$key] ?? '') ?></td>
+                    <td>  <?php 
+            if ($key === 'precio' && isset($row[$key])) {
+                echo number_format((float)$row[$key], 0, ',', '.');
+            } else {
+                echo htmlspecialchars($row[$key] ?? '');
+            }
+        ?></td>
                 <?php endforeach; ?>
                <?php if (!empty($actions)): ?>
 <td>

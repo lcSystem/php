@@ -8,7 +8,7 @@ include_once CP_TABLE;
 
 $columns = [
     'id' => 'ID',
-    'username' => 'Username',
+    'username' => 'User',
     'email' => 'Email',
     'nombre_completo' => 'Nombre Completo',
     'telefono' => 'Teléfono',
@@ -48,7 +48,6 @@ renderTable('usuarios', 'Usuarios Registrados', $columns, $usuarios, $actions, $
 const usuarios = <?= json_encode($usuarios, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP) ?>;
 const estados = ["activo", "inactivo"];
 const roles = ["usuario", "admin", "cliente"];
-const USUARIO_CONTROLLER_URL = "<?= USER_CONTROLLER_URL ?>";
 
 const camposUsuario = [ 
     { nombre: "username", etiqueta: "Username", tipo: "text",requerido: true },
